@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply — Keystone Prep High School</title>
+  <meta name="description" content="Apply to Keystone Prep High School. Our admissions process is personal, thoughtful, and designed to find the right fit for every student." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+
+    /* ── Info section ── */
+    .apply-info {
+      padding: 80px 0;
+      background: var(--white);
+    }
+    .apply-info-inner {
+      max-width: 1080px; margin: 0 auto; padding: 0 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px;
+      align-items: start;
+    }
+
+    .apply-info-col h2 {
+      margin-bottom: 16px;
+    }
+    .apply-info-col > p {
+      font-size: .95rem; color: var(--on-surface-var); line-height: 1.75; margin-bottom: 24px;
+    }
+
+    /* Document list */
+    .doc-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .doc-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .9rem; color: var(--on-surface-var); line-height: 1.55;
+    }
+    .doc-list li::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--primary); flex-shrink: 0; margin-top: 6px;
+    }
+
+    /* Steps list */
+    .process-steps { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0; }
+    .process-step {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 18px 0; border-bottom: 1px solid var(--border);
+    }
+    .process-step:first-child { border-top: 1px solid var(--border); }
+    .step-num {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--primary); color: var(--white);
+      font-family: 'Noto Serif', serif; font-size: .88rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .step-text { font-size: .92rem; color: var(--on-surface); line-height: 1.6; padding-top: 6px; }
+
+    /* Who we serve + expect panels */
+    .serve-panel {
+      margin-top: 40px; padding: 24px 28px;
+      background: var(--surface);
+      border: 1px solid var(--border); border-radius: 16px;
+    }
+    .serve-panel h3 {
+      font-size: 1rem; font-weight: 700; color: var(--on-surface); margin-bottom: 12px;
+    }
+    .serve-panel p { font-size: .88rem; color: var(--on-surface-var); line-height: 1.7; }
+    .serve-panel p + p { margin-top: 10px; }
+    .serve-panel.caution { border-left: 3px solid var(--tertiary, #f57c00); }
+
+    /* ── Application form ── */
+    .app-form-section {
+      padding: 80px 0;
+      background: var(--surface-variant, #f4f6f9);
+    }
+    .app-form-wrap {
+      max-width: 860px; margin: 0 auto; padding: 0 40px;
+    }
+    .app-form-intro {
+      margin-bottom: 40px;
+    }
+    .app-form-intro h2 { margin-bottom: 12px; }
+    .app-form-intro p { font-size: .95rem; color: var(--on-surface-var); line-height: 1.75; }
+
+    /* Form cards */
+    .app-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .app-card-header {
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .app-card-letter {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--primary); color: var(--white);
+      font-family: 'Noto Serif', serif; font-size: .82rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .app-card-header h3 {
+      font-size: .95rem; font-weight: 700; color: var(--on-surface);
+    }
+    .app-card-body {
+      padding: 28px; display: flex; flex-direction: column; gap: 18px;
+    }
+
+    /* Fields */
+    .app-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .app-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .app-field { display: flex; flex-direction: column; gap: 6px; }
+    .app-label {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--on-surface-var);
+    }
+    .app-hint { font-size: .78rem; color: var(--on-surface-var); line-height: 1.5; margin-top: -2px; }
+
+    .app-card-body input[type="text"],
+    .app-card-body input[type="email"],
+    .app-card-body input[type="tel"],
+    .app-card-body input[type="date"],
+    .app-card-body select {
+      width: 100%; height: 48px;
+      background: var(--surface);
+      border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 0 14px;
+      font-family: 'Inter', sans-serif; font-size: .9rem; color: var(--on-surface);
+      outline: none; appearance: none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .app-card-body input::placeholder { color: var(--on-surface-var); opacity: .5; }
+    .app-card-body input:focus,
+    .app-card-body select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(var(--primary-rgb, 28,58,95), .08);
+      background: var(--white);
+    }
+    .app-card-body select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235f6b7c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; cursor: pointer;
+    }
+    .app-card-body textarea {
+      width: 100%; min-height: 100px;
+      background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 12px 14px;
+      font-family: 'Inter', sans-serif; font-size: .9rem; color: var(--on-surface);
+      outline: none; resize: vertical;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .app-card-body textarea::placeholder { color: var(--on-surface-var); opacity: .5; }
+    .app-card-body textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(28,58,95,.08);
+      background: var(--white);
+    }
+
+    /* Radio / Check groups */
+    .radio-group { display: flex; flex-wrap: wrap; gap: 10px; }
+    .radio-card {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border-radius: 10px;
+      border: 1.5px solid var(--border); background: var(--surface);
+      cursor: pointer; font-size: .88rem; font-weight: 500; color: var(--on-surface);
+      transition: border-color .15s, background .15s; user-select: none;
+    }
+    .radio-card input { accent-color: var(--primary); flex-shrink: 0; }
+    .radio-card:hover { border-color: var(--primary); }
+
+    .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .check-card {
+      display: flex; align-items: center; gap: 8px;
+      padding: 11px 14px; border-radius: 10px;
+      border: 1.5px solid var(--border); background: var(--surface);
+      cursor: pointer; font-size: .85rem; font-weight: 500; color: var(--on-surface);
+      transition: border-color .15s, background .15s; user-select: none;
+    }
+    .check-card input { accent-color: var(--primary); flex-shrink: 0; }
+    .check-card:hover { border-color: var(--primary); }
+    .check-card.sel { border-color: var(--primary); background: rgba(28,58,95,.04); font-weight: 600; }
+
+    /* Upload grid */
+    .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .upload-zone {
+      border: 1.5px dashed var(--border); border-radius: 12px;
+      padding: 20px 14px; display: flex; flex-direction: column;
+      align-items: center; gap: 8px; text-align: center;
+      cursor: pointer; position: relative;
+      transition: border-color .15s, background .15s;
+    }
+    .upload-zone:hover { border-color: var(--primary); background: rgba(28,58,95,.02); }
+    .upload-zone.uploaded { border-color: var(--secondary, #4caf50); border-style: solid; background: rgba(76,175,80,.04); }
+    .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(28,58,95,.07); display: flex; align-items: center; justify-content: center;
+    }
+    .upload-icon svg { width: 18px; height: 18px; color: var(--primary); }
+    .upload-zone.uploaded .upload-icon { background: rgba(76,175,80,.12); }
+    .upload-zone.uploaded .upload-icon svg { color: var(--secondary, #4caf50); }
+    .upload-zone h4 { font-size: .82rem; font-weight: 700; color: var(--on-surface); }
+    .upload-zone p { font-size: .7rem; color: var(--on-surface-var); }
+    .upload-optional { font-size: .68rem; color: var(--on-surface-var); }
+
+    /* Divider label */
+    .app-divider-label {
+      font-size: .68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--on-surface-var);
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+
+    /* Acknowledgment */
+    .ack-check {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .88rem; color: var(--on-surface); line-height: 1.6; cursor: pointer;
+    }
+    .ack-check input { accent-color: var(--primary); margin-top: 3px; flex-shrink: 0; }
+
+    /* Submit block */
+    .app-submit-block {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 32px 28px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 14px; text-align: center;
+    }
+    .app-submit-block p { font-size: .88rem; color: var(--on-surface-var); line-height: 1.65; max-width: 560px; }
+    .app-submit-note { font-size: .78rem; color: var(--on-surface-var); display: flex; align-items: center; gap: 6px; }
+    .app-submit-note svg { width: 13px; height: 13px; flex-shrink: 0; color: var(--on-surface-var); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .apply-info-inner { grid-template-columns: 1fr; gap: 48px; }
+      .app-row-2, .app-row-3 { grid-template-columns: 1fr; }
+      .check-grid { grid-template-columns: 1fr; }
+      .upload-grid { grid-template-columns: 1fr; }
+      .app-form-wrap { padding: 0 20px; }
+      .apply-info-inner { padding: 0 24px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <kp-nav></kp-nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero hero-parallax">
+    <div class="hero-bg hero-bg-admissions"></div>
+    <div class="hero-inner">
+      <div class="hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <a href="admissions.html">Admissions</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Apply</span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-page-label">Application</div>
+        <h1>Apply to Keystone Prep High School</h1>
+        <p class="hero-body">Our admissions process is designed to help us understand each student as an individual — their strengths, challenges, goals, and support needs. Complete the application below and our team will follow up personally.</p>
+        <div class="hero-actions">
+          <a href="#application-form" class="btn btn-hero-primary">Begin Application</a>
+          <a href="schedule-tour.html" class="btn btn-hero-outline">Schedule a Tour First</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INFO SECTION ── -->
+  <section class="apply-info">
+    <div class="apply-info-inner">
+
+      <!-- Left: overview + before you apply -->
+      <div class="apply-info-col">
+        <span class="section-label-sm">Admissions Overview</span>
+        <h2>A Personal, Thoughtful Approach to Every Application</h2>
+        <p>At Keystone Prep, we want to learn about your child's academic background, strengths, challenges, goals, and support needs so we can determine whether Keystone Prep is the right fit. Every student's path is different, and this application helps us begin that conversation.</p>
+
+        <div style="margin-bottom: 8px;">
+          <span class="section-label-sm">Before You Apply</span>
+        </div>
+        <p style="font-size:.9rem;color:var(--on-surface-var);line-height:1.7;margin-bottom:14px;">Families are encouraged to gather any available educational records or assessments before submitting. These may include:</p>
+        <ul class="doc-list">
+          <li>Psychoeducational evaluations</li>
+          <li>IEP or 504 plans</li>
+          <li>Recent report cards or transcripts</li>
+          <li>Therapy, tutoring, or support documentation</li>
+          <li>Any other information that helps us understand your student's needs</li>
+        </ul>
+
+        <div class="serve-panel" style="margin-top: 32px;">
+          <h3>What Families Can Expect</h3>
+          <p>Our admissions team reviews each application carefully and considers the student's academic needs, social-emotional development, learning profile, and readiness for Keystone Prep's project-based, student-centered environment.</p>
+          <p>We look for students who can benefit from small classes, individualized support, meaningful relationships with teachers, and real-world preparation for life after high school.</p>
+        </div>
+
+        <div class="serve-panel caution" style="margin-top: 16px;">
+          <h3>Who We Serve</h3>
+          <p>Keystone Prep is designed for students who benefit from a smaller, more personalized high school environment — particularly students with average to above-average cognitive abilities who need support with areas such as attention, anxiety, learning differences, executive functioning, motivation, confidence, or prior negative school experiences.</p>
+          <p>Keystone Prep is not designed as a primary placement for students whose main needs are significant emotional or behavioral difficulties.</p>
+        </div>
+      </div>
+
+      <!-- Right: admissions process steps -->
+      <div class="apply-info-col">
+        <span class="section-label-sm">Admissions Process</span>
+        <h2>What Happens After You Apply</h2>
+        <p>Our process is straightforward and personal. Here's what to expect from submission through enrollment.</p>
+
+        <ol class="process-steps">
+          <li class="process-step">
+            <div class="step-num">1</div>
+            <div class="step-text">Complete the application form below as fully as possible. If a question does not apply, you may write "N/A."</div>
+          </li>
+          <li class="process-step">
+            <div class="step-num">2</div>
+            <div class="step-text">Submit any available educational assessments or support documents — evaluations, IEPs, transcripts, or therapy records.</div>
+          </li>
+          <li class="process-step">
+            <div class="step-num">3</div>
+            <div class="step-text">The admissions team reviews the application and supporting materials.</div>
+          </li>
+          <li class="process-step">
+            <div class="step-num">4</div>
+            <div class="step-text">Families may be contacted to schedule a tour, interview, or student visit.</div>
+          </li>
+          <li class="process-step">
+            <div class="step-num">5</div>
+            <div class="step-text">The admissions team will notify families of the student's acceptance status.</div>
+          </li>
+          <li class="process-step">
+            <div class="step-num">6</div>
+            <div class="step-text">If accepted, families will receive a registration packet and enrollment next steps.</div>
+          </li>
+        </ol>
+
+        <div class="serve-panel" style="margin-top: 32px;">
+          <h3>Questions Before Applying?</h3>
+          <p>Reach our admissions team directly:</p>
+          <p style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
+            <a href="tel:8132644500" style="color:var(--primary);font-weight:600;font-size:.9rem;text-decoration:none;">(813) 264-4500</a>
+            <a href="mailto:admissions@keystoneprep.org" style="color:var(--primary);font-weight:600;font-size:.9rem;text-decoration:none;">admissions@keystoneprep.org</a>
+            <a href="schedule-tour.html" style="color:var(--primary);font-weight:600;font-size:.9rem;text-decoration:none;">Schedule a campus tour →</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── APPLICATION FORM ── -->
+  <section class="app-form-section" id="application-form">
+    <div class="app-form-wrap">
+
+      <div class="app-form-intro">
+        <span class="section-label-sm">Application</span>
+        <h2>Begin Your Application</h2>
+        <p>Complete all sections as fully as possible. Fields marked with an asterisk (*) are required. If a question does not apply to your student, you may enter "N/A."</p>
+      </div>
+
+      <form id="kpApplyForm" novalidate>
+
+        <!-- A: Student Information -->
+        <div class="app-card">
+          <div class="app-card-header">
+            <div class="app-card-letter">A</div>
+            <h3>Student Information</h3>
+          </div>
+          <div class="app-card-body">
+            <div class="app-row-2">
+              <div class="app-field">
+                <label class="app-label" for="s-first">First Name *</label>
+                <input type="text" id="s-first" name="student_first" placeholder="First name" required />
+              </div>
+              <div class="app-field">
+                <label class="app-label" for="s-last">Last Name *</label>
+                <input type="text" id="s-last" name="student_last" placeholder="Last name" required />
+              </div>
+            </div>
+            <div class="app-row-3">
+              <div class="app-field">
+                <label class="app-label" for="s-dob">Date of Birth *</label>
+                <input type="date" id="s-dob" name="student_dob" required />
+              </div>
+              <div class="app-field">
+                <label class="app-label" for="s-grade-apply">Applying for Grade *</label>
+                <select id="s-grade-apply" name="student_grade_apply" required>
+                  <option value="">Select grade...</option>
+                  <option>9th Grade</option>
+                  <option>10th Grade</option>
+                  <option>11th Grade</option>
+                  <option>12th Grade</option>
+                </select>
+              </div>
+              <div class="app-field">
+                <label class="app-label" for="s-year">School Year *</label>
+                <select id="s-year" name="student_school_year" required>
+                  <option value="">Select year...</option>
+                  <option>2026–2027</option>
+                  <option>2027–2028</option>
+                  <option>Beyond 2028</option>
+                </select>
+              </div>
+            </div>
+            <div class="app-row-2">
+              <div class="app-field">
+                <label class="app-label" for="s-current-school">Current School *</label>
+                <input type="text" id="s-current-school" name="student_current_school" placeholder="School name" required />
+              </div>
+              <div class="app-field">
+                <label class="app-label" for="s-current-grade">Current Grade</label>
+                <select id="s-current-grade" name="student_current_grade">
+                  <option value="">Select grade...</option>
+                  <option>8th Grade</option>
+                  <option>9th Grade</option>
+                  <option>10th Grade</option>
+                  <option>11th Grade</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- B: Parent / Guardian Information -->
+        <div class="app-card">
+          <div class="app-card-header">
+            <div class="app-card-letter">B</div>
+            <h3>Parent / Guardian Information</h3>
+          </div>
+          <div class="app-card-body">
+
+            <div class="app-divider-label">Primary Parent / Guardian</div>
+            <div class="app-row-2">
+              <div class="app-field">
+                <label class="app-label" for="p1-name">Full Name *</label>
+                <input type="text" id="p1-name" name="parent1_name" placeholder="Full name" required />
+              </div>
+              <div class="app-field">
+                <label class="app-label" for="p1-rel">Relationship to Student *</label>
+                <select id="p1-rel" name="parent1_relationship" required>
+                  <option value="">Select...</option>
+                  <option>Mother</option>
+                  <option>Father</option>
+                  <option>Stepmother</option>
+                  <option>Stepfather</option>
+                  <option>Legal Guardian</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="app-row-2">
+              <div class="app-field">
+                <label class="app-label" for="p1-phone">Phone Number *</label>
+                <input type="tel" id="p1-phone" name="parent1_phone" placeholder="(813) 000-0000" required />
+              </div>
+              <div class="app-field">
+                <label class="app-label" for="p1-email">Email Address *</label>
+                <input type="email" id="p1-email" name="parent1_email" placeholder="you@example.com" required />
+              </div>
+            </div>
+
+            <div class="app-divider-label" style="margin-top:8px;">Second Parent / Guardian <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:.8rem;">(if applicable)</span></div>
+            <div class="app-row-2">
+              <div class="app-field">
+                <label class="app-label" for="p2-name">Full Name</label>
+                <input type="text" id="p2-name" name="parent2_name" placeholder="Full name" />
+              </div>
+              <div class="app-field">
+                <label class="app-label" for="p2-rel">Relationship to Student</label>
+                <select id="p2-rel" name="parent2_relationship">
+                  <option value="">Select...</option>
+                  <option>Mother</option>
+                  <option>Father</option>
+                  <option>Stepmother</option>
+                  <option>Stepfather</option>
+                  <option>Legal Guardian</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="app-row-2">
+              <div class="app-field">
+                <label class="app-label" for="p2-phone">Phone Number</label>
+                <input type="tel" id="p2-phone" name="parent2_phone" placeholder="(813) 000-0000" />
+              </div>
+              <div class="app-field">
+                <label class="app-label" for="p2-email">Email Address</label>
+                <input type="email" id="p2-email" name="parent2_email" placeholder="you@example.com" />
+              </div>
+            </div>
+
+            <div class="app-divider-label" style="margin-top:8px;">Home Address</div>
+            <div class="app-field">
+              <label class="app-label" for="home-street">Street Address</label>
+              <input type="text" id="home-street" name="home_street" placeholder="Street address" />
+            </div>
+            <div class="app-row-3">
+              <div class="app-field">
+                <label class="app-label" for="home-city">City</label>
+                <input type="text" id="home-city" name="home_city" placeholder="City" />
+              </div>
+              <div class="app-field">
+                <label class="app-label" for="home-state">State</label>
+                <select id="home-state" name="home_state">
+                  <option value="">State...</option>
+                  <option>FL</option><option>AL</option><option>GA</option><option>SC</option>
+                  <option>NC</option><option>TN</option><option>TX</option><option>Other</option>
+                </select>
+              </div>
+              <div class="app-field">
+                <label class="app-label" for="home-zip">ZIP Code</label>
+                <input type="text" id="home-zip" name="home_zip" placeholder="00000" maxlength="10" />
+              </div>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label" for="best-time">Best Time to Reach You</label>
+              <select id="best-time" name="best_time">
+                <option value="">Select a time...</option>
+                <option>Mornings (before 11am)</option>
+                <option>Early Afternoon (11am – 2pm)</option>
+                <option>Late Afternoon (2pm – 5pm)</option>
+                <option>Evening (after 5pm)</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- C: Educational Background -->
+        <div class="app-card">
+          <div class="app-card-header">
+            <div class="app-card-letter">C</div>
+            <h3>Educational Background</h3>
+          </div>
+          <div class="app-card-body">
+
+            <div class="app-field">
+              <label class="app-label" for="prev-schools">Previous Schools Attended</label>
+              <p class="app-hint">List school name, city, and years attended. Include all schools from middle school onward.</p>
+              <textarea id="prev-schools" name="previous_schools" placeholder="e.g. Westchase Middle School, Tampa, FL — 2022–2024"></textarea>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label">Has your student ever been subject to academic probation, suspension, or expulsion?</label>
+              <div class="radio-group">
+                <label class="radio-card"><input type="radio" name="discipline_history" value="no" /> No</label>
+                <label class="radio-card"><input type="radio" name="discipline_history" value="yes" /> Yes — please explain below</label>
+              </div>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label" for="discipline-explain">If yes, please explain</label>
+              <textarea id="discipline-explain" name="discipline_explain" placeholder="Please provide context..." style="min-height:80px;"></textarea>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label">Is the student currently enrolled in a virtual or online school program?</label>
+              <div class="radio-group">
+                <label class="radio-card"><input type="radio" name="virtual_school" value="no" /> No</label>
+                <label class="radio-card"><input type="radio" name="virtual_school" value="yes" /> Yes</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- D: Learning Profile & Support Needs -->
+        <div class="app-card">
+          <div class="app-card-header">
+            <div class="app-card-letter">D</div>
+            <h3>Learning Profile &amp; Support Needs</h3>
+          </div>
+          <div class="app-card-body">
+
+            <div class="app-field">
+              <label class="app-label">Does the student have an active IEP (Individualized Education Program)?</label>
+              <div class="radio-group">
+                <label class="radio-card"><input type="radio" name="has_iep" value="yes" /> Yes</label>
+                <label class="radio-card"><input type="radio" name="has_iep" value="no" /> No</label>
+                <label class="radio-card"><input type="radio" name="has_iep" value="prev" /> Previously had one</label>
+                <label class="radio-card"><input type="radio" name="has_iep" value="unsure" /> Unsure</label>
+              </div>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label">Does the student have an active 504 Plan?</label>
+              <div class="radio-group">
+                <label class="radio-card"><input type="radio" name="has_504" value="yes" /> Yes</label>
+                <label class="radio-card"><input type="radio" name="has_504" value="no" /> No</label>
+                <label class="radio-card"><input type="radio" name="has_504" value="prev" /> Previously had one</label>
+                <label class="radio-card"><input type="radio" name="has_504" value="unsure" /> Unsure</label>
+              </div>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label">Has the student had a psychoeducational evaluation?</label>
+              <div class="radio-group">
+                <label class="radio-card"><input type="radio" name="has_psychoed" value="yes" /> Yes</label>
+                <label class="radio-card"><input type="radio" name="has_psychoed" value="no" /> No</label>
+                <label class="radio-card"><input type="radio" name="has_psychoed" value="scheduled" /> In progress / scheduled</label>
+              </div>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label">Primary areas where your student benefits from additional support (select all that apply)</label>
+              <div class="check-grid">
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="attention_adhd" /> Attention / ADHD</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="anxiety" /> Anxiety</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="learning_diff" /> Learning differences (dyslexia, etc.)</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="exec_function" /> Executive functioning</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="motivation" /> Motivation / school engagement</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="confidence" /> Confidence / self-esteem</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="social_emotional" /> Social-emotional development</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="prev_neg_exp" /> Prior negative school experiences</label>
+              </div>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label" for="student-strengths">Describe your student's strengths *</label>
+              <p class="app-hint">What does your student do well? What are they passionate about or proud of?</p>
+              <textarea id="student-strengths" name="student_strengths" placeholder="Share your student's strengths, interests, and what they enjoy..." required></textarea>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label" for="student-challenges">Describe your student's challenges *</label>
+              <p class="app-hint">What areas of school or learning have been most difficult? What support has helped in the past?</p>
+              <textarea id="student-challenges" name="student_challenges" placeholder="Share any academic, social, or emotional challenges your student has experienced..." required></textarea>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label" for="additional-context">Additional context or information</label>
+              <p class="app-hint">Is there anything else you'd like us to know about your student — diagnoses, therapy, tutoring, or anything that helps us understand them better?</p>
+              <textarea id="additional-context" name="additional_context" placeholder="Optional — share anything else relevant to your student's application..."></textarea>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- E: Magnet Program Interest -->
+        <div class="app-card">
+          <div class="app-card-header">
+            <div class="app-card-letter">E</div>
+            <h3>Magnet Program Interest</h3>
+          </div>
+          <div class="app-card-body">
+
+            <div class="app-field">
+              <label class="app-label">Which magnet program is your student most interested in?</label>
+              <p class="app-hint">Learn more about each program on our <a href="academics.html" style="color:var(--primary);">Academics page</a>. Selecting a program does not guarantee placement.</p>
+              <div class="radio-group" style="flex-direction:column;gap:10px;">
+                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="mission_control" /> Mission Control: Odessa — Space &amp; STEM</label>
+                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="csi" /> CSI: Odessa — Crime Scene Investigation</label>
+                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="visual_art" /> Visual Art &amp; Design: Odessa — Fine Arts</label>
+                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="no_pref" /> No preference / Open to any program</label>
+              </div>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label">Have you visited the campus or attended an information session?</label>
+              <div class="radio-group">
+                <label class="radio-card"><input type="radio" name="campus_visit" value="yes" /> Yes</label>
+                <label class="radio-card"><input type="radio" name="campus_visit" value="no" /> Not yet</label>
+                <label class="radio-card"><input type="radio" name="campus_visit" value="scheduled" /> Scheduled / in progress</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- F: Document Uploads -->
+        <div class="app-card">
+          <div class="app-card-header">
+            <div class="app-card-letter">F</div>
+            <h3>Supporting Documents</h3>
+          </div>
+          <div class="app-card-body">
+            <p class="app-hint" style="font-size:.88rem;color:var(--on-surface-var);line-height:1.7;">Upload any available documents that help us understand your student's learning profile. You do not need to have all of these — submit what you have. Documents can also be emailed to <a href="mailto:admissions@keystoneprep.org" style="color:var(--primary);">admissions@keystoneprep.org</a> after submission.</p>
+
+            <div class="upload-grid">
+              <div class="upload-zone" id="uz-psychoed">
+                <input type="file" accept=".pdf,.doc,.docx,image/*" onchange="markUpload('uz-psychoed',this)" />
+                <div class="upload-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <h4>Psychoeducational Evaluation</h4>
+                <p>PDF, Word, or image</p>
+                <span class="upload-optional">If available</span>
+              </div>
+              <div class="upload-zone" id="uz-iep">
+                <input type="file" accept=".pdf,.doc,.docx,image/*" onchange="markUpload('uz-iep',this)" />
+                <div class="upload-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <h4>IEP or 504 Plan</h4>
+                <p>PDF, Word, or image</p>
+                <span class="upload-optional">If applicable</span>
+              </div>
+              <div class="upload-zone" id="uz-transcript">
+                <input type="file" accept=".pdf,.doc,.docx,image/*" onchange="markUpload('uz-transcript',this)" />
+                <div class="upload-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </div>
+                <h4>Report Card / Transcript</h4>
+                <p>Most recent available</p>
+                <span class="upload-optional">Recommended</span>
+              </div>
+              <div class="upload-zone" id="uz-other">
+                <input type="file" accept=".pdf,.doc,.docx,image/*" onchange="markUpload('uz-other',this)" />
+                <div class="upload-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <h4>Other Supporting Documents</h4>
+                <p>Therapy, tutoring, or any other relevant records</p>
+                <span class="upload-optional">Optional</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- G: Additional Information -->
+        <div class="app-card">
+          <div class="app-card-header">
+            <div class="app-card-letter">G</div>
+            <h3>Additional Information</h3>
+          </div>
+          <div class="app-card-body">
+
+            <div class="app-field">
+              <label class="app-label" for="referral">How did you hear about Keystone Prep?</label>
+              <select id="referral-source" name="referral_source">
+                <option value="">Select one...</option>
+                <option>Friend or family referral</option>
+                <option>Current or former Keystone Prep family</option>
+                <option>Google or online search</option>
+                <option>Social media</option>
+                <option>School counselor or therapist</option>
+                <option>Community event or fair</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label" for="referral-detail">Additional detail (optional)</label>
+              <textarea id="referral-detail" name="referral_detail" style="min-height:72px;" placeholder="e.g. referred by a specific person, specific search term, event name..."></textarea>
+            </div>
+
+            <div class="app-field">
+              <label class="app-label" for="any-other">Anything else you'd like the admissions team to know?</label>
+              <textarea id="any-other" name="any_other" placeholder="Share any additional context, questions, or notes for our team..."></textarea>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Honeypot — invisible to humans, bots fill it -->
+        <div style="position:absolute;left:-9999px;top:-9999px;overflow:hidden;" aria-hidden="true">
+          <label for="_name_confirm">Leave this blank</label>
+          <input type="text" id="_name_confirm" name="_name_confirm" tabindex="-1" autocomplete="off" />
+          <input type="text" name="_email_confirm" tabindex="-1" autocomplete="off" />
+        </div>
+        <!-- Timestamp for minimum fill-time check -->
+        <input type="hidden" name="_form_loaded" id="_form_loaded" />
+
+        <!-- Acknowledgment + Submit -->
+        <div class="app-submit-block">
+          <div style="width:100%;display:flex;flex-direction:column;gap:12px;margin-bottom:8px;">
+            <label class="ack-check">
+              <input type="checkbox" name="ack_accurate" required />
+              I confirm that the information provided in this application is accurate and complete to the best of my knowledge.
+            </label>
+            <label class="ack-check">
+              <input type="checkbox" name="ack_contact" required />
+              I authorize Keystone Prep High School to contact me at the phone number and email address provided regarding this application.
+            </label>
+          </div>
+          <p>Your application will be reviewed by our admissions team. We typically follow up within 5–7 business days. If you have questions in the meantime, please contact us at <strong>admissions@keystoneprep.org</strong> or <strong>(813) 264-4500</strong>.</p>
+          <button type="submit" class="btn btn-primary" style="min-width:220px;padding:15px 36px;">Submit Application</button>
+          <div class="app-submit-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Your information is kept private and used only for admissions purposes
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- ── CONTACT STRIP ── -->
+  <div class="contact-strip">
+    <div class="contact-strip-inner">
+      <div>
+        <div class="contact-strip-lead">Questions? Reach out to our</div>
+        <h3>Admissions Team — Keystone Prep High School</h3>
+      </div>
+      <div class="contact-items">
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          18105 Gunn Hwy, Odessa, FL 33556
+        </div>
+        <a href="tel:8132644500" class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.67 9.5a19.79 19.79 0 0 1-3.07-8.57A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (813) 264-4500
+        </a>
+        <a href="mailto:admissions@keystoneprep.org" class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          admissions@keystoneprep.org
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <kp-footer tagline="Empowering students through personalized learning and real-world preparation."></kp-footer>
+
+  <script>
+    function toggleCheck(el) {
+      setTimeout(() => { el.classList.toggle('sel', el.querySelector('input').checked); }, 0);
+    }
+
+    function markUpload(zoneId, input) {
+      if (!input.files.length) return;
+      const zone = document.getElementById(zoneId);
+      zone.classList.add('uploaded');
+      zone.querySelector('.upload-icon').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      const name = input.files[0].name;
+      zone.querySelector('p').textContent = name.length > 24 ? name.slice(0, 22) + '…' : name;
+    }
+
+    // Record when the form was loaded (used to detect instant bot submissions)
+    document.getElementById('_form_loaded').value = Date.now();
+
+    document.getElementById('kpApplyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Honeypot check — real users leave these blank
+      if (document.getElementById('_name_confirm').value || document.querySelector('[name="_email_confirm"]').value) {
+        return; // bot detected — silently discard
+      }
+
+      // Timing check — reject submissions faster than 8 seconds (no human fills this out that fast)
+      const elapsed = (Date.now() - parseInt(document.getElementById('_form_loaded').value, 10)) / 1000;
+      if (elapsed < 8) {
+        return; // bot detected — silently discard
+      }
+
+      // Submission handler — wire to backend as needed
+      alert('Thank you for applying to Keystone Prep! Our admissions team will be in touch within 5–7 business days.');
+    });
+  </script>
+
+  <script src="js/components.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Local notes / scratch files
+_notes/
+**/_notes/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor artifacts
+*.swp
+*.swo
+.vscode/

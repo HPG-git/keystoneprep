@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schedule a Tour — Keystone Prep High School</title>
+  <meta name="description" content="Schedule a personalized campus tour at Keystone Prep High School and see firsthand how we support every student's success." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ── Tour page ── */
+    .tour-section {
+      padding: 96px 0 112px;
+      background: var(--surface);
+    }
+    .tour-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .tour-text .section-label-sm { display: block; margin-bottom: 12px; }
+    .tour-text h2 { margin-bottom: 16px; }
+    .tour-text > p { font-size: .97rem; color: var(--on-surface-var); line-height: 1.75; margin-bottom: 32px; }
+
+    .tour-highlights {
+      list-style: none; padding: 0; margin: 0 0 36px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .tour-highlights li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: .93rem; color: var(--on-surface); line-height: 1.6;
+    }
+    .tour-highlights li svg {
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+      stroke: var(--primary);
+    }
+
+    .tour-info-cards {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .tour-info-card {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 18px 20px; border-radius: 10px;
+      background: var(--white); border: 1px solid var(--border);
+    }
+    .tour-info-card svg {
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;
+      stroke: var(--primary);
+    }
+    .tour-info-card-body strong {
+      display: block; font-size: .9rem; font-weight: 600;
+      color: var(--on-surface); margin-bottom: 2px;
+    }
+    .tour-info-card-body span {
+      font-size: .85rem; color: var(--on-surface-var);
+    }
+
+    .tour-form {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 36px;
+    }
+    .tour-form h3 {
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--on-surface); margin-bottom: 6px;
+    }
+    .tour-form > p {
+      font-size: .88rem; color: var(--on-surface-var);
+      margin-bottom: 28px; line-height: 1.65;
+    }
+    .tour-submit {
+      width: 100%; justify-content: center;
+      font-size: 1rem; padding: 14px 24px; margin-top: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .tour-inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 600px) {
+      .tour-form { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <kp-nav></kp-nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero hero-parallax">
+    <div class="hero-bg hero-bg-tour"></div>
+    <div class="hero-inner">
+      <div class="hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <a href="admissions.html">Admissions</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Schedule a Tour</span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-page-label">Admissions</div>
+        <h1>Schedule a Tour</h1>
+        <p class="hero-body">Come see Keystone Prep in person. A campus visit is the best way to experience our community, meet our faculty, and understand how we support every student's journey.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TOUR FORM ── -->
+  <section class="tour-section">
+    <div class="container">
+      <div class="tour-inner">
+
+        <!-- Left: copy + highlights -->
+        <div class="tour-text">
+          <div class="section-label-sm">Visit Us</div>
+          <h2>See Keystone Prep for Yourself</h2>
+          <p>We invite prospective students and families to visit our campus in Odessa. During your tour you'll walk the building, meet staff, hear about our programs, and get your questions answered — no pressure, just conversation.</p>
+
+          <ul class="tour-highlights">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Meet our headmaster and faculty one-on-one
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Walk through classrooms and program spaces
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Learn how our pathways fit your student's goals
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Ask about tuition, financial aid, and enrollment
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Tours available Monday–Friday by appointment
+            </li>
+          </ul>
+
+          <div class="tour-info-cards">
+            <div class="tour-info-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <div class="tour-info-card-body">
+                <strong>Campus Location</strong>
+                <span>18105 Gunn Hwy, Odessa, Florida 33556</span>
+              </div>
+            </div>
+            <div class="tour-info-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <div class="tour-info-card-body">
+                <strong>Tour Duration</strong>
+                <span>Approximately 45–60 minutes</span>
+              </div>
+            </div>
+            <div class="tour-info-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.67 9.5a19.79 19.79 0 0 1-3.07-8.57A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <div class="tour-info-card-body">
+                <strong>Questions First?</strong>
+                <span><a href="tel:8132644500" style="color:var(--primary);">(813) 264-4500</a> or <a href="mailto:admissions@keystoneprep.org" style="color:var(--primary);">admissions@keystoneprep.org</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <div class="tour-form">
+          <h3>Request Your Visit</h3>
+          <p>Fill out the form below and our admissions team will reach out within one business day to confirm your appointment.</p>
+
+          <form id="tour-form" name="schedule-tour" action="#" novalidate>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="tour-first">Parent / Guardian First Name</label>
+                <input type="text" id="tour-first" name="first_name" autocomplete="given-name" placeholder="First" />
+              </div>
+              <div class="form-group">
+                <label for="tour-last">Last Name</label>
+                <input type="text" id="tour-last" name="last_name" autocomplete="family-name" placeholder="Last" />
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="tour-email">Email Address</label>
+                <input type="email" id="tour-email" name="email" autocomplete="email" placeholder="you@example.com" />
+              </div>
+              <div class="form-group">
+                <label for="tour-phone">Phone Number</label>
+                <input type="tel" id="tour-phone" name="phone" autocomplete="tel" placeholder="(813) 000-0000" />
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="tour-student">Student's Name</label>
+                <input type="text" id="tour-student" name="student_name" placeholder="Full name" />
+              </div>
+              <div class="form-group">
+                <label for="tour-grade">Entering Grade</label>
+                <div class="form-select-wrap">
+                  <select id="tour-grade" name="grade">
+                    <option value="">Select grade...</option>
+                    <option>9th Grade</option>
+                    <option>10th Grade</option>
+                    <option>11th Grade</option>
+                    <option>12th Grade</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="tour-date">Preferred Date</label>
+                <input type="date" id="tour-date" name="preferred_date" />
+              </div>
+              <div class="form-group">
+                <label for="tour-time">Preferred Time</label>
+                <div class="form-select-wrap">
+                  <select id="tour-time" name="preferred_time">
+                    <option value="">Select time...</option>
+                    <option>Morning (8:00 – 10:00 AM)</option>
+                    <option>Midday (10:00 AM – 12:00 PM)</option>
+                    <option>Early Afternoon (12:00 – 2:00 PM)</option>
+                    <option>Late Afternoon (2:00 – 4:00 PM)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="tour-how">How did you hear about us?</label>
+              <div class="form-select-wrap">
+                <select id="tour-how" name="referral_source">
+                  <option value="">Select one...</option>
+                  <option>Google / Web Search</option>
+                  <option>Word of Mouth / Friend or Family</option>
+                  <option>Social Media</option>
+                  <option>Current or Former Student</option>
+                  <option>School Counselor</option>
+                  <option>Event or Fair</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="tour-message">Anything you'd like us to know?</label>
+              <textarea id="tour-message" name="message" rows="4" placeholder="Tell us about your student, any specific questions, or areas of interest..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary tour-submit">Request My Tour</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <div class="section-label-sm" style="color:rgba(248,250,252,.35);">Ready to Apply?</div>
+      <h2>Take the Next Step</h2>
+      <p>A tour is just the beginning. When you're ready, our admissions team is here to guide your family through every step of the process.</p>
+      <div class="cta-actions">
+        <a href="admissions.html" class="btn-cta-solid">Learn About Admissions</a>
+        <a href="giving.html" class="btn-cta-outline">Champion the Cause</a>
+      </div>
+    </div>
+  </section>
+
+  <kp-footer tagline="Personalized support. Meaningful learning. Real-world preparation."></kp-footer>
+
+  <script src="js/components.js"></script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Educator Misconduct — Keystone Prep High School</title>
+  <meta name="description" content="Report educator misconduct at Keystone Prep High School. All employees and agents have a legal obligation to report misconduct that affects the health, safety, or welfare of a student." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+
+    .hero-bg-misconduct {
+      background:
+        linear-gradient(105deg, rgba(3,10,20,.88) 0%, rgba(5,20,40,.78) 50%, rgba(8,28,55,.6) 100%),
+        url('img/keystoneprep-building.jpg') center center / cover no-repeat;
+      background-attachment: fixed;
+    }
+
+    /* ── Obligation banner ── */
+    .obligation-banner {
+      background: #031a34;
+      padding: 20px 0;
+    }
+    .obligation-banner-inner {
+      max-width: 900px; margin: 0 auto; padding: 0 40px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .obligation-banner-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      stroke: #8cb5db;
+    }
+    .obligation-banner p {
+      font-size: .9rem; color: rgba(248,250,252,.75);
+      line-height: 1.6; margin: 0;
+    }
+    .obligation-banner strong { color: #8cb5db; }
+
+    /* ── Main layout ── */
+    .misconduct-section {
+      padding: 80px 0 100px;
+      background: var(--surface);
+    }
+    .misconduct-inner {
+      max-width: 1080px; margin: 0 auto; padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* ── Info column ── */
+    .misconduct-info .section-label-sm { display: block; margin-bottom: 12px; }
+    .misconduct-info h2 { margin-bottom: 20px; }
+    .misconduct-info > p {
+      font-size: .95rem; color: var(--on-surface-var);
+      line-height: 1.78; margin-bottom: 36px;
+    }
+
+    /* Misconduct types */
+    .misconduct-types-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--on-surface-var);
+      margin-bottom: 14px;
+    }
+    .misconduct-types {
+      list-style: none; padding: 0; margin: 0 0 40px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .misconduct-types li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: .93rem; font-weight: 600; color: var(--on-surface);
+    }
+    .misconduct-types li::before {
+      content: '';
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #031a34; flex-shrink: 0;
+    }
+
+    /* Penalty warning */
+    .penalty-card {
+      padding: 20px 22px; border-radius: 12px;
+      border-left: 4px solid #c0392b;
+      background: #fdf2f2;
+      margin-bottom: 36px;
+    }
+    .penalty-card p {
+      font-size: .88rem; color: #7a1a1a;
+      line-height: 1.65; margin: 0;
+    }
+
+    /* LEADER section */
+    .leader-card {
+      background: #031a34;
+      border-radius: 16px;
+      padding: 32px 28px;
+    }
+    .leader-card-heading {
+      font-size: 1rem; font-weight: 700;
+      color: #8cb5db; margin-bottom: 24px; line-height: 1.4;
+    }
+    .leader-steps {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .leader-step {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .leader-letter {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: #8cb5db;
+      color: #031a34; font-weight: 800; font-size: 1.05rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .leader-word {
+      font-size: .97rem; color: rgba(248,250,252,.9);
+    }
+    .leader-word strong {
+      color: #fff; font-weight: 700;
+    }
+
+    /* ── Form column ── */
+    .misconduct-form-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 36px;
+      position: sticky;
+      top: 100px;
+    }
+    .misconduct-form-card h3 {
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--on-surface); margin-bottom: 6px;
+    }
+    .misconduct-form-card > p {
+      font-size: .87rem; color: var(--on-surface-var);
+      margin-bottom: 28px; line-height: 1.65;
+    }
+    .form-confidential-note {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 14px 16px; border-radius: 8px;
+      background: #eef4fb; margin-bottom: 24px;
+      font-size: .83rem; color: #2a4a6a; line-height: 1.55;
+    }
+    .form-confidential-note svg {
+      width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px;
+      stroke: #2a6496;
+    }
+    .misconduct-submit {
+      width: 100%; justify-content: center;
+      font-size: 1rem; padding: 14px 24px;
+      margin-top: 8px;
+      background: #031a34; color: #8cb5db;
+      border: none; border-radius: 10px;
+      font-weight: 600; cursor: pointer;
+      transition: background .18s;
+    }
+    .misconduct-submit:hover { background: #052a52; }
+
+    /* ── Contact strip variant ── */
+    .report-to-strip {
+      background: #031a34;
+      padding: 40px 0;
+    }
+    .report-to-inner {
+      max-width: 900px; margin: 0 auto; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px; flex-wrap: wrap;
+    }
+    .report-to-label {
+      font-size: .75rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: #8cb5db; margin-bottom: 6px;
+    }
+    .report-to-name {
+      font-size: 1.15rem; font-weight: 700; color: #fff;
+    }
+    .report-to-contacts {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .report-to-contact {
+      display: flex; align-items: center; gap: 10px;
+      font-size: .9rem; color: rgba(248,250,252,.75);
+      text-decoration: none;
+    }
+    .report-to-contact svg {
+      width: 16px; height: 16px; stroke: #8cb5db; flex-shrink: 0;
+    }
+    .report-to-contact:hover { color: #fff; }
+
+    @media (max-width: 900px) {
+      .misconduct-inner { grid-template-columns: 1fr; gap: 48px; }
+      .misconduct-form-card { position: static; }
+      .report-to-inner { flex-direction: column; gap: 24px; }
+    }
+    @media (max-width: 600px) {
+      .misconduct-form-card { padding: 28px 20px; }
+      .obligation-banner-inner { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <kp-nav></kp-nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero hero-parallax">
+    <div class="hero-bg hero-bg-misconduct"></div>
+    <div class="hero-inner">
+      <div class="hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Report Misconduct</span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-page-label">Compliance &amp; Safety</div>
+        <h1>Reporting Educator Misconduct</h1>
+        <p class="hero-body">All employees and agents of Keystone Prep High School have an obligation and legal responsibility to report misconduct by instructional personnel and school administrators which affects the health, safety, or welfare of a student.</p>
+        <div class="hero-actions">
+          <a href="#report-form" class="btn btn-hero-primary">Submit a Report</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── OBLIGATION BANNER ── -->
+  <div class="obligation-banner">
+    <div class="obligation-banner-inner">
+      <svg class="obligation-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      <p><strong>Failure to report misconduct</strong> may result in penalties up to termination of employment and revocation of an educator's certificate.</p>
+    </div>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <section class="misconduct-section">
+    <div class="misconduct-inner">
+
+      <!-- Info column -->
+      <div class="misconduct-info">
+        <div class="section-label-sm">What to Report</div>
+        <h2>Misconduct That Must Be Reported</h2>
+        <p>Any behavior by instructional personnel or school administrators that affects the health, safety, or welfare of a student must be reported immediately. Examples of reportable misconduct include:</p>
+
+        <div class="misconduct-types-label">Reportable Behaviors</div>
+        <ul class="misconduct-types">
+          <li>Obscene language</li>
+          <li>Drug and alcohol use</li>
+          <li>Disparaging comments</li>
+          <li>Prejudice or bigotry</li>
+          <li>Sexual innuendo</li>
+          <li>Cheating or testing violation</li>
+          <li>Physical aggression</li>
+          <li>Accept or offer favors</li>
+        </ul>
+
+        <div class="penalty-card">
+          <p><strong>Important:</strong> Failure to report misconduct may result in penalties up to termination of employment and revocation of an educator's certificate under Florida law.</p>
+        </div>
+
+        <div class="leader-card">
+          <div class="leader-card-heading">If someone tells you about misconduct, be a LEADER:</div>
+          <div class="leader-steps">
+            <div class="leader-step">
+              <div class="leader-letter">L</div>
+              <div class="leader-word"><strong>L</strong>isten</div>
+            </div>
+            <div class="leader-step">
+              <div class="leader-letter">E</div>
+              <div class="leader-word"><strong>E</strong>valuate</div>
+            </div>
+            <div class="leader-step">
+              <div class="leader-letter">A</div>
+              <div class="leader-word"><strong>A</strong>ct immediately</div>
+            </div>
+            <div class="leader-step">
+              <div class="leader-letter">D</div>
+              <div class="leader-word"><strong>D</strong>ocument</div>
+            </div>
+            <div class="leader-step">
+              <div class="leader-letter">E</div>
+              <div class="leader-word"><strong>E</strong>ncourage</div>
+            </div>
+            <div class="leader-step">
+              <div class="leader-letter">R</div>
+              <div class="leader-word"><strong>R</strong>eport</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form column -->
+      <div class="misconduct-form-card" id="report-form">
+        <h3>Submit a Misconduct Report</h3>
+        <p>Use this form to report educator misconduct to Keystone Prep administration. All reports are reviewed promptly.</p>
+
+        <div class="form-confidential-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          You may submit this report anonymously. Providing your contact information allows us to follow up if additional details are needed.
+        </div>
+
+        <form name="misconduct-report" action="#" novalidate>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="mr-first">Your First Name <span style="color:var(--on-surface-var);font-weight:400;">(optional)</span></label>
+              <input type="text" id="mr-first" name="first_name" autocomplete="given-name" placeholder="First" />
+            </div>
+            <div class="form-group">
+              <label for="mr-last">Your Last Name <span style="color:var(--on-surface-var);font-weight:400;">(optional)</span></label>
+              <input type="text" id="mr-last" name="last_name" autocomplete="family-name" placeholder="Last" />
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="mr-email">Email <span style="color:var(--on-surface-var);font-weight:400;">(optional)</span></label>
+              <input type="email" id="mr-email" name="email" autocomplete="email" placeholder="you@example.com" />
+            </div>
+            <div class="form-group">
+              <label for="mr-phone">Phone <span style="color:var(--on-surface-var);font-weight:400;">(optional)</span></label>
+              <input type="tel" id="mr-phone" name="phone" autocomplete="tel" placeholder="(813) 000-0000" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mr-role">Your Role</label>
+            <div class="form-select-wrap">
+              <select id="mr-role" name="reporter_role">
+                <option value="">Select your role...</option>
+                <option>Student</option>
+                <option>Parent / Guardian</option>
+                <option>Staff Member</option>
+                <option>Community Member</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mr-subject">Person Being Reported</label>
+            <input type="text" id="mr-subject" name="subject_name" placeholder="Name or description of individual" required />
+          </div>
+
+          <div class="form-group">
+            <label for="mr-type">Type of Misconduct</label>
+            <div class="form-select-wrap">
+              <select id="mr-type" name="misconduct_type" required>
+                <option value="">Select type...</option>
+                <option>Obscene language</option>
+                <option>Drug and alcohol use</option>
+                <option>Disparaging comments</option>
+                <option>Prejudice or bigotry</option>
+                <option>Sexual innuendo</option>
+                <option>Cheating or testing violation</option>
+                <option>Physical aggression</option>
+                <option>Accept or offer favors</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mr-date">Date of Incident</label>
+            <input type="date" id="mr-date" name="incident_date" />
+          </div>
+
+          <div class="form-group">
+            <label for="mr-description">Description of Incident <span style="color:#c0392b;">*</span></label>
+            <textarea id="mr-description" name="description" rows="6" placeholder="Please describe what occurred, including any witnesses, location, and relevant details..." required></textarea>
+          </div>
+
+          <button type="submit" class="misconduct-submit">Submit Report</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── REPORT TO STRIP ── -->
+  <div class="report-to-strip">
+    <div class="report-to-inner">
+      <div>
+        <div class="report-to-label">Report To</div>
+        <div class="report-to-name">Keystone Prep High School — Ken Wildner</div>
+      </div>
+      <div class="report-to-contacts">
+        <div class="report-to-contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          18105 Gunn Hwy, Odessa, FL 33556
+        </div>
+        <a href="tel:8132644500" class="report-to-contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.67 9.5a19.79 19.79 0 0 1-3.07-8.57A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (813) 264-4500
+        </a>
+        <a href="mailto:admissions@keystoneprep.org" class="report-to-contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          admissions@keystoneprep.org
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <kp-footer tagline="Personalized support. Meaningful learning. Real-world preparation."></kp-footer>
+
+  <script src="js/components.js"></script>
+</body>
+</html>
