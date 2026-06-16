@@ -3828,3 +3828,20 @@ footer { background: #242424; }
   .programs-nav { top: 64px; }
   .academics-nav { top: 64px; }
 }
+
+/* ── Program sections: collapse 2-col layout ── */
+@media (max-width: 900px) {
+  .program-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .program-inner.reverse { direction: ltr; }
+  .program-two-col { grid-template-columns: 1fr; gap: 20px; }
+  .program-img { max-width: 480px; }
+}
+@media (max-width: 600px) {
+  .program-inner { padding-left: 24px; padding-right: 24px; }
+  .program-img { max-width: 100%; }
+}
