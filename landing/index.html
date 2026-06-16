@@ -316,6 +316,30 @@
       .lp-form-row { grid-template-columns: 1fr; }
       .lp-hero-btns { flex-direction: column; align-items: flex-start; }
     }
+    /* ── VIDEO MODAL ── */
+    .lp-modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.85);
+      align-items: center; justify-content: center;
+    }
+    .lp-modal-overlay.active { display: flex; }
+    .lp-modal-box {
+      position: relative;
+      width: 90vw; max-width: 900px;
+      aspect-ratio: 16/9;
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,.5);
+    }
+    .lp-modal-box iframe { width: 100%; height: 100%; border: none; display: block; }
+    .lp-modal-close {
+      position: absolute; top: -40px; right: 0;
+      background: none; border: none; cursor: pointer;
+      color: white; font-size: 1.5rem; line-height: 1;
+      opacity: .8; transition: opacity .2s;
+    }
+    .lp-modal-close:hover { opacity: 1; }
+    .lp-video-thumb { cursor: pointer; }
   </style>
 </head>
 <body>
@@ -434,7 +458,7 @@
   <section class="lp-section lp-video">
     <div class="lp-container">
       <div class="lp-video-grid">
-        <div class="lp-video-thumb">
+        <div class="lp-video-thumb" onclick="openVideoModal()">
           <img src="../img/keystoneprep-building.jpg" alt="Keystone Prep campus" />
           <div class="lp-play-btn">
             <div class="lp-play-circle">
@@ -574,6 +598,39 @@
     <p>&copy; 2026 Keystone Preparatory High School &nbsp;·&nbsp; Odessa, FL</p>
     <p><a href="../index.html" style="color:rgba(255,255,255,.35);text-decoration:none;">Back to Main Site</a></p>
   </footer>
+
+  <!-- ── VIDEO MODAL ── -->
+  <div class="lp-modal-overlay" id="videoModal" onclick="handleModalClick(event)">
+    <div class="lp-modal-box">
+      <button class="lp-modal-close" onclick="closeVideoModal()" aria-label="Close video">&times;</button>
+      <iframe id="videoFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    const VIDEO_ID = 'XW6LhPBY_70';
+
+    function openVideoModal() {
+      document.getElementById('videoFrame').src =
+        'https://www.youtube.com/embed/' + VIDEO_ID + '?autoplay=1&rel=0';
+      document.getElementById('videoModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      document.getElementById('videoModal').classList.remove('active');
+      document.getElementById('videoFrame').src = '';
+      document.body.style.overflow = '';
+    }
+
+    function handleModalClick(e) {
+      if (e.target === document.getElementById('videoModal')) closeVideoModal();
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVideoModal();
+    });
+  </script>
 
 </body>
 </html>
