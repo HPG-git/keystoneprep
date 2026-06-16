@@ -3670,3 +3670,161 @@ footer { background: #242424; }
   .form-row-2 { grid-template-columns: 1fr; }
   .join-form { padding: 28px 20px; }
 }
+
+/* ═══════════════════════════════════════════════
+   MOBILE OPTIMIZATIONS
+   ═══════════════════════════════════════════════ */
+
+/* ── Hamburger drawer ── */
+.nav-links-open {
+  display: flex !important;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0; right: 0;
+  background: rgba(255,255,255,.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--outline-var);
+  padding: 12px 24px 20px;
+  gap: 2px;
+  z-index: 99;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+.nav-links-open .nav-link {
+  padding: 12px 16px;
+  font-size: .95rem;
+  border-radius: 8px;
+}
+
+/* ── Nav: shrink height on mobile ── */
+@media (max-width: 900px) {
+  .nav { position: relative; } /* needed for drawer positioning */
+  .nav-inner { height: 64px; }
+  .nav-logo-mark img { width: 52px; height: 52px; }
+  .nav-actions { display: none; } /* hide Schedule Tour text button on mobile */
+  .nav-hamburger { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+  .nav-search { width: 44px; height: 44px; }
+  .social-btn { width: 44px; height: 44px; }
+}
+
+/* ── Hero: reduce vertical padding on mobile ── */
+@media (max-width: 900px) {
+  .hero { min-height: 420px; }
+  .hero-inner { padding-top: 56px; padding-bottom: 56px; }
+}
+@media (max-width: 600px) {
+  .hero { min-height: 360px; }
+  .hero-inner { padding-top: 40px; padding-bottom: 40px; }
+}
+
+/* ── HOS (Head of School) inner: collapse fixed 420px column ── */
+@media (max-width: 900px) {
+  .hos-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hos-photo { max-width: 380px; }
+}
+
+/* ── 3-column grids → 2-col → 1-col ── */
+@media (max-width: 900px) {
+  .cards-3 { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .programs-grid { grid-template-columns: 1fr 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .serve-grid { grid-template-columns: 1fr 1fr; }
+  .intro-highlights { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .cards-3 { grid-template-columns: 1fr; }
+  .programs-grid { grid-template-columns: 1fr; }
+  .serve-grid { grid-template-columns: 1fr; }
+  .intro-highlights { grid-template-columns: 1fr; }
+}
+
+/* ── 5-column model grid ── */
+@media (max-width: 900px) {
+  .model-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .model-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 400px) {
+  .model-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Realworld inner: collapse divider layout ── */
+@media (max-width: 900px) {
+  .realworld-inner { grid-template-columns: 1fr; gap: 40px; }
+  .block-divider { display: none; }
+}
+
+/* ── Step cards: remove clip-path and fix padding on mobile ── */
+@media (max-width: 900px) {
+  .step-card { clip-path: none; padding: 28px 28px; }
+}
+
+/* ── Tour inner: collapse 2-col layout ── */
+@media (max-width: 900px) {
+  .tour-inner { grid-template-columns: 1fr; gap: 40px; padding: 0 32px; }
+}
+@media (max-width: 600px) {
+  .tour-inner { padding: 0 24px; }
+}
+
+/* ── Course table: horizontal scroll on mobile ── */
+@media (max-width: 768px) {
+  .courses-body { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .course-table { min-width: 560px; }
+}
+
+/* ── Magnet card meta: remove min-width ── */
+@media (max-width: 600px) {
+  .magnet-card-meta { min-width: 0; }
+  .magnet-card-header { flex-wrap: wrap; gap: 12px; }
+}
+
+/* ── Experience carousel: hide outer cards, reduce translate on mobile ── */
+@media (max-width: 480px) {
+  .exp-card[data-pos="-2"],
+  .exp-card[data-pos="2"],
+  .exp-card[data-pos="-3"],
+  .exp-card[data-pos="3"] { opacity: 0; pointer-events: none; }
+  .exp-card[data-pos="-1"] { transform: translateX(-120px) rotateY(38deg) scale(0.82); }
+  .exp-card[data-pos="1"]  { transform: translateX(120px)  rotateY(-38deg) scale(0.82); }
+}
+
+/* ── Carousel dots: larger touch target ── */
+.carousel-dot {
+  position: relative;
+  padding: 12px;
+  margin: -12px;
+}
+
+/* ── Contact strip inner: reduce padding ── */
+@media (max-width: 900px) {
+  .contact-strip-inner { padding-left: 32px; padding-right: 32px; }
+}
+@media (max-width: 600px) {
+  .contact-strip-inner { padding-left: 24px; padding-right: 24px; }
+}
+
+/* ── Camp sections: collapse 2-col layout ── */
+@media (max-width: 900px) {
+  .camp-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ── iOS parallax fix: disable fixed background-attachment ── */
+@media (max-width: 768px) {
+  .hero-bg-giving,
+  .hero-bg-programs,
+  .hero-bg-camps,
+  .testimonials-section {
+    background-attachment: scroll !important;
+  }
+}
+
+/* ── Footer col headings: minimum readable size ── */
+.footer-col h4 { font-size: .75rem; }
+
+/* ── Sub-nav sticky offset aligned to smaller nav height ── */
+@media (max-width: 900px) {
+  .programs-nav { top: 64px; }
+  .academics-nav { top: 64px; }
+}

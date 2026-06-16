@@ -56,7 +56,7 @@ class KpNav extends HTMLElement {
   connectedCallback() {
     const activePage = getActivePage();
     this.outerHTML = `
-<header class="nav">
+<header class="nav" id="kp-nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <div class="nav-logo-mark"><img src="img/logo-keystone-2.png" alt="Keystone Prep logo" /></div>
@@ -65,15 +65,41 @@ class KpNav extends HTMLElement {
         <span>High School</span>
       </div>
     </a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="kp-nav-links">
       ${buildNavLinks(activePage)}
     </nav>
     <div class="nav-actions">
       <a href="schedule-tour.html" class="btn-apply-now">Schedule Tour</a>
     </div>
-    <button class="nav-hamburger" aria-label="Menu">${ICON_MENU}</button>
+    <button class="nav-hamburger" id="kp-hamburger" aria-label="Open menu" aria-expanded="false">${ICON_MENU}</button>
   </div>
 </header>`;
+
+    /* Hamburger toggle — runs after outerHTML replaces the element */
+    requestAnimationFrame(() => {
+      const hamburger = document.getElementById('kp-hamburger');
+      const navLinks  = document.getElementById('kp-nav-links');
+      if (!hamburger || !navLinks) return;
+
+      hamburger.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('nav-links-open');
+        hamburger.setAttribute('aria-expanded', open);
+        hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        hamburger.innerHTML = open ? `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>` : ICON_MENU;
+      });
+
+      /* Close menu when a nav link is tapped */
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navLinks.classList.remove('nav-links-open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          hamburger.setAttribute('aria-label', 'Open menu');
+          hamburger.innerHTML = ICON_MENU;
+        });
+      });
+    });
   }
 }
 
