@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keystone Preparatory High School — Helping Students Who Learn Differently Thrive</title>
+  <meta name="description" content="Small class sizes. Personalized support. Real confidence. Brighter futures. Schedule a tour at Keystone Prep." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* ── LANDING-SPECIFIC OVERRIDES ── */
+
+    /* Minimal nav — logo + CTA only */
+    .lp-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--outline-var);
+    }
+    .lp-nav-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 0 80px; height: 88px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .lp-nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .lp-nav-logo img { height: 56px; width: auto; }
+    .lp-nav-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .lp-nav-logo-text strong { font-family: 'Noto Serif', serif; font-size: .9rem; font-weight: 700; color: var(--on-surface); }
+    .lp-nav-logo-text span { font-size: .68rem; color: var(--on-surface-var); font-weight: 500; }
+
+    /* Hero */
+    .lp-hero {
+      position: relative; min-height: 580px;
+      display: flex; align-items: center; overflow: hidden;
+    }
+    .lp-hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, rgba(8,28,52,.92) 0%, rgba(10,40,72,.78) 50%, rgba(12,50,90,.55) 100%);
+      z-index: 1;
+    }
+    .lp-hero-photo {
+      position: absolute; inset: 0;
+      background: url('../img/hero-2.jpg') center center / cover no-repeat;
+    }
+    .lp-hero-inner {
+      position: relative; z-index: 2;
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 80px; width: 100%;
+    }
+    .lp-hero-content { max-width: 600px; }
+    .lp-eyebrow {
+      display: inline-block; font-size: .72rem; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: var(--tertiary); margin-bottom: 20px;
+    }
+    .lp-hero-content h1 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700;
+      color: var(--white); line-height: 1.18;
+      letter-spacing: -.02em; margin-bottom: 20px;
+    }
+    .lp-hero-content p {
+      font-size: 1.05rem; color: rgba(255,255,255,.72);
+      line-height: 1.78; margin-bottom: 40px; max-width: 460px;
+    }
+    .lp-hero-btns { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .btn-lp-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 8px;
+      background: var(--primary); color: var(--white);
+      font-size: .875rem; font-weight: 600;
+      text-decoration: none; transition: background .18s;
+    }
+    .btn-lp-primary:hover { background: var(--primary-light); }
+    .btn-lp-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: 8px;
+      background: transparent; color: var(--white);
+      font-size: .875rem; font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,.45); text-decoration: none;
+      transition: border-color .18s;
+    }
+    .btn-lp-outline:hover { border-color: rgba(255,255,255,.8); }
+
+    /* Stat strip */
+    .lp-stats {
+      background: var(--on-surface); padding: 0;
+    }
+    .lp-stats-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 80px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .lp-stat {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 28px 20px; text-align: center;
+    }
+    .lp-stat strong { font-family: 'Noto Serif', serif; font-size: 1.4rem; font-weight: 700; color: var(--white); }
+    .lp-stat span { font-size: .8rem; color: rgba(255,255,255,.5); margin-top: 2px; }
+    .lp-stat-divider { width: 1px; height: 36px; background: rgba(255,255,255,.12); flex-shrink: 0; }
+
+    /* Section base */
+    .lp-section { padding: 88px 0; }
+    .lp-container { max-width: var(--max-w); margin: 0 auto; padding: 0 80px; }
+    .lp-section-header { text-align: center; margin-bottom: 52px; }
+    .lp-section-header h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 700;
+      color: var(--on-surface); line-height: 1.25; margin-bottom: 12px;
+    }
+    .lp-section-header p {
+      font-size: .97rem; color: var(--on-surface-var);
+      line-height: 1.72; max-width: 500px; margin: 0 auto;
+    }
+
+    /* Benefits */
+    .lp-benefits { background: var(--white); border-top: 1px solid var(--outline-var); }
+    .lp-benefits-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .lp-benefit-card {
+      background: var(--surface-low); border: 1px solid var(--outline-var);
+      border-radius: 14px; padding: 32px 24px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 14px;
+    }
+    .lp-benefit-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: var(--primary-container);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lp-benefit-icon svg { width: 24px; height: 24px; stroke: var(--primary); }
+    .lp-benefit-card h3 {
+      font-family: 'Noto Serif', serif; font-size: 1rem; font-weight: 700;
+      color: var(--on-surface); line-height: 1.3;
+    }
+    .lp-benefit-card p { font-size: .85rem; color: var(--on-surface-var); line-height: 1.65; }
+
+    /* Video */
+    .lp-video { background: var(--surface-low); border-top: 1px solid var(--outline-var); }
+    .lp-video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .lp-video-thumb {
+      position: relative; border-radius: 16px; overflow: hidden;
+      aspect-ratio: 16/9; background: var(--on-surface); cursor: pointer;
+      box-shadow: 0 16px 48px rgba(15,76,129,.18);
+    }
+    .lp-video-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: .75; transition: opacity .3s; display: block; }
+    .lp-video-thumb:hover img { opacity: .6; }
+    .lp-play-btn {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    }
+    .lp-play-circle {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,.18);
+    }
+    .lp-video-thumb:hover .lp-play-circle { transform: scale(1.08); }
+    .lp-play-circle svg { width: 26px; height: 26px; margin-left: 3px; }
+    .lp-video-text .lp-eyebrow { color: var(--secondary); }
+    .lp-video-text h2 {
+      font-family: 'Noto Serif', serif; font-size: clamp(1.5rem, 2.2vw, 2rem);
+      font-weight: 700; color: var(--on-surface); line-height: 1.28; margin-bottom: 16px;
+    }
+    .lp-video-text p { font-size: .97rem; color: var(--on-surface-var); line-height: 1.75; margin-bottom: 28px; }
+    .btn-lp-dark {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; border-radius: 8px;
+      background: var(--on-surface); color: var(--white);
+      font-size: .875rem; font-weight: 600; text-decoration: none;
+      transition: background .18s;
+    }
+    .btn-lp-dark:hover { background: #344054; }
+
+    /* Problem */
+    .lp-problem { background: var(--white); border-top: 1px solid var(--outline-var); }
+    .lp-problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .lp-problem-photo {
+      border-radius: 16px; overflow: hidden; aspect-ratio: 4/3;
+      box-shadow: 0 16px 48px rgba(15,76,129,.1);
+    }
+    .lp-problem-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .lp-problem-text .lp-eyebrow { color: var(--primary); }
+    .lp-problem-text h2 {
+      font-family: 'Noto Serif', serif; font-size: clamp(1.5rem, 2.2vw, 2rem);
+      font-weight: 700; color: var(--on-surface); line-height: 1.28; margin-bottom: 20px;
+    }
+    .lp-rule {
+      width: 40px; height: 3px; background: var(--primary); border-radius: 2px; margin-bottom: 20px;
+    }
+    .lp-problem-text p {
+      font-size: .97rem; color: var(--on-surface-var); line-height: 1.78;
+    }
+
+    /* Testimonial */
+    .lp-testimonial {
+      position: relative; overflow: hidden;
+      background: var(--on-surface);
+    }
+    .lp-testimonial-bg {
+      position: absolute; inset: 0;
+      background: url('../img/bg-testimonial.jpg') center center / cover no-repeat;
+      opacity: .12;
+    }
+    .lp-testimonial-inner {
+      position: relative; z-index: 1;
+      max-width: 760px; margin: 0 auto; padding: 88px 80px;
+      text-align: center;
+    }
+    .lp-quote-mark {
+      font-family: 'Noto Serif', serif; font-size: 6rem; line-height: 1;
+      color: var(--tertiary); margin-bottom: -24px; display: block;
+    }
+    .lp-testimonial-quote {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.2rem, 2vw, 1.6rem); font-style: italic;
+      font-weight: 600; color: var(--white); line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .lp-testimonial-attr {
+      font-size: .78rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: rgba(255,255,255,.45);
+    }
+
+    /* Student Life */
+    .lp-life { background: var(--surface-low); border-top: 1px solid var(--outline-var); }
+    .lp-life-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    }
+    .lp-life-photo {
+      aspect-ratio: 3/4; border-radius: 12px; overflow: hidden; background: var(--surface-high);
+    }
+    .lp-life-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .4s ease;
+    }
+    .lp-life-photo:hover img { transform: scale(1.04); }
+
+    /* CTA + Form */
+    .lp-cta { background: var(--on-surface); }
+    .lp-cta-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 72px; align-items: start; }
+    .lp-cta-left .lp-eyebrow { color: var(--tertiary); }
+    .lp-cta-left h2 {
+      font-family: 'Noto Serif', serif; font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 16px;
+    }
+    .lp-cta-left p { font-size: .95rem; color: rgba(255,255,255,.6); line-height: 1.75; margin-bottom: 32px; max-width: 380px; }
+    .lp-contact-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: .88rem; color: rgba(255,255,255,.65); margin-bottom: 12px;
+    }
+    .lp-contact-item svg { color: var(--tertiary); flex-shrink: 0; }
+
+    /* Form */
+    .lp-form {
+      background: var(--white); border-radius: 16px; padding: 40px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .lp-form-title {
+      font-family: 'Noto Serif', serif; font-size: 1.1rem; font-weight: 700;
+      color: var(--on-surface); margin-bottom: 4px;
+    }
+    .lp-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .lp-form-group { display: flex; flex-direction: column; gap: 6px; }
+    .lp-form-group label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--on-surface-var);
+    }
+    .lp-form-group input,
+    .lp-form-group select,
+    .lp-form-group textarea {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--outline-var);
+      border-radius: 8px; font-size: .9rem;
+      font-family: 'Inter', sans-serif; color: var(--on-surface);
+      background: var(--white); outline: none;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+    }
+    .lp-form-group input:focus,
+    .lp-form-group select:focus,
+    .lp-form-group textarea:focus { border-color: var(--primary); }
+    .lp-form-group textarea { resize: vertical; min-height: 88px; }
+    .lp-form-submit {
+      width: 100%; padding: 15px; background: var(--primary);
+      color: var(--white); font-size: .9rem; font-weight: 600;
+      font-family: 'Inter', sans-serif; border: none; border-radius: 8px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 8px; transition: background .18s; margin-top: 4px;
+    }
+    .lp-form-submit:hover { background: var(--primary-light); }
+
+    /* Footer */
+    .lp-footer {
+      background: #111827; padding: 28px 80px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .lp-footer p { font-size: .78rem; color: rgba(255,255,255,.35); }
+
+    @media (max-width: 900px) {
+      .lp-nav-inner, .lp-hero-inner, .lp-container, .lp-footer { padding-left: 32px; padding-right: 32px; }
+      .lp-benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .lp-video-grid, .lp-problem-grid, .lp-cta-grid { grid-template-columns: 1fr; gap: 40px; }
+      .lp-life-grid { grid-template-columns: repeat(2, 1fr); }
+      .lp-stats-inner { flex-wrap: wrap; justify-content: center; gap: 8px; padding: 16px 32px; }
+      .lp-stat-divider { display: none; }
+      .lp-testimonial-inner { padding: 64px 32px; }
+    }
+
+    @media (max-width: 600px) {
+      .lp-nav-inner, .lp-hero-inner, .lp-container, .lp-footer { padding-left: 24px; padding-right: 24px; }
+      .lp-benefits-grid { grid-template-columns: 1fr; }
+      .lp-life-grid { grid-template-columns: repeat(2, 1fr); }
+      .lp-form { padding: 28px 20px; }
+      .lp-form-row { grid-template-columns: 1fr; }
+      .lp-hero-btns { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <header class="lp-nav">
+    <div class="lp-nav-inner">
+      <a href="../index.html" class="lp-nav-logo">
+        <img src="../img/logo-keystone-1.png" alt="Keystone Prep" />
+      </a>
+      <a href="#form" class="btn-apply-now">Schedule a Tour</a>
+    </div>
+  </header>
+
+  <!-- ── S1: HERO ── -->
+  <section class="lp-hero">
+    <div class="lp-hero-photo"></div>
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+      <div class="lp-hero-content">
+        <span class="lp-eyebrow">A Nonprofit Private High School</span>
+        <h1>Helping Students Who Learn Differently Thrive.</h1>
+        <p>Small class sizes. Personalized support. Real confidence. Brighter futures. Built for students with ADHD, anxiety, dyslexia, executive functioning challenges, and other learning differences who are capable of doing their best work — with the right environment behind them.</p>
+        <div class="lp-hero-btns">
+          <a href="#form" class="btn-lp-primary">
+            Schedule a Tour
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STAT STRIP ── -->
+  <div class="lp-stats">
+    <div class="lp-stats-inner">
+      <div class="lp-stat">
+        <strong>~10 Students</strong>
+        <span>per class</span>
+      </div>
+      <div class="lp-stat-divider"></div>
+      <div class="lp-stat">
+        <strong>Grades 9–12</strong>
+        <span>all high school years</span>
+      </div>
+      <div class="lp-stat-divider"></div>
+      <div class="lp-stat">
+        <strong>Odessa, FL</strong>
+        <span>Tampa Bay Area</span>
+      </div>
+      <div class="lp-stat-divider"></div>
+      <div class="lp-stat">
+        <strong>3 Pathways</strong>
+        <span>specialized programs</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S2: BENEFITS ── -->
+  <section class="lp-section lp-benefits">
+    <div class="lp-container">
+      <div class="lp-section-header">
+        <span class="lp-eyebrow" style="color:var(--secondary);">The Keystone Difference</span>
+        <h2>Why Families Choose Keystone</h2>
+        <p>More attention. More support. More confidence. More opportunity.</p>
+      </div>
+      <div class="lp-benefits-grid">
+
+        <div class="lp-benefit-card">
+          <div class="lp-benefit-icon">
+            <svg fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3>Small Class Sizes</h3>
+          <p>More attention. More engagement. More opportunity for every student.</p>
+        </div>
+
+        <div class="lp-benefit-card">
+          <div class="lp-benefit-icon">
+            <svg fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/>
+              <line x1="12" y1="12" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <h3>Individualized Support</h3>
+          <p>We meet each student where they are and build from there.</p>
+        </div>
+
+        <div class="lp-benefit-card">
+          <div class="lp-benefit-icon">
+            <svg fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <h3>Confidence Building</h3>
+          <p>Students build self-belief, independence, and real-world skills.</p>
+        </div>
+
+        <div class="lp-benefit-card">
+          <div class="lp-benefit-icon">
+            <svg fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <h3>College &amp; Career Ready</h3>
+          <p>Preparing students for life and success beyond high school.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S3: VIDEO ── -->
+  <section class="lp-section lp-video">
+    <div class="lp-container">
+      <div class="lp-video-grid">
+        <div class="lp-video-thumb">
+          <img src="../img/keystoneprep-building.jpg" alt="Keystone Prep campus" />
+          <div class="lp-play-btn">
+            <div class="lp-play-circle">
+              <svg fill="var(--primary)" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="lp-video-text">
+          <span class="lp-eyebrow">See Keystone in Action</span>
+          <h2>Real Students. Real Growth. Real Results.</h2>
+          <p>Watch how Keystone helps students thrive inside and outside the classroom.</p>
+          <a href="#form" class="btn-lp-dark">
+            Schedule a Tour
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S4: PARENT PROBLEM ── -->
+  <section class="lp-section lp-problem">
+    <div class="lp-container">
+      <div class="lp-problem-grid">
+        <div class="lp-problem-photo">
+          <img src="../img/keystoneprep-experience-1.jpg" alt="Student and teacher" />
+        </div>
+        <div class="lp-problem-text">
+          <span class="lp-eyebrow">A Different Approach</span>
+          <h2>When Traditional Schools Aren't Working</h2>
+          <div class="lp-rule"></div>
+          <p>Many of our students are bright, capable, and ready to do their best work — they just learn differently. Keystone is a nonprofit private school built specifically for students managing ADHD, anxiety, depression, dyslexia, dysgraphia, executive functioning challenges, and similar learning differences.</p>
+          <p style="margin-top:14px;">We provide the structure, support, and relationships students need to succeed — not a one-size-fits-all classroom, but an environment shaped around how each student actually learns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S5: TESTIMONIAL ── -->
+  <section class="lp-testimonial">
+    <div class="lp-testimonial-bg"></div>
+    <div class="lp-testimonial-inner">
+      <span class="lp-quote-mark">&ldquo;</span>
+      <blockquote class="lp-testimonial-quote">
+        Keystone gave our child the confidence and support we struggled to find elsewhere.
+      </blockquote>
+      <p class="lp-testimonial-attr">— Parent of a Keystone Student</p>
+    </div>
+  </section>
+
+  <!-- ── S6: STUDENT LIFE ── -->
+  <section class="lp-section lp-life">
+    <div class="lp-container">
+      <div class="lp-section-header">
+        <h2>Life at Keystone</h2>
+        <p>A supportive environment where students build confidence, friendships, and skills for the future.</p>
+      </div>
+      <div class="lp-life-grid">
+        <div class="lp-life-photo"><img src="../img/vertical-1.jpg" alt="Student life" /></div>
+        <div class="lp-life-photo"><img src="../img/vertical-2.jpg" alt="Student life" /></div>
+        <div class="lp-life-photo"><img src="../img/vertical-3.jpg" alt="Student life" /></div>
+        <div class="lp-life-photo"><img src="../img/vertical-4.jpg" alt="Student life" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S7 + S8: FINAL CTA + FORM ── -->
+  <section class="lp-section lp-cta" id="form">
+    <div class="lp-container">
+      <div class="lp-cta-grid">
+
+        <div class="lp-cta-left">
+          <span class="lp-eyebrow">Ready to Explore Keystone Prep?</span>
+          <h2>Schedule a Campus Tour</h2>
+          <p>Schedule a campus tour and discover how Keystone helps students thrive academically, socially, and personally.</p>
+          <div class="lp-contact-item">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.38 2 2 0 0 1 3.58 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></svg>
+            813-978-4121
+          </div>
+          <div class="lp-contact-item">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            admissions@keystoneprep.org
+          </div>
+          <div class="lp-contact-item">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Odessa, FL — Tampa Bay Area
+          </div>
+        </div>
+
+        <div class="lp-form">
+          <p class="lp-form-title">Schedule a Tour</p>
+          <div class="lp-form-row">
+            <div class="lp-form-group">
+              <label>Parent Name</label>
+              <input type="text" placeholder="First &amp; Last Name" />
+            </div>
+            <div class="lp-form-group">
+              <label>Student Name</label>
+              <input type="text" placeholder="First &amp; Last Name" />
+            </div>
+          </div>
+          <div class="lp-form-group">
+            <label>Grade Level</label>
+            <select>
+              <option value="" disabled selected>Select Grade Level</option>
+              <option>8th Grade (Incoming)</option>
+              <option>9th Grade</option>
+              <option>10th Grade</option>
+              <option>11th Grade</option>
+              <option>12th Grade</option>
+            </select>
+          </div>
+          <div class="lp-form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="your@email.com" />
+          </div>
+          <div class="lp-form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="(000) 000-0000" />
+          </div>
+          <div class="lp-form-group">
+            <label>Tell Us About Your Student</label>
+            <textarea placeholder="Challenges, goals, interests, learning needs…"></textarea>
+          </div>
+          <button type="submit" class="lp-form-submit">
+            Schedule a Tour
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="lp-footer">
+    <p>&copy; 2026 Keystone Preparatory High School &nbsp;·&nbsp; Odessa, FL</p>
+    <p><a href="../index.html" style="color:rgba(255,255,255,.35);text-decoration:none;">Back to Main Site</a></p>
+  </footer>
+
+</body>
+</html>
