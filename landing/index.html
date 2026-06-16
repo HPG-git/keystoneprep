@@ -458,7 +458,7 @@
   <section class="lp-section lp-video">
     <div class="lp-container">
       <div class="lp-video-grid">
-        <div class="lp-video-thumb" onclick="window.open('https://youtu.be/XW6LhPBY_70','_blank')">
+        <div class="lp-video-thumb" onclick="openVideoModal()">
           <img src="../img/keystoneprep-building.jpg" alt="Keystone Prep campus" />
           <div class="lp-play-btn">
             <div class="lp-play-circle">
@@ -603,23 +603,26 @@
   <div class="lp-modal-overlay" id="videoModal" onclick="handleModalClick(event)">
     <div class="lp-modal-box">
       <button class="lp-modal-close" onclick="closeVideoModal()" aria-label="Close video">&times;</button>
-      <iframe id="videoFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <video id="videoPlayer" src="../media/Keystone-Glimpse.mp4" controls playsinline
+        style="width:100%;height:100%;display:block;background:#000;"></video>
     </div>
   </div>
 
   <script>
-    const VIDEO_ID = 'XW6LhPBY_70';
-
     function openVideoModal() {
-      document.getElementById('videoFrame').src =
-        'https://www.youtube.com/embed/' + VIDEO_ID + '?autoplay=1&rel=0';
-      document.getElementById('videoModal').classList.add('active');
+      const modal = document.getElementById('videoModal');
+      const player = document.getElementById('videoPlayer');
+      modal.classList.add('active');
       document.body.style.overflow = 'hidden';
+      player.play();
     }
 
     function closeVideoModal() {
-      document.getElementById('videoModal').classList.remove('active');
-      document.getElementById('videoFrame').src = '';
+      const modal = document.getElementById('videoModal');
+      const player = document.getElementById('videoPlayer');
+      modal.classList.remove('active');
+      player.pause();
+      player.currentTime = 0;
       document.body.style.overflow = '';
     }
 
