@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Keystone Prep High School</title>
+  <meta name="description" content="Keystone Prep High School — serving grades 9–12 in Tampa Bay with small classes, personalized support, and a community where every student is known." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ── STORY SECTION ── */
+    .story-section {
+      padding: 96px 0;
+      background: var(--white);
+    }
+    .story-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .story-img-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--surface-container);
+    }
+    .story-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .story-content .section-label-sm { display: block; margin-bottom: 14px; }
+    .story-content h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.55rem, 2.5vw, 2.1rem);
+      font-weight: 700; color: var(--on-surface);
+      line-height: 1.25; margin-bottom: 24px;
+    }
+    .story-content p {
+      font-size: .97rem; color: var(--on-surface-var);
+      line-height: 1.8; margin-bottom: 16px;
+    }
+    .story-content p:last-child { margin-bottom: 0; }
+
+    /* ── APPROACH SECTION ── */
+    .approach-section {
+      padding: 96px 0;
+      background: var(--surface-low);
+      border-top: 1px solid var(--outline-var);
+    }
+    .approach-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .approach-content .section-label-sm { display: block; margin-bottom: 14px; }
+    .approach-content h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.55rem, 2.5vw, 2.1rem);
+      font-weight: 700; color: var(--on-surface);
+      line-height: 1.25; margin-bottom: 20px;
+    }
+    .approach-content > p {
+      font-size: .97rem; color: var(--on-surface-var);
+      line-height: 1.8; margin-bottom: 24px;
+    }
+    .approach-list {
+      list-style: none; padding: 0; margin: 0 0 28px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .approach-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .93rem; color: var(--on-surface-var); line-height: 1.5;
+    }
+    .approach-list li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--secondary);
+      margin-top: 7px;
+    }
+    .approach-callout {
+      font-size: .93rem; font-weight: 600;
+      color: var(--on-surface); line-height: 1.65;
+    }
+    .approach-img-wrap {
+      border-radius: 20px; overflow: hidden;
+      aspect-ratio: 3/4; background: var(--surface-container);
+      position: sticky; top: 100px;
+    }
+    .approach-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    /* ── MISSION & VISION ── */
+    .mv-section {
+      padding: 96px 0;
+      background: var(--on-surface);
+    }
+    .mv-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 80px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    }
+    .mv-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px;
+      padding: 48px 40px;
+    }
+    .mv-eyebrow {
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; margin-bottom: 16px; display: block;
+    }
+    .mv-eyebrow-blue  { color: #7AB8F5; }
+    .mv-eyebrow-green { color: #7FBF8F; }
+    .mv-card h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700;
+      color: var(--white); line-height: 1.35; margin-bottom: 16px;
+    }
+    .mv-card p { font-size: .95rem; color: rgba(255,255,255,.65); line-height: 1.8; }
+
+    /* ── VALUES ── */
+    .values-section {
+      padding: 96px 0;
+      background: var(--white);
+      border-top: 1px solid var(--outline-var);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 52px;
+    }
+    .value-card {
+      background: var(--surface-low);
+      border: 1px solid var(--outline-var);
+      border-radius: 16px;
+      padding: 32px 24px;
+    }
+    .value-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .value-icon svg { width: 22px; height: 22px; }
+    .value-card h3 {
+      font-family: 'Noto Serif', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--on-surface); margin-bottom: 10px;
+    }
+    .value-card p { font-size: .85rem; color: var(--on-surface-var); line-height: 1.7; }
+
+    /* ── DIFFERENCE SECTION ── */
+    .difference-section {
+      padding: 96px 0;
+      background: var(--surface-low);
+      border-top: 1px solid var(--outline-var);
+    }
+    .difference-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 80px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .difference-content .section-label-sm { display: block; margin-bottom: 14px; }
+    .difference-content h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.55rem, 2.5vw, 2.1rem);
+      font-weight: 700; color: var(--on-surface);
+      line-height: 1.25; margin-bottom: 32px;
+    }
+    .diff-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .diff-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: .95rem; color: var(--on-surface-var); line-height: 1.55;
+    }
+    .diff-check {
+      flex-shrink: 0; width: 22px; height: 22px;
+      border-radius: 50%; background: var(--secondary-container);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .diff-check svg { width: 12px; height: 12px; stroke: var(--secondary); stroke-width: 2.5; }
+    .difference-img-wrap {
+      border-radius: 20px; overflow: hidden;
+      aspect-ratio: 4/3; background: var(--surface-container);
+    }
+    .difference-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    /* ── FUTURE CTA ── */
+    .future-section {
+      padding: 96px 0;
+      background: var(--primary);
+    }
+    .future-inner {
+      max-width: 680px; margin: 0 auto; padding: 0 80px;
+      text-align: center;
+    }
+    .future-inner h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.3rem); font-weight: 700;
+      color: var(--white); line-height: 1.2; margin-bottom: 20px;
+    }
+    .future-inner p {
+      font-size: .97rem; color: rgba(255,255,255,.75);
+      line-height: 1.8; margin-bottom: 16px;
+    }
+    .future-inner p:last-of-type { margin-bottom: 40px; }
+    .future-actions {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; flex-wrap: wrap;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .story-inner,
+      .approach-inner,
+      .difference-inner { grid-template-columns: 1fr; gap: 40px; padding-left: 32px; padding-right: 32px; }
+      .mv-inner { grid-template-columns: 1fr; gap: 24px; padding-left: 32px; padding-right: 32px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .approach-img-wrap { position: static; aspect-ratio: 16/9; }
+    }
+    @media (max-width: 640px) {
+      .future-inner { padding-left: 24px; padding-right: 24px; }
+    }
+    @media (max-width: 600px) {
+      .story-inner,
+      .approach-inner,
+      .mv-inner,
+      .difference-inner { padding-left: 24px; padding-right: 24px; }
+      .mv-card { padding: 32px 24px; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EQQSCF8KLE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EQQSCF8KLE');
+</script>
+</head>
+<body>
+
+  <kp-nav></kp-nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero hero-parallax">
+    <div class="hero-bg hero-bg-faculty"></div>
+    <div class="hero-inner">
+      <div class="hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <span>About Us</span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-page-label">About Keystone Prep</div>
+        <h1>A Place Where Students with Learning Challenges are Prepared for Life</h1>
+        <p class="hero-body">Keystone Prep High School serves students in grades 9-12 in the heart of the Tampa Bay Area. We believe that if we create the best educational environment, students with learning challenges can attain the same levels of success as students without learning challenges.</p>
+        <div class="hero-actions">
+          <a href="schedule-tour.html" class="btn-hero-primary">Schedule a Family Tour</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STAT STRIP ── -->
+  <section class="stat-strip">
+    <div class="stat-strip-inner">
+      <div class="stat-item">
+        <strong>~10 Students</strong>
+        <span>per class</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <strong>Grades 9–12</strong>
+        <span>all high school years</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <strong>Tampa Bay</strong>
+        <span>Odessa, Florida</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <strong>Nonprofit</strong>
+        <span>private high school</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── OUR STORY ── -->
+  <section class="story-section">
+    <div class="story-inner">
+      <div class="story-img-wrap">
+        <img src="img/keystoneprep-experience-1.jpg" alt="Students and staff at Keystone Prep" />
+      </div>
+      <div class="story-content">
+        <span class="section-label-sm">Our Story</span>
+        <h2>More Than a School</h2>
+        <p>Located in the heart of the Tampa Bay Area, strategically positioned with convenient access from Hillsborough, Pinellas, and Pasco counties, Keystone Prep is dedicated to offering students with learning challenges the highest educational opportunities along with the social and emotional support that will benefit these students far into their futures.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── OUR APPROACH ── -->
+  <section class="approach-section">
+    <div class="approach-inner">
+      <div class="approach-content">
+        <span class="section-label-sm">Our Approach</span>
+        <h2>An Individualized Approach to Learning</h2>
+        <p>Due to our small class sizes, ≤16 student per class, our teachers are able to build strong relationships with our students in order to better understand their learning needs and their individual interests.</p>
+        <p>Beginning in 9th grade students select one of our three magnet tracks, Mission Control, Art Lab, or CSI to focus their studies in broad fields that they are currently interested in. These magnet tracks expose our students to courses aligned with their interests and are tailored to their individual abilities.</p>
+        <p>Once a semester our students have the opportunity to work on a passion project in our
+Research class. These projects are chosen by the student and aligned with the student’s chosen magnet track. Our students have the entire semester to work on these projects, which they present to our parent community at our end-of-semester Student Showcase.</p>
+        <p>Through a careful review of each students Psych-Ed Evaluation, IEP, EP, and/or 504 we pay particular attention to each of our students accommodations to further enhance their educational experience and learning potential.</p>
+      </div>
+      <div class="approach-img-wrap">
+        <img src="img/keystoneprep-experience-2.jpg" alt="Teacher working with a student at Keystone Prep" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MISSION & VISION ── -->
+  <section class="mv-section">
+    <div class="mv-inner">
+      <div class="mv-card">
+        <span class="mv-eyebrow mv-eyebrow-blue">Our Mission</span>
+        <h2>Why We Exist</h2>
+        <p>Our mission is to offer a project-based magnet program designed for students with learning challenges so that they can flourish academically, emotionally, and socially, empowering them to become lifelong learners and responsible global citizens.</p>
+      </div>
+      <div class="mv-card">
+        <span class="mv-eyebrow mv-eyebrow-green">Our Vision</span>
+        <h2>Where We Are Going</h2>
+        <p>Our vision is to set the standard for excellence in educating students with learning challenges, becoming the destination of choice for families and advocates, as well as educators with a passion for serving our student population.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VALUES ── -->
+  <section class="values-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label-sm">Our Values</div>
+        <h2>The Principles That Guide Our Community</h2>
+        <p>Our values shape how we learn, interact, and grow together every day.</p>
+      </div>
+      <div class="values-grid">
+
+        <div class="value-card">
+          <div class="value-icon" style="background:var(--primary-container);">
+            <svg fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Fortitude</h3>
+          <p>We encourage students to face challenges with courage and perseverance, understanding that growth comes from pushing through difficulty rather than avoiding it.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon" style="background:var(--secondary-container);">
+            <svg fill="none" stroke="var(--secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Self-Discipline</h3>
+          <p>We teach students to take responsibility for their actions, manage their impulses, and remain focused on their goals.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon" style="background:var(--primary-container);">
+            <svg fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Inclusivity</h3>
+          <p>We foster a welcoming environment where every student feels respected, valued, and supported.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon" style="background:var(--secondary-container);">
+            <svg fill="none" stroke="var(--secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3>Courtesy</h3>
+          <p>We promote kindness, respect, and thoughtful behavior in all interactions.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon" style="background:var(--tertiary-container);">
+            <svg fill="none" stroke="#C17A2E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>Integrity</h3>
+          <p>We guide students to be honest, accountable, and committed to doing what is right, even when it is difficult.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon" style="background:var(--primary-container);">
+            <svg fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <h3>Reliability</h3>
+          <p>We encourage students to be dependable, responsible, and trustworthy members of the community.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon" style="background:var(--secondary-container);">
+            <svg fill="none" stroke="var(--secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <h3>Curiosity</h3>
+          <p>We inspire students to ask questions, explore new ideas, and develop a lifelong love of learning.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── THE KEYSTONE DIFFERENCE ── -->
+  <section class="difference-section">
+    <div class="difference-inner">
+      <div class="difference-content">
+        <span class="section-label-sm">The Keystone Difference</span>
+        <h2>What Makes Keystone Unique</h2>
+        <ul class="diff-list">
+          <li>
+            <span class="diff-check"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Small class sizes averaging approximately 10 students
+          </li>
+          <li>
+            <span class="diff-check"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Personalized support and low student-to-counselor ratios
+          </li>
+          <li>
+            <span class="diff-check"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Project-based and problem-based learning experiences
+          </li>
+          <li>
+            <span class="diff-check"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Three specialized magnet tracks
+          </li>
+          <li>
+            <span class="diff-check"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Portfolio assessments and Student Showcase events
+          </li>
+          <li>
+            <span class="diff-check"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            College, career, and life readiness preparation
+          </li>
+          <li>
+            <span class="diff-check"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Strong partnerships with families
+          </li>
+          <li>
+            <span class="diff-check"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            A supportive community where students are truly known
+          </li>
+        </ul>
+      </div>
+      <div class="difference-img-wrap">
+        <img src="img/keystoneprep-building.jpg" alt="Keystone Prep High School campus" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LOOKING TOWARD THE FUTURE ── -->
+  <section class="future-section">
+    <div class="future-inner">
+      <h2>Helping Students Discover What's Possible</h2>
+      <p>Our goal is not simply to help students graduate.</p>
+      <p>Our goal is to help them develop confidence, independence, and the skills needed to succeed wherever life takes them next.</p>
+      <p>Every day, we work to create an environment where students can grow academically, build meaningful relationships, explore their interests, and discover their potential.</p>
+      <p>That's what makes Keystone Prep more than a school. It's a place where students prepare for life.</p>
+      <div class="future-actions">
+        <a href="schedule-tour.html" class="btn-hero-primary">Schedule a Family Tour</a>
+        <a href="admissions.html" class="btn-hero-outline">Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <kp-footer tagline="Personalized support. Meaningful learning. Real-world preparation."></kp-footer>
+
+  <script src="js/components.js"></script>
+
+</body>
+</html>

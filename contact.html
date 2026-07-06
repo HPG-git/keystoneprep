@@ -112,6 +112,15 @@
       .contact-form-card { padding: 28px 20px; }
     }
   </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EQQSCF8KLE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EQQSCF8KLE');
+</script>
 </head>
 <body>
 
@@ -131,7 +140,7 @@
         <h1>We'd Love to Hear From You</h1>
         <p class="hero-body">Whether you have questions about admissions, programs, tuition, or just want to learn more — our team is here to help. Reach out and we'll get back to you promptly.</p>
         <div class="hero-actions">
-          <a href="#contact-form" class="btn btn-hero-primary">Send a Message</a>
+          <a href="#contact-form-card" class="btn btn-hero-primary">Send a Message</a>
           <a href="schedule-tour.html" class="btn btn-hero-outline">Schedule a Tour</a>
         </div>
       </div>
@@ -185,7 +194,7 @@
               </div>
               <div class="contact-card-body">
                 <strong>Admissions Email</strong>
-                <a href="mailto:admissions@keystoneprep.org">admissions@keystoneprep.org</a>
+                <a href="mailto:info@keystoneprep.org">info@keystoneprep.org</a>
               </div>
             </div>
 
@@ -223,11 +232,11 @@
         </div>
 
         <!-- Right: form -->
-        <div class="contact-form-card" id="contact-form">
+        <div class="contact-form-card" id="contact-form-card">
           <h3>Send Us a Message</h3>
           <p>Fill out the form below and a member of our team will follow up within one business day.</p>
 
-          <form name="contact" action="#" novalidate>
+          <form id="contact-form" name="contact" action="#" novalidate>
 
             <div class="form-row-2">
               <div class="form-group">
@@ -306,5 +315,6 @@
   <kp-footer tagline="Personalized support. Meaningful learning. Real-world preparation."></kp-footer>
 
   <script src="js/components.js"></script>
+  <script src="js/forms.js"></script>
 </body>
 </html>

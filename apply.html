@@ -242,6 +242,15 @@
     }
 
   </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EQQSCF8KLE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EQQSCF8KLE');
+</script>
 </head>
 <body>
 
@@ -343,7 +352,7 @@
           <p>Reach our admissions team directly:</p>
           <p style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
             <a href="tel:8132644500" style="color:var(--primary);font-weight:600;font-size:.9rem;text-decoration:none;">(813) 264-4500</a>
-            <a href="mailto:admissions@keystoneprep.org" style="color:var(--primary);font-weight:600;font-size:.9rem;text-decoration:none;">admissions@keystoneprep.org</a>
+            <a href="mailto:info@keystoneprep.org" style="color:var(--primary);font-weight:600;font-size:.9rem;text-decoration:none;">info@keystoneprep.org</a>
             <a href="schedule-tour.html" style="color:var(--primary);font-weight:600;font-size:.9rem;text-decoration:none;">Schedule a campus tour →</a>
           </p>
         </div>
@@ -679,7 +688,7 @@
             <h3>Supporting Documents</h3>
           </div>
           <div class="app-card-body">
-            <p class="app-hint" style="font-size:.88rem;color:var(--on-surface-var);line-height:1.7;">Upload any available documents that help us understand your student's learning profile. You do not need to have all of these — submit what you have. Documents can also be emailed to <a href="mailto:admissions@keystoneprep.org" style="color:var(--primary);">admissions@keystoneprep.org</a> after submission.</p>
+            <p class="app-hint" style="font-size:.88rem;color:var(--on-surface-var);line-height:1.7;">Upload any available documents that help us understand your student's learning profile. You do not need to have all of these — submit what you have. Documents can also be emailed to <a href="mailto:info@keystoneprep.org" style="color:var(--primary);">info@keystoneprep.org</a> after submission.</p>
 
             <div class="upload-grid">
               <div class="upload-zone" id="uz-psychoed">
@@ -779,7 +788,7 @@
               I authorize Keystone Prep High School to contact me at the phone number and email address provided regarding this application.
             </label>
           </div>
-          <p>Your application will be reviewed by our admissions team. We typically follow up within 5–7 business days. If you have questions in the meantime, please contact us at <strong>admissions@keystoneprep.org</strong> or <strong>(813) 264-4500</strong>.</p>
+          <p>Your application will be reviewed by our admissions team. We typically follow up within 5–7 business days. If you have questions in the meantime, please contact us at <strong>info@keystoneprep.org</strong> or <strong>(813) 264-4500</strong>.</p>
           <button type="submit" class="btn btn-primary" style="min-width:220px;padding:15px 36px;">Submit Application</button>
           <div class="app-submit-note">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -807,9 +816,9 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.67 9.5a19.79 19.79 0 0 1-3.07-8.57A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           (813) 264-4500
         </a>
-        <a href="mailto:admissions@keystoneprep.org" class="contact-item">
+        <a href="mailto:info@keystoneprep.org" class="contact-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          admissions@keystoneprep.org
+          info@keystoneprep.org
         </a>
       </div>
     </div>
@@ -834,25 +843,10 @@
     // Record when the form was loaded (used to detect instant bot submissions)
     document.getElementById('_form_loaded').value = Date.now();
 
-    document.getElementById('kpApplyForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      // Honeypot check — real users leave these blank
-      if (document.getElementById('_name_confirm').value || document.querySelector('[name="_email_confirm"]').value) {
-        return; // bot detected — silently discard
-      }
-
-      // Timing check — reject submissions faster than 8 seconds (no human fills this out that fast)
-      const elapsed = (Date.now() - parseInt(document.getElementById('_form_loaded').value, 10)) / 1000;
-      if (elapsed < 8) {
-        return; // bot detected — silently discard
-      }
-
-      // Submission handler — wire to backend as needed
-      alert('Thank you for applying to Keystone Prep! Our admissions team will be in touch within 5–7 business days.');
-    });
+    // Submit handler is in js/forms.js (posts to Airtable + email notification)
   </script>
 
   <script src="js/components.js"></script>
+  <script src="js/forms.js"></script>
 </body>
 </html>

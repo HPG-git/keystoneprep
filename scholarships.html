@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scholarships &amp; Financial Aid — Keystone Prep High School</title>
+  <meta name="description" content="Explore scholarship and financial aid options at Keystone Prep — including Step Up for Students, AAA Scholarships, and Keystone Prep institutional aid through FACTS." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ── Scholarship detail sections ── */
+    .sch-detail-section {
+      padding: 96px 0;
+    }
+    .sch-detail-section-alt {
+      background: var(--surface-low);
+      border-top: 1px solid var(--outline-var);
+    }
+    .sch-detail-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 80px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+    .sch-detail-content .section-label-sm { display: block; margin-bottom: 14px; }
+    .sch-detail-content h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700;
+      color: var(--on-surface); line-height: 1.25; margin-bottom: 20px;
+    }
+    .sch-detail-content p {
+      font-size: .95rem; color: var(--on-surface-var); line-height: 1.8; margin-bottom: 16px;
+    }
+    .sch-detail-content p:last-child { margin-bottom: 0; }
+    .sch-detail-content a.ext-link {
+      color: var(--primary); text-decoration: none; font-weight: 600;
+      border-bottom: 1px solid transparent; transition: border-color .15s;
+    }
+    .sch-detail-content a.ext-link:hover { border-bottom-color: var(--primary); }
+
+    .sch-sidebar {
+      position: sticky; top: 120px;
+    }
+    .sch-info-card {
+      background: var(--white);
+      border: 1px solid var(--outline-var);
+      border-radius: 20px;
+      padding: 36px 32px;
+    }
+    .sch-detail-section-alt .sch-info-card {
+      background: var(--surface-low);
+    }
+    .sch-info-card h3 {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--on-surface); margin-bottom: 16px;
+    }
+    .sch-info-card p {
+      font-size: .88rem; color: var(--on-surface-var); line-height: 1.7; margin-bottom: 20px;
+    }
+
+    .sch-checklist {
+      display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 24px;
+    }
+    .sch-check-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .88rem; color: var(--on-surface-var); line-height: 1.55;
+    }
+    .sch-check-dot {
+      flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+      background: var(--secondary-container);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .sch-check-dot svg { width: 11px; height: 11px; stroke: var(--secondary); stroke-width: 2.5; }
+
+    .sch-link-row {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .sch-ext-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: 10px;
+      font-size: .85rem; font-weight: 600;
+      text-decoration: none; transition: background .15s;
+      border: 1px solid var(--outline-var);
+      color: var(--on-surface);
+    }
+    .sch-ext-btn:hover { background: var(--surface-container); }
+    .sch-ext-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── Agreements callout ── */
+    .sch-agreements {
+      padding: 96px 0;
+      background: var(--on-surface);
+    }
+    .sch-agreements-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 80px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .sch-agreements-content h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.4rem, 2.2vw, 1.8rem); font-weight: 700;
+      color: var(--white); line-height: 1.3; margin-bottom: 20px;
+    }
+    .sch-agreements-content p {
+      font-size: .95rem; color: rgba(255,255,255,.6); line-height: 1.8; margin-bottom: 16px;
+    }
+    .sch-agreements-content p:last-child { margin-bottom: 0; }
+    .sch-agreements-aside {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px;
+      padding: 40px 36px;
+    }
+    .sch-agreements-aside h3 {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--white); margin-bottom: 16px;
+    }
+    .sch-agreements-aside p {
+      font-size: .88rem; color: rgba(255,255,255,.55); line-height: 1.75;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .sch-detail-inner,
+      .sch-agreements-inner { grid-template-columns: 1fr; gap: 40px; padding-left: 32px; padding-right: 32px; }
+      .sch-sidebar { position: static; }
+    }
+    @media (max-width: 600px) {
+      .sch-detail-inner,
+      .sch-agreements-inner { padding-left: 24px; padding-right: 24px; }
+      .sch-agreements-aside { padding: 32px 24px; }
+    }
+  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EQQSCF8KLE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EQQSCF8KLE');
+</script>
+</head>
+<body>
+
+  <kp-nav></kp-nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero hero-parallax">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <a href="tuition.html">Tuition &amp; Aid</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Scholarships</span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-page-label">Scholarships &amp; Financial Aid</div>
+        <h1>Together, We'll Help You Navigate the Financial Aid Process</h1>
+        <p class="hero-body">Keystone Prep High School is in the business of helping families and their student succeed. There are several financial aid options available to assist you in making a KPHS education a reality for your student, so don't let a lack of financial provisions stand in your student's way of pursuing the possibility.</p>
+        <div class="hero-actions">
+          <a href="schedule-tour.html" class="btn-hero-primary">Schedule a Visit</a>
+          <a href="contact.html" class="btn-hero-outline">Contact Admissions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INTRO ── -->
+  <section class="intro-section">
+    <div class="intro-inner">
+      <div class="section-label-sm">Financial Aid Overview</div>
+      <h2>Scholarships That Make a Keystone Education Possible</h2>
+      <div class="intro-body">
+        <p>There are two types of scholarships that families may be eligible for, which can help lower the cost of tuition: <strong>state funded scholarships</strong> and <strong>Keystone Prep scholarships</strong>. More details about each are given below.</p>
+        <p><strong>Many students receive financial aid — call us today to schedule an appointment!</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATE FUNDED SCHOLARSHIPS ── -->
+  <section class="sch-detail-section sch-detail-section-alt" id="state-funded">
+    <div class="sch-detail-inner">
+      <div class="sch-detail-content">
+        <span class="section-label-sm">State Funded</span>
+        <h2>State Funded Scholarships</h2>
+        <p>We encourage parents to apply for state funded scholarships, which include <strong>Step Up for Students</strong> and <strong>AAA</strong>. To view the requirements for each scholarship, please visit the Florida Department of Education School Choice website.</p>
+        <p>We can guide you through the scholarship process, customizing the financial package. In order to do so we will need to see your child's IEP, 504, Diagnosed Learning Challenge or Disability, or Psychoeducational Evaluation if they have them.</p>
+        <p>A parentally placed private school student with a disability does not have an individual right to receive some or all of the special education and related services that the student would receive if enrolled in a public school under the Individuals with Disabilities Education Act (IDEA), as amended.</p>
+      </div>
+      <div class="sch-sidebar">
+        <div class="sch-info-card">
+          <h3>Scholarship Resources</h3>
+          <p>Visit these sites to learn about eligibility and begin your application.</p>
+          <div class="sch-link-row">
+            <a href="https://www.stepupforstudents.org" target="_blank" rel="noopener noreferrer" class="sch-ext-btn">
+              <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Step Up for Students
+            </a>
+            <a href="https://www.floridaschoolchoice.org" target="_blank" rel="noopener noreferrer" class="sch-ext-btn">
+              <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              FL School Choice
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── KEYSTONE PREP SCHOLARSHIPS ── -->
+  <section class="sch-detail-section" id="kphs-scholarships">
+    <div class="sch-detail-inner">
+      <div class="sch-detail-content">
+        <span class="section-label-sm">Institutional Aid</span>
+        <h2>Keystone Prep Scholarships</h2>
+        <p>The financial aid packages are processed through <strong>FACTS</strong>, our third-party system reviewer. Keystone Prep Scholarships are awarded based on the following criteria:</p>
+        <p>FACTS will provide a financial aid report to Keystone Prep High School, indicating the amount of financial need the parent qualifies for and the parent's ability to pay, as it relates to the yearly tuition. Then the Keystone Prep Scholarship committee reviews the application and determines if a student also qualifies to receive a KPHS Scholarship.</p>
+        <p>Scholarship funds are donated or raised by the school community. Families who receive scholarships will be required to participate in school fundraising events that support the scholarship fund.</p>
+      </div>
+      <div class="sch-sidebar">
+        <div class="sch-info-card">
+          <h3>Eligibility Requirements</h3>
+          <div class="sch-checklist">
+            <div class="sch-check-item">
+              <span class="sch-check-dot"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Completion of full financial aid documents via FACTS
+            </div>
+            <div class="sch-check-item">
+              <span class="sch-check-dot"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Financial need verified by tax records from both parents with custody records when necessary
+            </div>
+            <div class="sch-check-item">
+              <span class="sch-check-dot"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Continuing scholarships based on parent support, good standing, work study completion, and attendance
+            </div>
+          </div>
+          <a href="https://www.factsmgt.com" target="_blank" rel="noopener noreferrer" class="sch-ext-btn">
+            <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Apply on FACTS
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SCHOLARSHIP AGREEMENTS ── -->
+  <section class="sch-agreements">
+    <div class="sch-agreements-inner">
+      <div class="sch-agreements-content">
+        <h2>Scholarship Agreements</h2>
+        <p>All financial arrangements are made via the Director of Admissions and with the Head of School. The Business Manager is responsible to oversee the contracts and requirements for financial aid.</p>
+        <p>Families whose students receive scholarships must ensure their student does not violate those contractual scholarship agreements. If they do, the family will be billed for and must pay back the previously gifted funds.</p>
+      </div>
+      <div class="sch-agreements-aside">
+        <h3>Important</h3>
+        <p>All scholarship students must adhere to the agreed upon conditions and terms set forth in the signed family contract to receive Keystone Prep High School Scholarships.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Ready to Explore Your Options?</h2>
+      <p>Many families qualify for financial aid. Contact our admissions team to learn which scholarships may apply to your student and how to get started.</p>
+      <div class="cta-actions">
+        <a href="schedule-tour.html" class="btn-cta-solid">Schedule a Visit</a>
+        <a href="contact.html" class="btn-cta-outline">Contact Admissions</a>
+      </div>
+    </div>
+  </section>
+
+  <kp-footer tagline="Personalized support. Meaningful learning. Real-world preparation."></kp-footer>
+
+  <script src="js/components.js"></script>
+
+</body>
+</html>

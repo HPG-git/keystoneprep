@@ -10,3 +10,6 @@ _notes/
 *.swp
 *.swo
 .vscode/
+
+# Secrets — never commit
+api/config.local.php

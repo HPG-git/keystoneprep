@@ -9,13 +9,42 @@
 ───────────────────────────────────────────── */
 
 const NAV_LINKS = [
-  { label: 'Admissions',         href: 'admissions.html'   },
-  { label: 'Academics',          href: 'academics.html'    },
-  { label: 'Our Knights',        href: 'faculty-staff.html' },
-  { label: 'Pathways',           href: 'programs.html'     },
-  { label: 'Summer Quests',      href: 'summer-camps.html' },
-  { label: 'Champion the Cause', href: 'giving.html'       },
+  {
+    label: 'About',
+    href: '/about-us.html',
+    children: [
+      { label: 'Staff',             href: '/faculty-staff.html'    },
+      { label: 'Board of Trustees', href: '/board-of-trustees.html' },
+      { label: 'Contact Us',        href: '/contact.html'          },
+      { label: 'Report Misconduct', href: '/report-misconduct.html' },
+      { label: 'Our Newsletter',    href: 'https://word.keystoneprep.org/newsletter-2/', newTab: true },
+    ],
+  },
+  {
+    label: 'Admissions',
+    href: '/admissions.html',
+    children: [
+      { label: 'Apply Now',     href: '/apply.html'   },
+      { label: 'Tuition & Aid', href: '/tuition.html' },
+      { label: 'Payment',       href: 'https://word.keystoneprep.org/payment/' },
+    ],
+  },
+  {
+    label: 'Academics',
+    href: '/academics.html',
+    children: [
+      { label: 'Our Magnet Programs', href: '/programs.html' },
+    ],
+  },
+  { label: 'Giving',          href: '/giving.html'       },
+  { label: 'Alumni',          href: '/alumni.html'       },
+  { label: 'Summer Programs', href: '/summer-camps.html' },
 ];
+
+const ICON_CHEVRON = `<svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M6 9l6 6 6-6"/>
+</svg>`;
 
 const LOGO_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
   stroke-linecap="round" stroke-linejoin="round">
@@ -45,7 +74,18 @@ function getActivePage() {
 
 /* Build nav link HTML, marking the active page */
 function buildNavLinks(activePage) {
-  return NAV_LINKS.map(({ label, href }) => {
+  return NAV_LINKS.map(({ label, href, children }) => {
+    if (children && children.length) {
+      const isActive = activePage === href || children.some(c => c.href === activePage);
+      const selfLink = `<a href="${href}" class="nav-dropdown-link nav-dropdown-self${activePage === href ? ' active' : ''}">${label} Overview</a>`;
+      const childLinks = children.map(c =>
+        `<a href="${c.href}" class="nav-dropdown-link${activePage === c.href ? ' active' : ''}"${c.newTab ? ' target="_blank" rel="noopener noreferrer"' : ''}>${c.label}</a>`
+      ).join('');
+      return `<div class="nav-item${isActive ? ' active' : ''}">
+        <a href="${href}" class="nav-link${isActive ? ' active' : ''}">${label}${ICON_CHEVRON}</a>
+        <div class="nav-dropdown">${selfLink}${childLinks}</div>
+      </div>`;
+    }
     const isActive = activePage === href;
     return `<a href="${href}" class="nav-link${isActive ? ' active' : ''}">${label}</a>`;
   }).join('\n        ');
@@ -58,8 +98,8 @@ class KpNav extends HTMLElement {
     this.outerHTML = `
 <header class="nav" id="kp-nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-mark"><img src="img/logo-keystone-2.png" alt="Keystone Prep logo" /></div>
+    <a href="/index.html" class="nav-logo">
+      <div class="nav-logo-mark"><img src="/img/logo-keystone-2.png" alt="Keystone Prep logo" /></div>
       <div class="nav-logo-text">
         <strong>Keystone Prep</strong>
         <span>High School</span>
@@ -69,7 +109,11 @@ class KpNav extends HTMLElement {
       ${buildNavLinks(activePage)}
     </nav>
     <div class="nav-actions">
-      <a href="schedule-tour.html" class="btn-apply-now">Schedule Tour</a>
+      <a href="tel:8132644500" class="nav-phone" aria-label="Call Keystone Prep">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.67 9.5a19.79 19.79 0 0 1-3.07-8.57A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>(813) 264-4500</span>
+      </a>
+      <a href="/schedule-tour.html" class="btn-apply-now">Schedule a Tour</a>
     </div>
     <button class="nav-hamburger" id="kp-hamburger" aria-label="Open menu" aria-expanded="false">${ICON_MENU}</button>
   </div>
@@ -90,8 +134,19 @@ class KpNav extends HTMLElement {
           <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>` : ICON_MENU;
       });
 
-      /* Close menu when a nav link is tapped */
-      navLinks.querySelectorAll('a').forEach(a => {
+      /* Mobile: toggle dropdown sub-items when parent link is tapped */
+      navLinks.querySelectorAll('.nav-item .nav-link').forEach(parentLink => {
+        parentLink.addEventListener('click', e => {
+          if (window.innerWidth <= 900) {
+            e.preventDefault();
+            const item = parentLink.closest('.nav-item');
+            item.classList.toggle('dropdown-open');
+          }
+        });
+      });
+
+      /* Close menu when a leaf nav link or dropdown link is tapped */
+      navLinks.querySelectorAll('a:not(.nav-item .nav-link), .nav-dropdown-link').forEach(a => {
         a.addEventListener('click', () => {
           navLinks.classList.remove('nav-links-open');
           hamburger.setAttribute('aria-expanded', 'false');
@@ -114,7 +169,7 @@ class KpFooter extends HTMLElement {
   <div class="footer-top-bar"></div>
   <div class="footer-main">
     <div class="footer-brand-col">
-      <img src="img/logo-keystone-1.png" alt="Keystone Prep" class="footer-brand-logo" />
+      <img src="/img/logo-keystone-1.png" alt="Keystone Prep" class="footer-brand-logo" />
       <p class="footer-tagline">${tagline}</p>
       <div class="footer-socials">
         <a href="https://keystoneprep.org/#keystoneprep" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
@@ -136,25 +191,30 @@ class KpFooter extends HTMLElement {
       <div class="footer-col">
         <h4>Explore</h4>
         <div class="footer-links">
-          <a href="admissions.html"       class="footer-link">Admissions</a>
-          <a href="academics.html"        class="footer-link">Academics</a>
-          <a href="programs.html"         class="footer-link">Pathways</a>
-          <a href="summer-camps.html"     class="footer-link">Summer Quests</a>
-          <a href="faculty-staff.html"    class="footer-link">Our Knights</a>
-          <a href="giving.html"           class="footer-link">Champion the Cause</a>
-          <a href="board-of-trustees.html" class="footer-link">Board of Trustees</a>
+          <a href="about-us.html"          class="footer-link">About Us</a>
+          <a href="faculty-staff.html"     class="footer-link footer-link-sub">Staff</a>
+          <a href="board-of-trustees.html" class="footer-link footer-link-sub">Board of Trustees</a>
+          <a href="contact.html"           class="footer-link footer-link-sub">Contact Us</a>
+          <a href="report-misconduct.html" class="footer-link footer-link-sub">Report Misconduct</a>
+          <a href="academics.html"         class="footer-link">Academics</a>
+          <a href="programs.html"          class="footer-link footer-link-sub">Our Magnet Programs</a>
+          <a href="admissions.html"        class="footer-link">Admissions</a>
+          <a href="tuition.html"           class="footer-link footer-link-sub">Tuition &amp; Aid</a>
+          <a href="apply.html"             class="footer-link footer-link-sub">Apply Now</a>
+          <a href="summer-camps.html"      class="footer-link">Summer Programs</a>
+          <a href="giving.html"            class="footer-link">Giving</a>
         </div>
       </div>
 
       <div class="footer-col">
         <h4>Resources</h4>
         <div class="footer-links">
-          <a href="schedule-tour.html" class="footer-link">Schedule a Tour</a>
+          <a href="/schedule-tour.html" class="footer-link">Schedule a Tour</a>
           <a href="tuition.html"       class="footer-link">Tuition &amp; Aid</a>
           <a href="contact.html"       class="footer-link">Contact Us</a>
-          <a href="careers.html"       class="footer-link">Careers</a>
-          <a href="privacy.html"       class="footer-link">Privacy Policy</a>
-          <a href="terms.html"         class="footer-link">Terms of Service</a>
+          <a href="/careers.html"       class="footer-link">Careers</a>
+          <a href="/privacy.html"       class="footer-link">Privacy Policy</a>
+          <a href="/terms.html"         class="footer-link">Terms of Service</a>
         </div>
       </div>
 
@@ -177,7 +237,7 @@ class KpFooter extends HTMLElement {
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
             <polyline points="22,6 12,13 2,6"/>
           </svg>
-          <a href="mailto:admissions@keystoneprep.org">admissions@keystoneprep.org</a>
+          <a href="mailto:info@keystoneprep.org">info@keystoneprep.org</a>
         </div>
       </div>
     </div>
@@ -186,9 +246,8 @@ class KpFooter extends HTMLElement {
   <div class="footer-bottom">
     <p>&copy; ${new Date().getFullYear()} Keystone Prep High School. All rights reserved.</p>
     <div class="footer-bottom-links">
-      <a href="#">Home Site</a>
-      <a href="#">Alumni Site</a>
-      <a href="#">Staff Roster</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Use</a>
     </div>
   </div>
 </footer>`;
