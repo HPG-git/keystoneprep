@@ -2864,14 +2864,22 @@ footer { background: #242424; }
 
 /* ── HOME HERO ── */
 .hero-bg-home {
-  background:
-    linear-gradient(105deg, rgba(8,28,52,.82) 0%, rgba(10,40,72,.68) 50%, rgba(12,50,90,.5) 100%),
-    url('../img/keystoneprep-building.jpg') center center / cover no-repeat;
-  background-attachment: fixed;
+  background: linear-gradient(105deg, rgba(8,28,52,.82) 0%, rgba(10,40,72,.68) 50%, rgba(12,50,90,.5) 100%);
+}
+
+.hero-video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: 0;
 }
 
 @media (max-width: 768px) {
-  .hero-bg-home { background-attachment: scroll; }
+  .hero-video { display: none; }
+  .hero-bg-home {
+    background:
+      linear-gradient(105deg, rgba(8,28,52,.82) 0%, rgba(10,40,72,.68) 50%, rgba(12,50,90,.5) 100%),
+      url('../img/keystoneprep-building.jpg') center center / cover no-repeat;
+    background-attachment: scroll;
+  }
 }
 
 /* ── FACULTY HERO PARALLAX ── */
