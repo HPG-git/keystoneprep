@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Calendar — Keystone Prep High School</title>
+  <meta name="description"
+    content="The 2026–2027 master calendar for Keystone Prep High School — holidays, testing days, parent meetings, open houses, and school events, all in one place." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQQSCF8KLE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-EQQSCF8KLE');
+  </script>
+
+  <style>
+    .hero-bg-calendar {
+      background:
+        linear-gradient(105deg, rgba(8,28,52,.82) 0%, rgba(10,40,72,.68) 50%, rgba(12,50,90,.5) 100%),
+        url('img/keystoneprep-building.jpg') center center / cover no-repeat;
+      background-attachment: fixed;
+    }
+    @media (max-width: 900px) {
+      .hero-bg-calendar { background-attachment: scroll; }
+    }
+
+    /* ── Sticky month-jump nav ── */
+    .cal-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--outline-var);
+      position: sticky;
+      top: 100px;
+      z-index: 40;
+    }
+    .cal-nav-inner {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .cal-nav-link {
+      padding: 14px 18px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--on-surface-var);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+    .cal-nav-link:hover { color: var(--primary); border-bottom-color: var(--outline-var); }
+
+    /* ── Intro / legend ── */
+    .cal-intro { padding: 64px 0 40px; background: var(--white); }
+    .cal-intro h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.5rem, 2.2vw, 2rem);
+      font-weight: 700;
+      color: var(--on-surface);
+      line-height: 1.3;
+      margin-bottom: 16px;
+      max-width: 640px;
+    }
+    .cal-intro p {
+      font-size: 1rem;
+      color: var(--on-surface-var);
+      line-height: 1.8;
+      max-width: 640px;
+    }
+    .cal-legend {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 28px;
+      row-gap: 12px;
+      align-items: center;
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid var(--outline-var);
+    }
+    .cal-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: .86rem;
+      color: var(--on-surface-var);
+    }
+
+    /* ── Month sections ── */
+    .cal-months { background: var(--surface-low); padding: 8px 0 100px; }
+
+    .cal-month { scroll-margin-top: 168px; padding-top: 56px; }
+
+    .cal-month-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 18px;
+      margin-bottom: 4px;
+      border-bottom: 2px solid var(--primary);
+    }
+    .cal-month-title { display: flex; flex-direction: column; gap: 4px; }
+    .cal-month-header h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.3rem, 2vw, 1.65rem);
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .cal-month-count {
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--on-surface-var);
+      white-space: nowrap;
+    }
+
+    .cal-month-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1.5px solid var(--outline-var);
+      background: var(--white);
+      color: var(--on-surface-var);
+      cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .cal-month-toggle:hover {
+      background: var(--surface-container);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .cal-month-toggle svg {
+      width: 18px;
+      height: 18px;
+      transition: transform .2s ease;
+    }
+    .cal-month.cal-collapsed .cal-month-toggle svg { transform: rotate(-90deg); }
+    .cal-month.cal-collapsed .cal-month-header { border-bottom-color: var(--outline-var); }
+
+    .cal-list { display: flex; flex-direction: column; }
+    .cal-month.cal-collapsed .cal-list { display: none; }
+
+    .cal-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 190px 44px;
+      gap: 20px;
+      align-items: baseline;
+      padding: 18px 16px;
+      margin: 0 -16px;
+      border-radius: 10px;
+      border-bottom: 1px solid var(--outline-var);
+      transition: background .15s;
+    }
+    .cal-row:hover { background: #ffffff; }
+    .cal-list .cal-row:last-child { border-bottom: none; }
+
+    .cal-date {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+
+    .cal-event { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .cal-event-title { font-size: .96rem; color: var(--on-surface); line-height: 1.55; }
+    .cal-event-note { color: var(--on-surface-var); }
+
+    .cal-time {
+      font-size: .85rem;
+      color: var(--on-surface-var);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .badge-red { background: #FBE2E1; color: #B3261E; }
+
+    .cal-row-noschool .cal-date,
+    .cal-row-noschool .cal-event-title { color: #B3261E; font-weight: 700; }
+
+    .cal-row-milestone .cal-date,
+    .cal-row-milestone .cal-event-title { color: var(--primary); font-weight: 700; }
+
+    /* ── Add to Calendar ── */
+    .cal-add { display: flex; justify-content: flex-end; align-self: baseline; }
+    .cal-add-wrap { position: relative; }
+
+    .cal-add-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1.5px solid var(--outline-var);
+      background: var(--white);
+      color: var(--on-surface-var);
+      cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .cal-add-btn:hover,
+    .cal-add-btn[aria-expanded="true"] {
+      background: var(--surface-container);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .cal-add-btn svg { width: 16px; height: 16px; }
+
+    .cal-add-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 200px;
+      background: var(--white);
+      border: 1px solid var(--outline-var);
+      border-radius: 10px;
+      box-shadow: 0 10px 28px rgba(16,24,40,.14);
+      padding: 6px;
+      z-index: 30;
+    }
+    .cal-add-menu.open { display: flex; flex-direction: column; gap: 1px; }
+
+    .cal-add-menu a,
+    .cal-add-menu button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 9px 12px;
+      border-radius: 7px;
+      border: none;
+      background: none;
+      font-family: 'Inter', sans-serif;
+      font-size: .83rem;
+      font-weight: 500;
+      color: var(--on-surface);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .12s;
+    }
+    .cal-add-menu a:hover,
+    .cal-add-menu button:hover { background: var(--surface-container); }
+
+    @media (max-width: 700px) {
+      .cal-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 20px 16px;
+        position: relative;
+      }
+      .cal-time { text-align: left; }
+      .cal-add { justify-content: flex-start; position: absolute; top: 20px; right: 0; }
+      .cal-month { scroll-margin-top: 190px; }
+    }
+
+    @media print {
+      .nav, .cal-nav, footer, .hero-actions, .hero-breadcrumb, .cal-add { display: none !important; }
+      .hero { min-height: 0; padding: 24px 0; }
+      .hero-bg-calendar { background: none !important; }
+      .hero h1, .hero-page-label, .hero-body { color: var(--on-surface) !important; }
+      .cal-row { grid-template-columns: 220px 1fr 190px; }
+      .cal-month { scroll-margin-top: 0; break-inside: avoid; }
+      .cal-months { background: var(--white); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <kp-nav></kp-nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero hero-parallax">
+    <div class="hero-bg hero-bg-calendar"></div>
+    <div class="hero-inner">
+      <div class="hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+        <span>Calendar</span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-page-label">2026–2027 School Year</div>
+        <h1>Master Calendar</h1>
+        <p class="hero-body">Every important date for the school year — in-service days, holidays, testing,
+          family events, and more — all in one place.</p>
+        <div class="hero-actions">
+          <a href="#august-2026" class="btn-hero-primary">Jump to First Day</a>
+          <a href="pdf/ksphs-2026-2027-calendar.pdf" download class="btn-hero-outline">Download Calendar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STICKY MONTH NAV ── -->
+  <nav class="cal-nav" aria-label="Jump to month">
+    <div class="cal-nav-inner container">
+      <a href="#august-2026"   class="cal-nav-link" aria-label="Jump to August 2026">Aug</a>
+      <a href="#september-2026" class="cal-nav-link" aria-label="Jump to September 2026">Sept</a>
+      <a href="#october-2026"  class="cal-nav-link" aria-label="Jump to October 2026">Oct</a>
+      <a href="#november-2026" class="cal-nav-link" aria-label="Jump to November 2026">Nov</a>
+      <a href="#december-2026" class="cal-nav-link" aria-label="Jump to December 2026">Dec</a>
+      <a href="#january-2027"  class="cal-nav-link" aria-label="Jump to January 2027">Jan</a>
+      <a href="#february-2027" class="cal-nav-link" aria-label="Jump to February 2027">Feb</a>
+      <a href="#march-2027"    class="cal-nav-link" aria-label="Jump to March 2027">Mar</a>
+      <a href="#april-2027"    class="cal-nav-link" aria-label="Jump to April 2027">Apr</a>
+      <a href="#may-2027"      class="cal-nav-link" aria-label="Jump to May 2027">May</a>
+      <a href="#june-2027"     class="cal-nav-link" aria-label="Jump to June 2027">Jun</a>
+    </div>
+  </nav>
+
+  <!-- ── INTRO / LEGEND ── -->
+  <section class="cal-intro">
+    <div class="container">
+      <div class="section-label-sm">How to Read This Calendar</div>
+      <h2>Key Dates for the 2026–2027 School Year</h2>
+      <p>This calendar covers everything from the first day of school through graduation and summer remediation.
+        Use the tabs above to jump to a month, or scroll to browse the full year.</p>
+
+      <div class="cal-legend">
+        <div class="cal-legend-item"><span class="badge badge-red">No School</span> Campus closed for students</div>
+        <div class="cal-legend-item"><span class="badge badge-blue">Required</span> Mandatory attendance</div>
+        <div class="cal-legend-item"><span class="badge badge-green">Volunteer Hours</span> Hours available for
+          attending</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MONTHS ── -->
+  <div class="cal-months">
+    <div class="container">
+
+      <!-- AUGUST 2026 -->
+      <section class="cal-month" id="august-2026">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>August 2026</h2>
+            <span class="cal-month-count">6 events</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse August 2026" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="All Staff In-Service" data-cal-start="2026-08-10T08:00" data-cal-end="2026-08-12T16:00" data-cal-allday="false">
+            <div class="cal-date">Mon. Aug. 10 – Wed. Aug. 12</div>
+            <div class="cal-event"><span class="cal-event-title">All Staff In-Service</span></div>
+            <div class="cal-time">8:00am – 4:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Parent Orientation" data-cal-start="2026-08-11T18:00" data-cal-end="2026-08-11T20:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Aug. 11</div>
+            <div class="cal-event"><span class="cal-event-title">Parent Orientation
+                <span class="cal-event-note">(No students)</span></span></div>
+            <div class="cal-time">6:00pm – 8:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="PTO Virtual Meeting" data-cal-start="2026-08-12T12:00" data-cal-end="2026-08-12T13:00" data-cal-allday="false">
+            <div class="cal-date">Wed. Aug. 12</div>
+            <div class="cal-event"><span class="cal-event-title">PTO (Parent Teacher Organization) Virtual
+                Meeting</span></div>
+            <div class="cal-time">12:00pm – 1:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-milestone" data-cal-title="First Day of School" data-cal-start="2026-08-13T08:30" data-cal-end="2026-08-13T11:30" data-cal-allday="false">
+            <div class="cal-date">Thu. Aug. 13</div>
+            <div class="cal-event"><span class="cal-event-title">First Day of School</span></div>
+            <div class="cal-time">8:30am – 11:30am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Back to School Bash" data-cal-start="2026-08-13T11:30" data-cal-end="2026-08-13T15:25" data-cal-allday="false">
+            <div class="cal-date">Thu. Aug. 13</div>
+            <div class="cal-event"><span class="cal-event-title">Back to School Bash
+                <span class="cal-event-note">(parents welcome)</span></span>
+              <span class="badge badge-green">Volunteer Hours</span></div>
+            <div class="cal-time">11:30am – 3:25pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Classes Continue for Students" data-cal-start="2026-08-14T08:30" data-cal-end="2026-08-14T15:25" data-cal-allday="false">
+            <div class="cal-date">Fri. Aug. 14</div>
+            <div class="cal-event"><span class="cal-event-title">Classes continue for students all day
+                <span class="cal-event-note">(uniforms required)</span></span></div>
+            <div class="cal-time">8:30am – 3:25pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEPTEMBER 2026 -->
+      <section class="cal-month" id="september-2026">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>September 2026</h2>
+            <span class="cal-month-count">6 events</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse September 2026" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="PTO Virtual Meeting" data-cal-start="2026-09-02" data-cal-end="2026-09-02" data-cal-allday="true">
+            <div class="cal-date">Wed. Sept. 2</div>
+            <div class="cal-event"><span class="cal-event-title">PTO (Parent Teacher Organization) Virtual
+                Meeting</span></div>
+            <div class="cal-time">TBA</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="Labor Day - No School" data-cal-start="2026-09-07" data-cal-end="2026-09-07" data-cal-allday="true">
+            <div class="cal-date">Mon. Sept. 7</div>
+            <div class="cal-event"><span class="cal-event-title">Labor Day</span>
+              <span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Senior Parent Virtual Meeting" data-cal-start="2026-09-08T18:00" data-cal-end="2026-09-08T19:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Sept. 8</div>
+            <div class="cal-event"><span class="cal-event-title">Senior parent virtual meeting</span>
+              <span class="badge badge-blue">Required</span></div>
+            <div class="cal-time">6:00pm – 7:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Progress Reports Issued" data-cal-start="2026-09-11" data-cal-end="2026-09-11" data-cal-allday="true">
+            <div class="cal-date">Fri. Sept. 11</div>
+            <div class="cal-event"><span class="cal-event-title">Progress Reports issued</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Junior Parent Virtual Meeting" data-cal-start="2026-09-22T18:00" data-cal-end="2026-09-22T19:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Sept. 22</div>
+            <div class="cal-event"><span class="cal-event-title">Junior parent virtual meeting</span>
+              <span class="badge badge-blue">Required</span></div>
+            <div class="cal-time">6:00pm – 7:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="School Picture Day" data-cal-start="2026-09-23" data-cal-end="2026-09-23" data-cal-allday="true">
+            <div class="cal-date">Wed. Sept. 23</div>
+            <div class="cal-event"><span class="cal-event-title">School Picture Day</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- OCTOBER 2026 -->
+      <section class="cal-month" id="october-2026">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>October 2026</h2>
+            <span class="cal-month-count">12 events</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse October 2026" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="A Day with the Trustees" data-cal-start="2026-10-05" data-cal-end="2026-10-05" data-cal-allday="true">
+            <div class="cal-date">Mon. Oct. 5</div>
+            <div class="cal-event"><span class="cal-event-title">A Day with the Trustees</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="PTO Virtual Meeting" data-cal-start="2026-10-07" data-cal-end="2026-10-07" data-cal-allday="true">
+            <div class="cal-date">Wed. Oct. 7</div>
+            <div class="cal-event"><span class="cal-event-title">PTO (Parent Teacher Organization) Virtual
+                Meeting</span></div>
+            <div class="cal-time">TBA</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="End of Quarter 1" data-cal-start="2026-10-09" data-cal-end="2026-10-09" data-cal-allday="true">
+            <div class="cal-date">Fri. Oct. 9</div>
+            <div class="cal-event"><span class="cal-event-title">End of Quarter 1</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Fall Field Day" data-cal-start="2026-10-09" data-cal-end="2026-10-09" data-cal-allday="true">
+            <div class="cal-date">Fri. Oct. 9</div>
+            <div class="cal-event"><span class="cal-event-title">Fall Field Day</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="Columbus Day - No School" data-cal-start="2026-10-12" data-cal-end="2026-10-12" data-cal-allday="true">
+            <div class="cal-date">Mon. Oct. 12</div>
+            <div class="cal-event"><span class="cal-event-title">Columbus Day</span>
+              <span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Prospective Families Open House" data-cal-start="2026-10-13T08:45" data-cal-end="2026-10-13T10:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Oct. 13</div>
+            <div class="cal-event"><span class="cal-event-title">Prospective Families Open House</span></div>
+            <div class="cal-time">8:45am – 10:00am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Sophomore Parent Virtual Meeting" data-cal-start="2026-10-13T18:00" data-cal-end="2026-10-13T19:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Oct. 13</div>
+            <div class="cal-event"><span class="cal-event-title">Sophomore parent virtual meeting</span>
+              <span class="badge badge-blue">Required</span></div>
+            <div class="cal-time">6:00pm – 7:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="PSAT/SAT School Day Testing" data-cal-start="2026-10-14" data-cal-end="2026-10-14" data-cal-allday="true">
+            <div class="cal-date">Wed. Oct. 14</div>
+            <div class="cal-event"><span class="cal-event-title">PSAT Testing 9–11 &amp; SAT School Day Testing
+                for Seniors <span class="cal-event-note">— Early Release</span></span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Fall Beautification Day" data-cal-start="2026-10-17T08:00" data-cal-end="2026-10-17T12:00" data-cal-allday="false">
+            <div class="cal-date">Sat. Oct. 17</div>
+            <div class="cal-event"><span class="cal-event-title">Fall Beautification Day</span>
+              <span class="badge badge-green">Volunteer Hours</span></div>
+            <div class="cal-time">8:00am – 12:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Freshman Parent Virtual Meeting" data-cal-start="2026-10-20T18:00" data-cal-end="2026-10-20T19:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Oct. 20</div>
+            <div class="cal-event"><span class="cal-event-title">Freshman parent virtual meeting</span>
+              <span class="badge badge-blue">Required</span></div>
+            <div class="cal-time">6:00pm – 7:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Homecoming Dance" data-cal-start="2026-10-23T19:00" data-cal-end="2026-10-23T22:00" data-cal-allday="false">
+            <div class="cal-date">Fri. Oct. 23</div>
+            <div class="cal-event"><span class="cal-event-title">Homecoming Dance</span>
+              <span class="badge badge-green">Volunteer Hours</span></div>
+            <div class="cal-time">7:00pm – 10:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Halloween Dress Up Day" data-cal-start="2026-10-30" data-cal-end="2026-10-30" data-cal-allday="true">
+            <div class="cal-date">Fri. Oct. 30</div>
+            <div class="cal-event"><span class="cal-event-title">Halloween Dress Up Day
+                <span class="cal-event-note">(no vulgar or offensive costumes)</span></span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOVEMBER 2026 -->
+      <section class="cal-month" id="november-2026">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>November 2026</h2>
+            <span class="cal-month-count">10 events</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse November 2026" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="Parent Teacher Conferences" data-cal-start="2026-11-02T16:00" data-cal-end="2026-11-02T19:00" data-cal-allday="false">
+            <div class="cal-date">Mon. Nov. 2</div>
+            <div class="cal-event"><span class="cal-event-title">Parent Teacher Conferences
+                <span class="cal-event-note">(by appointment only)</span></span></div>
+            <div class="cal-time">4:00pm – 7:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="PTO Virtual Meeting" data-cal-start="2026-11-03" data-cal-end="2026-11-03" data-cal-allday="true">
+            <div class="cal-date">Wed. Nov. 3</div>
+            <div class="cal-event"><span class="cal-event-title">PTO (Parent Teacher Organization) Virtual
+                Meeting</span></div>
+            <div class="cal-time">TBA</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="SAT Saturday Test Site" data-cal-start="2026-11-07" data-cal-end="2026-11-07" data-cal-allday="true">
+            <div class="cal-date">Sat. Nov. 7</div>
+            <div class="cal-event"><span class="cal-event-title">SAT Saturday Test Site
+                <span class="cal-event-note">— public welcome</span></span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Veteran's Day Assembly" data-cal-start="2026-11-10T12:00" data-cal-end="2026-11-10T13:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Nov. 10</div>
+            <div class="cal-event"><span class="cal-event-title">Veteran's Day Assembly</span></div>
+            <div class="cal-time">12:00pm – 1:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="Veteran's Day - No School" data-cal-start="2026-11-11" data-cal-end="2026-11-11" data-cal-allday="true">
+            <div class="cal-date">Wed. Nov. 11</div>
+            <div class="cal-event"><span class="cal-event-title">Veteran's Day</span>
+              <span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Prospective Families Open House" data-cal-start="2026-11-12T18:00" data-cal-end="2026-11-12T20:00" data-cal-allday="false">
+            <div class="cal-date">Thu. Nov. 12</div>
+            <div class="cal-event"><span class="cal-event-title">Prospective Families Open House</span></div>
+            <div class="cal-time">6:00pm – 8:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Progress Reports Issued" data-cal-start="2026-11-13" data-cal-end="2026-11-13" data-cal-allday="true">
+            <div class="cal-date">Fri. Nov. 13</div>
+            <div class="cal-event"><span class="cal-event-title">Progress Reports issued</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Thanksgiving Food Drive" data-cal-start="2026-11-16" data-cal-end="2026-11-20" data-cal-allday="true">
+            <div class="cal-date">Mon. Nov. 16 – Fri. Nov. 20</div>
+            <div class="cal-event"><span class="cal-event-title">Thanksgiving Food Drive</span>
+              <span class="badge badge-green">Volunteer Hours</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Thanksgiving Feast" data-cal-start="2026-11-20" data-cal-end="2026-11-20" data-cal-allday="true">
+            <div class="cal-date">Fri. Nov. 20</div>
+            <div class="cal-event"><span class="cal-event-title">Thanksgiving Feast
+                <span class="cal-event-note">— half day, early release 12:30pm</span></span>
+              <span class="badge badge-green">Volunteer Hours</span></div>
+            <div class="cal-time">12:30pm release</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="Thanksgiving Break - No School" data-cal-start="2026-11-23" data-cal-end="2026-11-27" data-cal-allday="true">
+            <div class="cal-date">Mon. Nov. 23 – Fri. Nov. 27</div>
+            <div class="cal-event"><span class="cal-event-title">Thanksgiving Break</span>
+              <span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DECEMBER 2026 -->
+      <section class="cal-month" id="december-2026">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>December 2026</h2>
+            <span class="cal-month-count">9 events</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse December 2026" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="PTO Virtual Meeting" data-cal-start="2026-12-02" data-cal-end="2026-12-02" data-cal-allday="true">
+            <div class="cal-date">Wed. Dec. 2</div>
+            <div class="cal-event"><span class="cal-event-title">PTO (Parent Teacher Organization) Virtual
+                Meeting</span></div>
+            <div class="cal-time">TBA</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="ASVAB Testing" data-cal-start="2026-12-04T08:30" data-cal-end="2026-12-04T11:30" data-cal-allday="false">
+            <div class="cal-date">Fri. Dec. 4</div>
+            <div class="cal-event"><span class="cal-event-title">ASVAB Testing
+                <span class="cal-event-note">(optional for 10th–12th grades)</span></span></div>
+            <div class="cal-time">8:30am – 11:30am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Early Release" data-cal-start="2026-12-04T12:00" data-cal-end="2026-12-04T12:30" data-cal-allday="false">
+            <div class="cal-date">Fri. Dec. 4</div>
+            <div class="cal-event"><span class="cal-event-title">Early Release</span></div>
+            <div class="cal-time">12:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Prospective Families Open House" data-cal-start="2026-12-08T08:45" data-cal-end="2026-12-08T10:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Dec. 8</div>
+            <div class="cal-event"><span class="cal-event-title">Prospective Families Open House</span></div>
+            <div class="cal-time">8:45am – 10:00am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Fall Student Showcase" data-cal-start="2026-12-10T18:00" data-cal-end="2026-12-10T20:00" data-cal-allday="false">
+            <div class="cal-date">Thu. Dec. 10</div>
+            <div class="cal-event"><span class="cal-event-title">Fall Student Showcase</span></div>
+            <div class="cal-time">6:00pm – 8:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Hot Chocolate with the Head of School" data-cal-start="2026-12-14T08:00" data-cal-end="2026-12-14T08:30" data-cal-allday="false">
+            <div class="cal-date">Mon. Dec. 14</div>
+            <div class="cal-event"><span class="cal-event-title">Hot Chocolate with the Head of School
+                <span class="cal-event-note">(for students)</span></span></div>
+            <div class="cal-time">8:00am – 8:30am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Mid-term Exams / End of Quarter 2" data-cal-start="2026-12-15" data-cal-end="2026-12-17" data-cal-allday="true">
+            <div class="cal-date">Tue. Dec. 15 – Thu. Dec. 17</div>
+            <div class="cal-event"><span class="cal-event-title">Mid-term Exams
+                <span class="cal-event-note">— half day, early release 12:30pm; End of Quarter 2</span></span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="Report Cards Posted - No School" data-cal-start="2026-12-18" data-cal-end="2026-12-18" data-cal-allday="true">
+            <div class="cal-date">Fri. Dec. 18</div>
+            <div class="cal-event"><span class="cal-event-title">Report Cards Posted
+                <span class="cal-event-note">(staff professional day / exam make-up day)</span></span>
+              <span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="Winter Break - No School" data-cal-start="2026-12-21" data-cal-end="2027-01-04" data-cal-allday="true">
+            <div class="cal-date">Mon. Dec. 21 – Mon. Jan. 4</div>
+            <div class="cal-event"><span class="cal-event-title">Winter Break</span>
+              <span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- JANUARY 2027 -->
+      <section class="cal-month" id="january-2027">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>January 2027</h2>
+            <span class="cal-month-count">6 events</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse January 2027" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="Classes Resume" data-cal-start="2027-01-05" data-cal-end="2027-01-05" data-cal-allday="true">
+            <div class="cal-date">Tue. Jan. 5</div>
+            <div class="cal-event"><span class="cal-event-title">Classes Resume</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="PTO Virtual Meeting" data-cal-start="2027-01-06" data-cal-end="2027-01-06" data-cal-allday="true">
+            <div class="cal-date">Wed. Jan. 6</div>
+            <div class="cal-event"><span class="cal-event-title">PTO (Parent Teacher Organization) Virtual
+                Meeting</span></div>
+            <div class="cal-time">TBA</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Prospective Families Open House" data-cal-start="2027-01-12T08:45" data-cal-end="2027-01-12T10:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Jan. 12</div>
+            <div class="cal-event"><span class="cal-event-title">Prospective Families Open House</span></div>
+            <div class="cal-time">8:45am – 10:00am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Picture Retakes + Senior Cap and Gown Pictures" data-cal-start="2027-01-13" data-cal-end="2027-01-13" data-cal-allday="true">
+            <div class="cal-date">Wed. Jan. 13</div>
+            <div class="cal-event"><span class="cal-event-title">Picture Retakes + Senior Cap and Gown
+                Pictures</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="Martin Luther King Jr. Day - No School" data-cal-start="2027-01-18" data-cal-end="2027-01-18" data-cal-allday="true">
+            <div class="cal-date">Mon. Jan. 18</div>
+            <div class="cal-event"><span class="cal-event-title">Martin Luther King Jr. Day</span>
+              <span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="National Honor Society Induction" data-cal-start="2027-01-28T09:30" data-cal-end="2027-01-28T10:30" data-cal-allday="false">
+            <div class="cal-date">Thu. Jan. 28</div>
+            <div class="cal-event"><span class="cal-event-title">National Honor Society Induction</span></div>
+            <div class="cal-time">9:30am – 10:30am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEBRUARY 2027 -->
+      <section class="cal-month" id="february-2027">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>February 2027</h2>
+            <span class="cal-month-count">8 events</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse February 2027" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="PTO Virtual Meeting" data-cal-start="2027-02-03" data-cal-end="2027-02-03" data-cal-allday="true">
+            <div class="cal-date">Wed. Feb. 3</div>
+            <div class="cal-event"><span class="cal-event-title">PTO (Parent Teacher Organization) Virtual
+                Meeting</span></div>
+            <div class="cal-time">TBA</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Progress Reports Issued" data-cal-start="2027-02-05" data-cal-end="2027-02-05" data-cal-allday="true">
+            <div class="cal-date">Fri. Feb. 5</div>
+            <div class="cal-event"><span class="cal-event-title">Progress Reports issued</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Prospective Families Open House" data-cal-start="2027-02-09T08:45" data-cal-end="2027-02-09T10:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Feb. 9</div>
+            <div class="cal-event"><span class="cal-event-title">Prospective Families Open House</span></div>
+            <div class="cal-time">8:45am – 10:00am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="State Fair Day - No School" data-cal-start="2027-02-12" data-cal-end="2027-02-12" data-cal-allday="true">
+            <div class="cal-date">Fri. Feb. 12</div>
+            <div class="cal-event"><span class="cal-event-title">State Fair Day</span>
+              <span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="President's Day - No School" data-cal-start="2027-02-15" data-cal-end="2027-02-15" data-cal-allday="true">
+            <div class="cal-date">Mon. Feb. 15</div>
+            <div class="cal-event"><span class="cal-event-title">President's Day</span>
+              <span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Parent Teacher Conferences" data-cal-start="2027-02-16T16:00" data-cal-end="2027-02-16T19:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Feb. 16</div>
+            <div class="cal-event"><span class="cal-event-title">Parent Teacher Conferences
+                <span class="cal-event-note">(by appointment only)</span></span></div>
+            <div class="cal-time">4:00pm – 7:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Beautification Day" data-cal-start="2027-02-20T08:00" data-cal-end="2027-02-20T12:00" data-cal-allday="false">
+            <div class="cal-date">Sat. Feb. 20</div>
+            <div class="cal-event"><span class="cal-event-title">Beautification Day</span>
+              <span class="badge badge-green">Volunteer Hours</span></div>
+            <div class="cal-time">8:00am – 12:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="ACT Saturday Test Site" data-cal-start="2027-02-27" data-cal-end="2027-02-27" data-cal-allday="true">
+            <div class="cal-date">Sat. Feb. 27</div>
+            <div class="cal-event"><span class="cal-event-title">ACT Saturday Test Site
+                <span class="cal-event-note">— open to the public</span></span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MARCH 2027 -->
+      <section class="cal-month" id="march-2027">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>March 2027</h2>
+            <span class="cal-month-count">7 events</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse March 2027" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="PTO Virtual Meeting" data-cal-start="2027-03-03" data-cal-end="2027-03-03" data-cal-allday="true">
+            <div class="cal-date">Wed. Mar. 3</div>
+            <div class="cal-event"><span class="cal-event-title">PTO (Parent Teacher Organization) Virtual
+                Meeting</span></div>
+            <div class="cal-time">TBA</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="SAT School Day Testing" data-cal-start="2027-03-03" data-cal-end="2027-03-03" data-cal-allday="true">
+            <div class="cal-date">Wed. Mar. 3</div>
+            <div class="cal-event"><span class="cal-event-title">SAT School Day Testing
+                <span class="cal-event-note">— Juniors/Seniors, optional</span></span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Prospective Families Open House" data-cal-start="2027-03-09T08:45" data-cal-end="2027-03-09T10:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Mar. 9</div>
+            <div class="cal-event"><span class="cal-event-title">Prospective Families Open House</span></div>
+            <div class="cal-time">8:45am – 10:00am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Report Cards Posted" data-cal-start="2027-03-12" data-cal-end="2027-03-12" data-cal-allday="true">
+            <div class="cal-date">Fri. Mar. 12</div>
+            <div class="cal-event"><span class="cal-event-title">Report Cards posted</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Spring Field Day" data-cal-start="2027-03-19T08:45" data-cal-end="2027-03-19T10:00" data-cal-allday="false">
+            <div class="cal-date">Fri. Mar. 19</div>
+            <div class="cal-event"><span class="cal-event-title">Spring Field Day</span></div>
+            <div class="cal-time">8:45am – 10:00am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="Spring Break - No School" data-cal-start="2027-03-22" data-cal-end="2027-03-26" data-cal-allday="true">
+            <div class="cal-date">Mon. Mar. 22 – Fri. Mar. 26</div>
+            <div class="cal-event"><span class="cal-event-title">Spring Break</span>
+              <span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="No School" data-cal-start="2027-03-29" data-cal-end="2027-03-29" data-cal-allday="true">
+            <div class="cal-date">Mon. Mar. 29</div>
+            <div class="cal-event"><span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- APRIL 2027 -->
+      <section class="cal-month" id="april-2027">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>April 2027</h2>
+            <span class="cal-month-count">8 events</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse April 2027" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="Prospective Families Open House" data-cal-start="2027-04-06T08:45" data-cal-end="2027-04-06T10:00" data-cal-allday="false">
+            <div class="cal-date">Tue. Apr. 6</div>
+            <div class="cal-event"><span class="cal-event-title">Prospective Families Open House</span></div>
+            <div class="cal-time">8:45am – 10:00am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="PTO Virtual Meeting" data-cal-start="2027-04-07" data-cal-end="2027-04-07" data-cal-allday="true">
+            <div class="cal-date">Wed. Apr. 7</div>
+            <div class="cal-event"><span class="cal-event-title">PTO (Parent Teacher Organization) Virtual
+                Meeting</span></div>
+            <div class="cal-time">TBA</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Stanford Achievement Testing" data-cal-start="2027-04-12" data-cal-end="2027-04-14" data-cal-allday="true">
+            <div class="cal-date">Mon. Apr. 12 – Wed. Apr. 14</div>
+            <div class="cal-event"><span class="cal-event-title">Stanford Achievement Testing</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Senior GRAD BASH at Universal Studios" data-cal-start="2027-04-15T16:00" data-cal-end="2027-04-16T04:30" data-cal-allday="false">
+            <div class="cal-date">Thu. Apr. 15</div>
+            <div class="cal-event"><span class="cal-event-title">Senior GRAD BASH at Universal Studios</span></div>
+            <div class="cal-time">4:00pm – 4:30am</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-noschool" data-cal-title="No School" data-cal-start="2027-04-16" data-cal-end="2027-04-16" data-cal-allday="true">
+            <div class="cal-date">Fri. Apr. 16</div>
+            <div class="cal-event"><span class="badge badge-red">No School</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Progress Reports Issued" data-cal-start="2027-04-23" data-cal-end="2027-04-23" data-cal-allday="true">
+            <div class="cal-date">Fri. Apr. 23</div>
+            <div class="cal-event"><span class="cal-event-title">Progress Reports issued</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Junior/Senior Prom" data-cal-start="2027-04-24T19:00" data-cal-end="2027-04-24T22:00" data-cal-allday="false">
+            <div class="cal-date">Sat. Apr. 24</div>
+            <div class="cal-event"><span class="cal-event-title">Junior/Senior Prom</span></div>
+            <div class="cal-time">7:00pm – 10:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Spring Student Showcase" data-cal-start="2027-04-29T18:00" data-cal-end="2027-04-29T20:00" data-cal-allday="false">
+            <div class="cal-date">Thu. Apr. 29</div>
+            <div class="cal-event"><span class="cal-event-title">Spring Student Showcase</span></div>
+            <div class="cal-time">6:00pm – 8:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MAY 2027 -->
+      <section class="cal-month" id="may-2027">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>May 2027</h2>
+            <span class="cal-month-count">11 events</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse May 2027" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="Teacher Appreciation Week" data-cal-start="2027-05-03" data-cal-end="2027-05-07" data-cal-allday="true">
+            <div class="cal-date">Mon. May 3 – Fri. May 7</div>
+            <div class="cal-event"><span class="cal-event-title">Teacher Appreciation Week</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="PTO Virtual Meeting" data-cal-start="2027-05-05" data-cal-end="2027-05-05" data-cal-allday="true">
+            <div class="cal-date">Wed. May 5</div>
+            <div class="cal-event"><span class="cal-event-title">PTO (Parent Teacher Organization) Virtual
+                Meeting</span></div>
+            <div class="cal-time">TBA</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Awards Assembly" data-cal-start="2027-05-05T17:30" data-cal-end="2027-05-05T19:00" data-cal-allday="false">
+            <div class="cal-date">Wed. May 5</div>
+            <div class="cal-event"><span class="cal-event-title">Awards Assembly
+                <span class="cal-event-note">(dressy attire required)</span></span></div>
+            <div class="cal-time">5:30pm – 7:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Senior Final Exams" data-cal-start="2027-05-06" data-cal-end="2027-05-07" data-cal-allday="true">
+            <div class="cal-date">Thu. May 6 – Fri. May 7</div>
+            <div class="cal-event"><span class="cal-event-title">Senior Final Exams</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Class Trips" data-cal-start="2027-05-10" data-cal-end="2027-05-14" data-cal-allday="true">
+            <div class="cal-date">Mon. May 10 – Fri. May 14</div>
+            <div class="cal-event"><span class="cal-event-title">Class Trips</span></div>
+            <div class="cal-time">TBD</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Volunteer Appreciation Luncheon" data-cal-start="2027-05-14T12:30" data-cal-end="2027-05-14T13:30" data-cal-allday="false">
+            <div class="cal-date">Fri. May 14</div>
+            <div class="cal-event"><span class="cal-event-title">Volunteer Appreciation Luncheon</span></div>
+            <div class="cal-time">12:30pm – 1:30pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Graduation Rehearsal" data-cal-start="2027-05-18T12:00" data-cal-end="2027-05-18T13:00" data-cal-allday="false">
+            <div class="cal-date">Tue. May 18</div>
+            <div class="cal-event"><span class="cal-event-title">Graduation Rehearsal
+                <span class="cal-event-note">(all Juniors and Seniors)</span></span>
+              <span class="badge badge-blue">Required</span></div>
+            <div class="cal-time">12:00pm – 1:00pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Final Exams" data-cal-start="2027-05-18" data-cal-end="2027-05-20" data-cal-allday="true">
+            <div class="cal-date">Tue. May 18 – Thu. May 20</div>
+            <div class="cal-event"><span class="cal-event-title">Final Exams
+                <span class="cal-event-note">— half day, early release 12:30pm</span></span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Graduation Set Up &amp; Clean Up" data-cal-start="2027-05-20" data-cal-end="2027-05-22" data-cal-allday="true">
+            <div class="cal-date">Thu. May 20 – Sat. May 22</div>
+            <div class="cal-event"><span class="cal-event-title">Graduation Set Up &amp; Clean Up</span>
+              <span class="badge badge-green">Volunteer Hours</span></div>
+            <div class="cal-time">TBD</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row cal-row-milestone" data-cal-title="Graduation" data-cal-start="2027-05-21T18:30" data-cal-end="2027-05-21T20:30" data-cal-allday="false">
+            <div class="cal-date">Fri. May 21</div>
+            <div class="cal-event"><span class="cal-event-title">GRADUATION</span>
+              <span class="badge badge-blue">Required</span></div>
+            <div class="cal-time">6:30pm – 8:30pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cal-row" data-cal-title="Teacher Post-Planning" data-cal-start="2027-05-24" data-cal-end="2027-05-25" data-cal-allday="true">
+            <div class="cal-date">Mon. May 24 – Tue. May 25</div>
+            <div class="cal-event"><span class="cal-event-title">Teacher Post-Planning</span></div>
+            <div class="cal-time">—</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- JUNE 2027 -->
+      <section class="cal-month" id="june-2027">
+        <div class="cal-month-header">
+          <div class="cal-month-title">
+            <h2>June – July 2027</h2>
+            <span class="cal-month-count">1 event</span>
+          </div>
+          <button type="button" class="cal-month-toggle" aria-expanded="true" aria-label="Collapse June – July 2027" onclick="toggleCalMonth(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="cal-list">
+          <div class="cal-row" data-cal-title="Summer Remediation Program" data-cal-start="2027-06-01" data-cal-end="2027-07-02" data-cal-allday="true">
+            <div class="cal-date">Jun. 1 – Jul. 2</div>
+            <div class="cal-event"><span class="cal-event-title">Summer Remediation Program</span></div>
+            <div class="cal-time">8:30am – 12:30pm</div>
+                      <div class="cal-add">
+              <div class="cal-add-wrap">
+                <button type="button" class="cal-add-btn" aria-label="Add to calendar" title="Add to calendar" onclick="toggleAddToCal(event, this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                </button>
+                <div class="cal-add-menu">
+                  <a class="cal-add-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+                  <button type="button" class="cal-add-ics">Apple / Outlook (.ics)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <kp-footer
+    tagline="Every important date for the 2026–2027 school year, all in one place."></kp-footer>
+
+  <script>
+    function toggleCalMonth(btn) {
+      const month = btn.closest('.cal-month');
+      const collapsed = month.classList.toggle('cal-collapsed');
+      btn.setAttribute('aria-expanded', String(!collapsed));
+      btn.setAttribute('aria-label', (collapsed ? 'Expand ' : 'Collapse ') + month.querySelector('.cal-month-header h2').textContent);
+    }
+
+    /* ── Add to Calendar ── */
+    const KP_ADDRESS = '18105 Gunn Hwy, Odessa, Florida 33556';
+    const KP_TZ = 'America/New_York';
+
+    function pad2(n) { return String(n).padStart(2, '0'); }
+
+    /* 'YYYY-MM-DD' -> 'YYYY-MM-DD' shifted by `days` (date-only, UTC-safe) */
+    function shiftDate(dateStr, days) {
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const dt = new Date(Date.UTC(y, m - 1, d));
+      dt.setUTCDate(dt.getUTCDate() + days);
+      return `${dt.getUTCFullYear()}-${pad2(dt.getUTCMonth() + 1)}-${pad2(dt.getUTCDate())}`;
+    }
+
+    /* 'YYYY-MM-DD' or 'YYYY-MM-DDTHH:MM' -> compact form for Google/ICS ('YYYYMMDD' or 'YYYYMMDDTHHMM00') */
+    function toCompact(dateStr) {
+      const [datePart, timePart] = dateStr.split('T');
+      const d = datePart.replace(/-/g, '');
+      if (!timePart) return d;
+      return `${d}T${timePart.replace(':', '')}00`;
+    }
+
+    function getCalFields(row) {
+      const title = row.dataset.calTitle;
+      const allDay = row.dataset.calAllday === 'true';
+      const start = row.dataset.calStart;
+      const end = allDay ? shiftDate(row.dataset.calEnd, 1) : row.dataset.calEnd;
+      return { title, allDay, start, end };
+    }
+
+    function buildGoogleUrl(row) {
+      const { title, allDay, start, end } = getCalFields(row);
+      const params = new URLSearchParams({
+        action: 'TEMPLATE',
+        text: title,
+        dates: `${toCompact(start)}/${toCompact(end)}`,
+        location: KP_ADDRESS,
+        ctz: KP_TZ,
+      });
+      return `https://calendar.google.com/calendar/render?${params.toString()}`;
+    }
+
+    function icsEscape(str) {
+      return String(str).replace(/([,;])/g, '\\$1');
+    }
+
+    function buildICS(row) {
+      const { title, allDay, start, end } = getCalFields(row);
+      const dtStart = allDay
+        ? `DTSTART;VALUE=DATE:${toCompact(start)}`
+        : `DTSTART;TZID=${KP_TZ}:${toCompact(start)}`;
+      const dtEnd = allDay
+        ? `DTEND;VALUE=DATE:${toCompact(end)}`
+        : `DTEND;TZID=${KP_TZ}:${toCompact(end)}`;
+      const uid = `${Date.now()}-${Math.random().toString(36).slice(2)}@keystoneprep.org`;
+      return [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Keystone Prep High School//Master Calendar//EN',
+        'BEGIN:VEVENT',
+        `UID:${uid}`,
+        `DTSTAMP:${toCompact(new Date().toISOString().slice(0, 16).replace(':', ''))}`,
+        dtStart,
+        dtEnd,
+        `SUMMARY:${icsEscape(title)}`,
+        `LOCATION:${icsEscape(KP_ADDRESS)}`,
+        'END:VEVENT',
+        'END:VCALENDAR',
+        '',
+      ].join('\r\n');
+    }
+
+    function downloadICS(row) {
+      const { title } = getCalFields(row);
+      const blob = new Blob([buildICS(row)], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = title.replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.ics';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function closeAllAddToCalMenus() {
+      document.querySelectorAll('.cal-add-menu.open').forEach(menu => menu.classList.remove('open'));
+      document.querySelectorAll('.cal-add-btn[aria-expanded="true"]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+    }
+
+    function toggleAddToCal(evt, btn) {
+      evt.stopPropagation();
+      const menu = btn.nextElementSibling;
+      const isOpen = menu.classList.contains('open');
+      closeAllAddToCalMenus();
+      if (!isOpen) {
+        menu.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    document.addEventListener('click', closeAllAddToCalMenus);
+
+    document.querySelectorAll('.cal-add-google').forEach(link => {
+      const row = link.closest('.cal-row');
+      link.addEventListener('click', () => { link.href = buildGoogleUrl(row); });
+    });
+
+    document.querySelectorAll('.cal-add-ics').forEach(button => {
+      const row = button.closest('.cal-row');
+      button.addEventListener('click', () => downloadICS(row));
+    });
+  </script>
+
+  <script src="js/components.js"></script>
+</body>
+
+</html>

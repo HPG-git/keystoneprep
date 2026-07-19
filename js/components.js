@@ -34,6 +34,7 @@ const NAV_LINKS = [
     href: '/academics.html',
     children: [
       { label: 'Our Magnet Programs', href: '/programs.html' },
+      { label: 'Master Calendar',     href: '/calendar.html' },
     ],
   },
   { label: 'Giving',          href: '/giving.html'       },
