@@ -26,7 +26,7 @@ const NAV_LINKS = [
     children: [
       { label: 'Apply Now',     href: '/apply.html'   },
       { label: 'Tuition & Aid', href: '/tuition.html' },
-      { label: 'Payment',       href: 'https://word.keystoneprep.org/payment/' },
+      { label: 'Payment',       href: '/payment.html' },
     ],
   },
   {
@@ -202,6 +202,7 @@ class KpFooter extends HTMLElement {
           <a href="admissions.html"        class="footer-link">Admissions</a>
           <a href="tuition.html"           class="footer-link footer-link-sub">Tuition &amp; Aid</a>
           <a href="apply.html"             class="footer-link footer-link-sub">Apply Now</a>
+          <a href="payment.html"           class="footer-link footer-link-sub">Payment</a>
           <a href="summer-camps.html"      class="footer-link">Summer Programs</a>
           <a href="giving.html"            class="footer-link">Giving</a>
         </div>

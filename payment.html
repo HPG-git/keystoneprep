@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Make a Payment — Keystone Prep High School</title>
+  <meta name="description"
+    content="Pay your Keystone Prep re-enrollment fee or new student registration fee securely online." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQQSCF8KLE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-EQQSCF8KLE');
+  </script>
+
+  <style>
+    .hero-bg-payment {
+      background:
+        linear-gradient(105deg, rgba(8,28,52,.82) 0%, rgba(10,40,72,.68) 50%, rgba(12,50,90,.5) 100%),
+        url('img/keystoneprep-building.jpg') center center / cover no-repeat;
+      background-attachment: fixed;
+    }
+    @media (max-width: 900px) {
+      .hero-bg-payment { background-attachment: scroll; }
+    }
+
+    /* ── Fee cards ── */
+    .fee-section { padding: 72px 0 96px; background: var(--surface-low); }
+    .fee-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .fee-card {
+      background: var(--white);
+      border: 1px solid var(--outline-var);
+      border-radius: 16px;
+      padding: 40px 32px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .fee-card h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .fee-card .fee-price {
+      font-size: .95rem;
+      color: var(--on-surface-var);
+      margin-bottom: 28px;
+    }
+    .fee-card .fee-price strong { color: var(--on-surface); font-weight: 700; }
+
+    /* Converge injects/activates this element via its own script — we just
+       style the placeholder so it matches the brand before/after activation. */
+    .btn-pay {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      border-radius: 10px;
+      border: none;
+      background: var(--primary);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .18s, transform .18s;
+    }
+    .btn-pay:hover:not(:disabled) { background: var(--primary-light); transform: translateY(-2px); }
+    .btn-pay:disabled { opacity: .5; cursor: default; }
+
+    .fee-note {
+      max-width: 640px;
+      margin: 48px auto 0;
+      text-align: center;
+      font-size: .85rem;
+      color: var(--on-surface-var);
+      line-height: 1.7;
+    }
+    .fee-note .inline-link { color: var(--primary); font-weight: 600; text-decoration: underline; }
+    .fee-note .inline-link:hover { color: var(--primary-light); }
+
+    @media (max-width: 700px) {
+      .fee-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <kp-nav></kp-nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero hero-parallax">
+    <div class="hero-bg hero-bg-payment"></div>
+    <div class="hero-inner">
+      <div class="hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+        <span>Payment</span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-page-label">Admissions</div>
+        <h1>Make a Payment</h1>
+        <p class="hero-body">Securely pay your re-enrollment fee or new student registration fee online using a
+          credit or debit card.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEES ── -->
+  <section class="fee-section">
+    <div class="container">
+      <div class="section-label-sm">Online Payments</div>
+      <h2 style="font-family:'Noto Serif',serif; font-size:clamp(1.5rem,2.2vw,2rem); font-weight:700; color:var(--on-surface);">
+        Select a Payment</h2>
+
+      <div class="fee-grid">
+        <div class="fee-card">
+          <h2>Re-Enrollment Fee</h2>
+          <p class="fee-price"><strong>$1,200</strong> + 3% processing fee</p>
+          <button disabled class="btn-pay">Re-Enrollment Fee</button>
+          <script src="https://www.convergepay.com/hosted-payments/buy_button_script/7377724e447745495143616b2f6765502b6c4d71425141414159583168706975"></script>
+        </div>
+
+        <div class="fee-card">
+          <h2>New Student Registration Fee</h2>
+          <p class="fee-price"><strong>$1,650</strong> + 3% processing fee</p>
+          <button disabled class="btn-pay">New Student Registration</button>
+          <script src="https://www.convergepay.com/hosted-payments/buy_button_script/6a5a74663369426e5376473351696e70666f416d36674141415a6e704f442f75"></script>
+        </div>
+      </div>
+
+      <p class="fee-note">Payments are processed securely by Converge, a service of Elavon. Keystone Prep does not
+        store or have access to your card information. A 3% processing fee is added to cover card processing costs.
+        If you have any questions about a payment, please <a href="contact.html" class="inline-link">contact us</a>.</p>
+    </div>
+  </section>
+
+  <kp-footer
+    tagline="Secure online payments for re-enrollment and new student registration fees."></kp-footer>
+
+  <script src="js/components.js"></script>
+</body>
+
+</html>
