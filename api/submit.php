@@ -30,6 +30,7 @@ $TABLES = [
     'misconduct'  => 'tbl8Mymc37Cgn2qIp',
     'application' => 'tbl1fptjuTNcebkGk',
     'alumni'      => 'tblFcIpD9b8YV16mo',
+    'community_service' => 'tbljgvhzVNn5KGqmO',
 ];
 
 // ── FIELD MAPS ──────────────────────────────────────────
@@ -120,6 +121,7 @@ $FIELD_MAPS = [
         'parent1_phone'         => 'Parent 1 Phone',
         'parent1_email'         => 'Parent 1 Email',
         'parent2_name'          => 'Parent 2 Name',
+        'parent2_relationship'  => 'Parent 2 Relationship',
         'parent2_phone'         => 'Parent 2 Phone',
         'parent2_email'         => 'Parent 2 Email',
         'home_street'           => '_combine_address',
@@ -131,8 +133,18 @@ $FIELD_MAPS = [
         'discipline_history'    => 'Discipline History',
         'discipline_explain'    => 'Discipline Explain',
         'virtual_school'        => 'Virtual School',
-        'learning_challenges'   => 'Learning Details',
-        'learning_details'      => 'Learning Details',
+        'has_iep'               => 'Has IEP',
+        'has_504'               => 'Has 504 Plan',
+        'has_psychoed'          => 'Psychoeducational Evaluation',
+        'support_areas'         => 'Support Areas',
+        'student_strengths'     => 'Student Strengths',
+        'student_challenges'    => 'Student Challenges',
+        'additional_context'    => 'Additional Context',
+        'magnet_interest'       => 'Magnet Program Interest',
+        'campus_visit'          => 'Campus Visit',
+        'referral_source'       => 'Referral Source',
+        'referral_detail'       => 'Referral Detail',
+        'any_other'             => 'Additional Notes',
     ],
     'alumni' => [
         'first_name'      => '_combine_name',
@@ -153,6 +165,17 @@ $FIELD_MAPS = [
         'reunion'         => 'Reunion',
         'message'         => 'Notes',
     ],
+    'community_service' => [
+        'first_name'         => '_combine_name',
+        'last_name'          => '_combine_name',
+        'email'              => 'Email',
+        'phone'              => 'Phone',
+        'activity_name'      => 'Activity/Job/Event',
+        'hours_served'       => 'Hours Served',
+        'supervisor_name'    => 'Supervisor Name',
+        'supervisor_phone'   => 'Supervisor Phone',
+        'description'        => 'Description',
+    ],
 ];
 
 // ── EMAIL SUBJECTS ──────────────────────────────────────
@@ -166,6 +189,7 @@ $EMAIL_SUBJECTS = [
     'misconduct'  => 'New Misconduct Report',
     'application' => 'New Student Application',
     'alumni'      => 'Alumni Contact Update',
+    'community_service' => 'New Community Service Hours Submission',
 ];
 
 // ── ANTI-SPAM CONFIG ───────────────────────────────────

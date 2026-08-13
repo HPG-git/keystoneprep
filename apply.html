@@ -182,29 +182,6 @@
     .check-card:hover { border-color: var(--primary); }
     .check-card.sel { border-color: var(--primary); background: rgba(28,58,95,.04); font-weight: 600; }
 
-    /* Upload grid */
-    .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .upload-zone {
-      border: 1.5px dashed var(--border); border-radius: 12px;
-      padding: 20px 14px; display: flex; flex-direction: column;
-      align-items: center; gap: 8px; text-align: center;
-      cursor: pointer; position: relative;
-      transition: border-color .15s, background .15s;
-    }
-    .upload-zone:hover { border-color: var(--primary); background: rgba(28,58,95,.02); }
-    .upload-zone.uploaded { border-color: var(--secondary, #4caf50); border-style: solid; background: rgba(76,175,80,.04); }
-    .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-    .upload-icon {
-      width: 36px; height: 36px; border-radius: 10px;
-      background: rgba(28,58,95,.07); display: flex; align-items: center; justify-content: center;
-    }
-    .upload-icon svg { width: 18px; height: 18px; color: var(--primary); }
-    .upload-zone.uploaded .upload-icon { background: rgba(76,175,80,.12); }
-    .upload-zone.uploaded .upload-icon svg { color: var(--secondary, #4caf50); }
-    .upload-zone h4 { font-size: .82rem; font-weight: 700; color: var(--on-surface); }
-    .upload-zone p { font-size: .7rem; color: var(--on-surface-var); }
-    .upload-optional { font-size: .68rem; color: var(--on-surface-var); }
-
     /* Divider label */
     .app-divider-label {
       font-size: .68rem; font-weight: 700; text-transform: uppercase;
@@ -236,7 +213,6 @@
       .apply-info-inner { grid-template-columns: 1fr; gap: 48px; }
       .app-row-2, .app-row-3 { grid-template-columns: 1fr; }
       .check-grid { grid-template-columns: 1fr; }
-      .upload-grid { grid-template-columns: 1fr; }
       .app-form-wrap { padding: 0 20px; }
       .apply-info-inner { padding: 0 24px; }
     }
@@ -327,7 +303,7 @@
           </li>
           <li class="process-step">
             <div class="step-num">2</div>
-            <div class="step-text">Submit any available educational assessments or support documents — evaluations, IEPs, transcripts, or therapy records.</div>
+            <div class="step-text">Email any available educational assessments or support documents to <a href="mailto:info@keystoneprep.org" style="color:var(--primary);">info@keystoneprep.org</a> — evaluations, IEPs, transcripts, or therapy records.</div>
           </li>
           <li class="process-step">
             <div class="step-num">3</div>
@@ -589,43 +565,43 @@
             <div class="app-field">
               <label class="app-label">Does the student have an active IEP (Individualized Education Program)?</label>
               <div class="radio-group">
-                <label class="radio-card"><input type="radio" name="has_iep" value="yes" /> Yes</label>
-                <label class="radio-card"><input type="radio" name="has_iep" value="no" /> No</label>
-                <label class="radio-card"><input type="radio" name="has_iep" value="prev" /> Previously had one</label>
-                <label class="radio-card"><input type="radio" name="has_iep" value="unsure" /> Unsure</label>
+                <label class="radio-card"><input type="radio" name="has_iep" value="Yes" /> Yes</label>
+                <label class="radio-card"><input type="radio" name="has_iep" value="No" /> No</label>
+                <label class="radio-card"><input type="radio" name="has_iep" value="Previously had one" /> Previously had one</label>
+                <label class="radio-card"><input type="radio" name="has_iep" value="Unsure" /> Unsure</label>
               </div>
             </div>
 
             <div class="app-field">
               <label class="app-label">Does the student have an active 504 Plan?</label>
               <div class="radio-group">
-                <label class="radio-card"><input type="radio" name="has_504" value="yes" /> Yes</label>
-                <label class="radio-card"><input type="radio" name="has_504" value="no" /> No</label>
-                <label class="radio-card"><input type="radio" name="has_504" value="prev" /> Previously had one</label>
-                <label class="radio-card"><input type="radio" name="has_504" value="unsure" /> Unsure</label>
+                <label class="radio-card"><input type="radio" name="has_504" value="Yes" /> Yes</label>
+                <label class="radio-card"><input type="radio" name="has_504" value="No" /> No</label>
+                <label class="radio-card"><input type="radio" name="has_504" value="Previously had one" /> Previously had one</label>
+                <label class="radio-card"><input type="radio" name="has_504" value="Unsure" /> Unsure</label>
               </div>
             </div>
 
             <div class="app-field">
               <label class="app-label">Has the student had a psychoeducational evaluation?</label>
               <div class="radio-group">
-                <label class="radio-card"><input type="radio" name="has_psychoed" value="yes" /> Yes</label>
-                <label class="radio-card"><input type="radio" name="has_psychoed" value="no" /> No</label>
-                <label class="radio-card"><input type="radio" name="has_psychoed" value="scheduled" /> In progress / scheduled</label>
+                <label class="radio-card"><input type="radio" name="has_psychoed" value="Yes" /> Yes</label>
+                <label class="radio-card"><input type="radio" name="has_psychoed" value="No" /> No</label>
+                <label class="radio-card"><input type="radio" name="has_psychoed" value="In progress / scheduled" /> In progress / scheduled</label>
               </div>
             </div>
 
             <div class="app-field">
               <label class="app-label">Primary areas where your student benefits from additional support (select all that apply)</label>
               <div class="check-grid">
-                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="attention_adhd" /> Attention / ADHD</label>
-                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="anxiety" /> Anxiety</label>
-                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="learning_diff" /> Learning differences (dyslexia, etc.)</label>
-                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="exec_function" /> Executive functioning</label>
-                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="motivation" /> Motivation / school engagement</label>
-                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="confidence" /> Confidence / self-esteem</label>
-                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="social_emotional" /> Social-emotional development</label>
-                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas[]" value="prev_neg_exp" /> Prior negative school experiences</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas" value="Attention / ADHD" /> Attention / ADHD</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas" value="Anxiety" /> Anxiety</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas" value="Learning differences (dyslexia, etc.)" /> Learning differences (dyslexia, etc.)</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas" value="Executive functioning" /> Executive functioning</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas" value="Motivation / school engagement" /> Motivation / school engagement</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas" value="Confidence / self-esteem" /> Confidence / self-esteem</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas" value="Social-emotional development" /> Social-emotional development</label>
+                <label class="check-card" onclick="toggleCheck(this)"><input type="checkbox" name="support_areas" value="Prior negative school experiences" /> Prior negative school experiences</label>
               </div>
             </div>
 
@@ -662,80 +638,29 @@
               <label class="app-label">Which magnet program is your student most interested in?</label>
               <p class="app-hint">Learn more about each program on our <a href="academics.html" style="color:var(--primary);">Academics page</a>. Selecting a program does not guarantee placement.</p>
               <div class="radio-group" style="flex-direction:column;gap:10px;">
-                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="mission_control" /> Mission Control: Odessa — Space &amp; STEM</label>
-                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="csi" /> CSI: Odessa — Crime Scene Investigation</label>
-                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="visual_art" /> Visual Art &amp; Design: Odessa — Fine Arts</label>
-                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="no_pref" /> No preference / Open to any program</label>
+                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="Mission Control: Odessa — Space & STEM" /> Mission Control: Odessa — Space &amp; STEM</label>
+                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="CSI: Odessa — Crime Scene Investigation" /> CSI: Odessa — Crime Scene Investigation</label>
+                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="Visual Art & Design: Odessa — Fine Arts" /> Visual Art &amp; Design: Odessa — Fine Arts</label>
+                <label class="radio-card" style="width:100%;"><input type="radio" name="magnet_interest" value="No preference / Open to any program" /> No preference / Open to any program</label>
               </div>
             </div>
 
             <div class="app-field">
               <label class="app-label">Have you visited the campus or attended an information session?</label>
               <div class="radio-group">
-                <label class="radio-card"><input type="radio" name="campus_visit" value="yes" /> Yes</label>
-                <label class="radio-card"><input type="radio" name="campus_visit" value="no" /> Not yet</label>
-                <label class="radio-card"><input type="radio" name="campus_visit" value="scheduled" /> Scheduled / in progress</label>
+                <label class="radio-card"><input type="radio" name="campus_visit" value="Yes" /> Yes</label>
+                <label class="radio-card"><input type="radio" name="campus_visit" value="Not yet" /> Not yet</label>
+                <label class="radio-card"><input type="radio" name="campus_visit" value="Scheduled / in progress" /> Scheduled / in progress</label>
               </div>
             </div>
 
           </div>
         </div>
 
-        <!-- F: Document Uploads -->
+        <!-- F: Additional Information -->
         <div class="app-card">
           <div class="app-card-header">
             <div class="app-card-letter">F</div>
-            <h3>Supporting Documents</h3>
-          </div>
-          <div class="app-card-body">
-            <p class="app-hint" style="font-size:.88rem;color:var(--on-surface-var);line-height:1.7;">Upload any available documents that help us understand your student's learning profile. You do not need to have all of these — submit what you have. Documents can also be emailed to <a href="mailto:info@keystoneprep.org" style="color:var(--primary);">info@keystoneprep.org</a> after submission.</p>
-
-            <div class="upload-grid">
-              <div class="upload-zone" id="uz-psychoed">
-                <input type="file" accept=".pdf,.doc,.docx,image/*" onchange="markUpload('uz-psychoed',this)" />
-                <div class="upload-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                </div>
-                <h4>Psychoeducational Evaluation</h4>
-                <p>PDF, Word, or image</p>
-                <span class="upload-optional">If available</span>
-              </div>
-              <div class="upload-zone" id="uz-iep">
-                <input type="file" accept=".pdf,.doc,.docx,image/*" onchange="markUpload('uz-iep',this)" />
-                <div class="upload-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                </div>
-                <h4>IEP or 504 Plan</h4>
-                <p>PDF, Word, or image</p>
-                <span class="upload-optional">If applicable</span>
-              </div>
-              <div class="upload-zone" id="uz-transcript">
-                <input type="file" accept=".pdf,.doc,.docx,image/*" onchange="markUpload('uz-transcript',this)" />
-                <div class="upload-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                </div>
-                <h4>Report Card / Transcript</h4>
-                <p>Most recent available</p>
-                <span class="upload-optional">Recommended</span>
-              </div>
-              <div class="upload-zone" id="uz-other">
-                <input type="file" accept=".pdf,.doc,.docx,image/*" onchange="markUpload('uz-other',this)" />
-                <div class="upload-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                </div>
-                <h4>Other Supporting Documents</h4>
-                <p>Therapy, tutoring, or any other relevant records</p>
-                <span class="upload-optional">Optional</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- G: Additional Information -->
-        <div class="app-card">
-          <div class="app-card-header">
-            <div class="app-card-letter">G</div>
             <h3>Additional Information</h3>
           </div>
           <div class="app-card-body">
@@ -829,15 +754,6 @@
   <script>
     function toggleCheck(el) {
       setTimeout(() => { el.classList.toggle('sel', el.querySelector('input').checked); }, 0);
-    }
-
-    function markUpload(zoneId, input) {
-      if (!input.files.length) return;
-      const zone = document.getElementById(zoneId);
-      zone.classList.add('uploaded');
-      zone.querySelector('.upload-icon').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-      const name = input.files[0].name;
-      zone.querySelector('p').textContent = name.length > 24 ? name.slice(0, 22) + '…' : name;
     }
 
     // Record when the form was loaded (used to detect instant bot submissions)

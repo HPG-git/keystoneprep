@@ -16,21 +16,38 @@
     'misconduct-form': { type: 'misconduct',  successMsg: 'Your report has been submitted. All reports are reviewed promptly.' },
     'kpApplyForm':     { type: 'application', successMsg: 'Thank you for applying to Keystone Prep! Our admissions team will be in touch within 5–7 business days.' },
     'alumni-form':     { type: 'alumni',      successMsg: 'Thank you for updating your information! We\'re glad you\'re staying connected with Keystone Prep.' },
+    'community-service-form': { type: 'community_service', successMsg: 'Thank you! Your community service hours have been submitted for review by our administration.' },
   };
 
   function collectFormData(form) {
     var data = {};
     var elements = form.elements;
+    var checkboxGroups = {};
+
     for (var i = 0; i < elements.length; i++) {
       var el = elements[i];
       if (!el.name || el.name.startsWith('_') || el.type === 'submit' || el.type === 'button' || el.type === 'file') continue;
       if (el.type === 'radio' && !el.checked) continue;
       if (el.type === 'checkbox') {
-        data[el.name] = el.checked ? 'Yes' : 'No';
+        if (!checkboxGroups[el.name]) checkboxGroups[el.name] = [];
+        checkboxGroups[el.name].push(el);
         continue;
       }
       if (el.value) data[el.name] = el.value;
     }
+
+    // Single checkboxes collect as Yes/No; multiple checkboxes sharing a
+    // name (a "select all that apply" group) join their checked values.
+    Object.keys(checkboxGroups).forEach(function (name) {
+      var group = checkboxGroups[name];
+      if (group.length > 1) {
+        var checked = group.filter(function (el) { return el.checked; }).map(function (el) { return el.value; });
+        if (checked.length) data[name] = checked.join(', ');
+      } else {
+        data[name] = group[0].checked ? 'Yes' : 'No';
+      }
+    });
+
     return data;
   }
 
