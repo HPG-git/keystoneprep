@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Newsletter Archive — Keystone Prep High School</title>
+  <meta name="description" content="Browse and read past issues of the Keystone Prep High School newsletter, organized by month." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .hero-bg-newsletter {
+      background:
+        linear-gradient(105deg, rgba(8,28,52,.82) 0%, rgba(10,40,72,.68) 50%, rgba(12,50,90,.5) 100%),
+        url('img/keystoneprep-building.jpg') center center / cover no-repeat;
+      background-attachment: fixed;
+    }
+    @media (max-width: 900px) {
+      .hero-bg-newsletter { background-attachment: scroll; }
+    }
+
+    /* ── Main layout ── */
+    .nl-section { padding: 96px 0 112px; background: var(--surface); }
+    .nl-year-block { margin-bottom: 56px; }
+    .nl-year-block:last-child { margin-bottom: 0; }
+    .nl-year-heading {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.4rem; font-weight: 700; color: var(--primary);
+      padding-bottom: 14px; margin-bottom: 24px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .nl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .nl-card {
+      display: flex; align-items: center; gap: 16px;
+      padding: 22px 24px; border-radius: 14px;
+      background: var(--white); border: 1px solid var(--border);
+      transition: border-color .15s, transform .15s;
+    }
+    .nl-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .nl-card-icon {
+      width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+      background: var(--primary-container);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nl-card-icon svg { width: 20px; height: 20px; stroke: var(--primary); }
+    .nl-card-body { flex: 1; min-width: 0; }
+    .nl-card-body strong {
+      display: block; font-size: .96rem; font-weight: 700;
+      color: var(--on-surface); margin-bottom: 4px;
+    }
+    .nl-card-body a {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: .82rem; font-weight: 600; color: var(--primary);
+      text-decoration: none;
+    }
+    .nl-card-body a:hover { color: var(--primary-light); text-decoration: underline; }
+    .nl-card-body a svg { width: 13px; height: 13px; }
+
+    .nl-empty {
+      padding: 40px; text-align: center; border-radius: 14px;
+      background: var(--white); border: 1px dashed var(--border);
+      color: var(--on-surface-var); font-size: .9rem;
+    }
+
+    @media (max-width: 900px) {
+      .nl-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nl-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQQSCF8KLE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EQQSCF8KLE');
+  </script>
+</head>
+<body>
+
+  <kp-nav></kp-nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero hero-parallax">
+    <div class="hero-bg hero-bg-newsletter"></div>
+    <div class="hero-inner">
+      <div class="hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Newsletter</span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-page-label">About</div>
+        <h1>Newsletter Archive</h1>
+        <p class="hero-body">Catch up on news, events, and updates from Keystone Prep High School. Browse past issues below and click any month to view the full PDF.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NEWSLETTER LIST ── -->
+  <section class="nl-section">
+    <div class="container">
+
+      <!--
+        To add a new issue: copy one .nl-card block below into the
+        correct year (newest month first), update the month/year label
+        and the PDF filename, then upload the PDF itself to
+        pdf/newsletters/ following the same YYYY-MM-newsletter.pdf
+        naming pattern. Start a new .nl-year-block for a new year.
+      -->
+
+      <div class="nl-year-block">
+        <div class="nl-year-heading">2026</div>
+        <div class="nl-grid">
+
+          <div class="nl-card">
+            <div class="nl-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="nl-card-body">
+              <strong>August 2026</strong>
+              <a href="pdf/newsletters/2026-08-newsletter.pdf" target="_blank" rel="noopener noreferrer">
+                View PDF
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Want the Newsletter in Your Inbox?</h2>
+      <p>Reach out to our office and we'll make sure you're added to the distribution list for future issues.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn-cta-solid">Contact Us</a>
+        <a href="about-us.html" class="btn-cta-outline">Back to About</a>
+      </div>
+    </div>
+  </section>
+
+  <kp-footer tagline="Personalized support. Meaningful learning. Real-world preparation."></kp-footer>
+
+  <script src="js/components.js"></script>
+</body>
+</html>

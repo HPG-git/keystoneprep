@@ -17,7 +17,7 @@ const NAV_LINKS = [
       { label: 'Board of Trustees', href: '/board-of-trustees.html' },
       { label: 'Contact Us',        href: '/contact.html'          },
       { label: 'Report Misconduct', href: '/report-misconduct.html' },
-      { label: 'Our Newsletter',    href: 'https://word.keystoneprep.org/newsletter-2/', newTab: true },
+      { label: 'Our Newsletter',    href: '/newsletter.html' },
     ],
   },
   {
