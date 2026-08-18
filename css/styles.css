@@ -3304,6 +3304,7 @@ footer { background: #242424; }
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 80px; align-items: center;
 }
+.givebutter-embed { max-width: 480px; margin: 64px auto 0; scroll-margin-top: 100px; }
 .giving-fund-text h2 {
   font-family: 'Noto Serif', serif;
   font-size: clamp(1.75rem, 3vw, 2.4rem);
@@ -3548,6 +3549,40 @@ footer { background: #242424; }
   font-size: .93rem; color: var(--on-surface-var); line-height: 1.7;
 }
 .giving-ways-card .link-arrow { margin-top: auto; }
+
+/* ── Give to a Project ── */
+.project-fund-section { padding: 96px 0; background: var(--surface-low); }
+.project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.project-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.project-card-visual {
+  height: 160px; display: flex; align-items: center; justify-content: center;
+  background: var(--primary-container); position: relative;
+}
+.project-card-visual svg { width: 44px; height: 44px; stroke: var(--primary); }
+.project-card-visual-caption {
+  position: absolute; bottom: 10px; right: 12px;
+  font-size: .68rem; font-weight: 600; color: var(--primary);
+  background: var(--white); padding: 3px 9px; border-radius: 999px;
+  opacity: .85;
+}
+.project-card-body { padding: 28px 26px 30px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.project-card-goal {
+  align-self: flex-start; font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .04em; color: var(--primary); background: var(--surface-container);
+  padding: 5px 12px; border-radius: 999px;
+}
+.project-card-body h3 {
+  font-family: 'Noto Serif', serif; font-size: 1.2rem; font-weight: 700; color: var(--on-surface);
+}
+.project-card-body p { font-size: .9rem; color: var(--on-surface-var); line-height: 1.7; }
+.project-give-btn { margin-top: auto; width: 100%; justify-content: center; }
+
+@media (max-width: 900px) {
+  .project-grid { grid-template-columns: 1fr; }
+}
 
 @media (max-width: 900px) {
   .giving-why-inner, .giving-fund-inner { grid-template-columns: 1fr; gap: 48px; }
