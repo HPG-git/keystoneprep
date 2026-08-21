@@ -3562,12 +3562,7 @@ footer { background: #242424; }
   background: var(--primary-container); position: relative;
 }
 .project-card-visual svg { width: 44px; height: 44px; stroke: var(--primary); }
-.project-card-visual-caption {
-  position: absolute; bottom: 10px; right: 12px;
-  font-size: .68rem; font-weight: 600; color: var(--primary);
-  background: var(--white); padding: 3px 9px; border-radius: 999px;
-  opacity: .85;
-}
+.project-card-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .project-card-body { padding: 28px 26px 30px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
 .project-card-goal {
   align-self: flex-start; font-size: .72rem; font-weight: 700; text-transform: uppercase;
