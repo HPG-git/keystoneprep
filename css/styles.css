@@ -3579,6 +3579,7 @@ footer { background: #242424; }
 }
 .project-card-body p { font-size: .9rem; color: var(--on-surface-var); line-height: 1.7; }
 .project-give-btn { margin-top: auto; width: 100%; justify-content: center; }
+.project-card-body givebutter-widget { margin-top: auto; display: block; width: 100%; }
 
 @media (max-width: 900px) {
   .project-grid { grid-template-columns: 1fr; }
