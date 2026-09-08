@@ -31,13 +31,19 @@
     }
 
     .nl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .nl-card {
-      display: flex; align-items: center; gap: 16px;
-      padding: 22px 24px; border-radius: 14px;
+    .nl-issue {
+      border-radius: 14px; overflow: hidden;
       background: var(--white); border: 1px solid var(--border);
       transition: border-color .15s, transform .15s;
     }
-    .nl-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .nl-issue:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .nl-issue-image {
+      width: 100%; aspect-ratio: 700 / 420; object-fit: cover; display: block;
+    }
+    .nl-card {
+      display: flex; align-items: center; gap: 16px;
+      padding: 22px 24px;
+    }
     .nl-card-icon {
       width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
       background: var(--primary-container);
@@ -106,27 +112,31 @@
     <div class="container">
 
       <!--
-        To add a new issue: copy one .nl-card block below into the
-        correct year (newest month first), update the month/year label
-        and the PDF filename, then upload the PDF itself to
-        pdf/newsletters/ following the same YYYY-MM-newsletter.pdf
-        naming pattern. Start a new .nl-year-block for a new year.
+        To add a new issue: copy one .nl-issue block below into the
+        correct year (newest month first), update the cover image
+        (700x420px), month/year label, and the PDF filename, then
+        upload the PDF itself to pdf/newsletters/ following the same
+        YYYY-MM-newsletter.pdf naming pattern. Start a new
+        .nl-year-block for a new year.
       -->
 
       <div class="nl-year-block">
         <div class="nl-year-heading">2026</div>
         <div class="nl-grid">
 
-          <div class="nl-card">
-            <div class="nl-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            </div>
-            <div class="nl-card-body">
-              <strong>August 2026</strong>
-              <a href="newsletter-2026-08.html">
-                View Newsletter
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-              </a>
+          <div class="nl-issue">
+            <img class="nl-issue-image" src="img/newsletter/2026-08-cover.jpg" alt="August 2026 newsletter cover" />
+            <div class="nl-card">
+              <div class="nl-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="nl-card-body">
+                <strong>August 2026</strong>
+                <a href="newsletter-2026-08.html">
+                  View Newsletter
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
             </div>
           </div>
 
