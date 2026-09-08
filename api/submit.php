@@ -196,6 +196,35 @@ $EMAIL_SUBJECTS = [
 // ── ANTI-SPAM CONFIG ───────────────────────────────────
 define('RECAPTCHA_THRESHOLD', 0.5);
 
+// ── EMAIL HELPER ─────────────────────────────────────────
+function send_resend_email($to, $subject, $body, $replyTo = null) {
+    $payload = [
+        'from'    => FROM_NAME . ' <' . FROM_EMAIL . '>',
+        'to'      => [$to],
+        'subject' => $subject,
+        'text'    => $body,
+    ];
+    if ($replyTo) $payload['reply_to'] = $replyTo;
+
+    $ch = curl_init('https://api.resend.com/emails');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_CONNECTTIMEOUT => 5,
+        CURLOPT_TIMEOUT        => 10,
+        CURLOPT_POSTFIELDS     => json_encode($payload),
+        CURLOPT_HTTPHEADER     => [
+            'Authorization: Bearer ' . RESEND_API_KEY,
+            'Content-Type: application/json',
+        ],
+    ]);
+    curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    return ($httpCode >= 200 && $httpCode < 300);
+}
+
 // ── READ INPUT ──────────────────────────────────────────
 $input = json_decode(file_get_contents('php://input'), true);
 if (!$input || empty($input['form_type'])) {
@@ -349,35 +378,33 @@ $body .= "View in Airtable: https://airtable.com/" . AIRTABLE_BASE . "/$tableId\
 
 $replyTo = $fields['Email'] ?? $fields['Parent Email'] ?? $fields['Parent 1 Email'] ?? $fields['Reporter Email'] ?? FROM_EMAIL;
 
-$emailPayload = json_encode([
-    'from'     => FROM_NAME . ' <' . FROM_EMAIL . '>',
-    'to'       => [NOTIFY_EMAIL],
-    'reply_to' => $replyTo,
-    'subject'  => $subject,
-    'text'     => $body,
-]);
+$emailOk = send_resend_email(NOTIFY_EMAIL, $subject, $body, $replyTo);
 
-$mch = curl_init('https://api.resend.com/emails');
-curl_setopt_array($mch, [
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST           => true,
-    CURLOPT_CONNECTTIMEOUT => 5,
-    CURLOPT_TIMEOUT        => 10,
-    CURLOPT_POSTFIELDS     => $emailPayload,
-    CURLOPT_HTTPHEADER     => [
-        'Authorization: Bearer ' . RESEND_API_KEY,
-        'Content-Type: application/json',
-    ],
-]);
-curl_exec($mch);
-$emailHttpCode = curl_getinfo($mch, CURLINFO_HTTP_CODE);
-curl_close($mch);
+// ── GUARDIAN CONFIRMATION EMAIL (application form only) ──
+$confirmationSent = false;
+if ($formType === 'application' && $airtableOk && !empty($fields['Parent 1 Email'])) {
+    $guardianName = $fields['Parent 1 Name'] ?? 'Parent/Guardian';
+    $studentName  = $fields['Student Name'] ?? 'your student';
 
-$emailOk = ($emailHttpCode >= 200 && $emailHttpCode < 300);
+    $confirmSubject = "We've Received {$studentName}'s Application — Keystone Prep High School";
+    $confirmBody  = "Dear {$guardianName},\n\n";
+    $confirmBody .= "Thank you for submitting an application for {$studentName} to Keystone Prep High School. We've received it and our admissions team will review it shortly.\n\n";
+    $confirmBody .= "What happens next:\n";
+    $confirmBody .= "- Our admissions team will review your application and typically follow up within 5-7 business days.\n";
+    $confirmBody .= "- If you have any supporting documents to share (psychoeducational evaluations, IEPs, 504 plans, transcripts, or therapy records), you can email them to info@keystoneprep.org.\n";
+    $confirmBody .= "- Families may be contacted to schedule a tour, interview, or student visit as part of the review.\n\n";
+    $confirmBody .= "Questions in the meantime? Reach our admissions team:\n";
+    $confirmBody .= "Phone: (813) 264-4500\n";
+    $confirmBody .= "Email: info@keystoneprep.org\n\n";
+    $confirmBody .= "We look forward to learning more about {$studentName}.\n\n";
+    $confirmBody .= "Warmly,\nKeystone Prep High School Admissions Team";
+
+    $confirmationSent = send_resend_email($fields['Parent 1 Email'], $confirmSubject, $confirmBody, NOTIFY_EMAIL);
+}
 
 // ── RESPONSE ────────────────────────────────────────────
 if ($airtableOk) {
-    echo json_encode(['success' => true, 'email_sent' => $emailOk]);
+    echo json_encode(['success' => true, 'email_sent' => $emailOk, 'confirmation_sent' => $confirmationSent]);
 } else {
     http_response_code(500);
     echo json_encode(['error' => 'Failed to save submission', 'airtable_response' => $response]);
