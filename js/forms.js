@@ -51,6 +51,70 @@
     return data;
   }
 
+  var INVALID_CLASS = 'kp-field-invalid';
+
+  function injectValidationStyles() {
+    if (document.getElementById('kp-validation-styles')) return;
+    var style = document.createElement('style');
+    style.id = 'kp-validation-styles';
+    style.textContent =
+      '.' + INVALID_CLASS + ' { border-color:#DC2626 !important; box-shadow:0 0 0 3px rgba(220,38,38,.08) !important; }\n' +
+      'label.' + INVALID_CLASS + ' { border-color:#DC2626 !important; }';
+    document.head.appendChild(style);
+  }
+
+  function labelFor(form, el) {
+    var label = null;
+    if (el.id) label = form.querySelector('label[for="' + el.id + '"]');
+    if (!label) label = el.closest('label');
+    var text = label ? label.textContent : (el.name || 'This field');
+    return text.replace(/\*/g, '').trim().replace(/\.+$/, '');
+  }
+
+  // Returns the list of required elements that are currently invalid/empty.
+  // Relies on each element's native validity state (still available via
+  // checkValidity() even though the <form novalidate> suppresses the
+  // browser's automatic popup/blocking on submit).
+  function getInvalidRequiredFields(form) {
+    var invalid = [];
+    var seenRadioGroups = {};
+    var required = form.querySelectorAll('[required]');
+
+    for (var i = 0; i < required.length; i++) {
+      var el = required[i];
+
+      if (el.type === 'checkbox') {
+        if (!el.checked) invalid.push(el);
+        continue;
+      }
+
+      if (el.type === 'radio') {
+        if (seenRadioGroups[el.name]) continue;
+        seenRadioGroups[el.name] = true;
+        var group = form.querySelectorAll('input[type="radio"][name="' + el.name + '"]');
+        var checked = Array.prototype.some.call(group, function (r) { return r.checked; });
+        if (!checked) invalid.push(el);
+        continue;
+      }
+
+      if (!el.value.trim() || !el.checkValidity()) invalid.push(el);
+    }
+
+    return invalid;
+  }
+
+  function clearInvalid(el) {
+    el.classList.remove(INVALID_CLASS);
+    var label = el.closest('label');
+    if (label) label.classList.remove(INVALID_CLASS);
+  }
+
+  function markInvalid(el) {
+    el.classList.add(INVALID_CLASS);
+    var label = el.closest('label');
+    if (label) label.classList.add(INVALID_CLASS);
+  }
+
   function showFeedback(form, message, isError) {
     var existing = form.querySelector('.form-feedback');
     if (existing) existing.remove();
@@ -118,9 +182,40 @@
     if (!form) return;
 
     injectSpamFields(form);
+    injectValidationStyles();
+
+    // Clear the invalid highlight on a field as soon as the visitor fixes it
+    form.addEventListener('input', function (e) {
+      if (e.target.classList && e.target.classList.contains(INVALID_CLASS)) clearInvalid(e.target);
+    });
+    form.addEventListener('change', function (e) {
+      if (e.target.matches && (e.target.matches('[type="radio"]') || e.target.matches('[type="checkbox"]'))) {
+        var group = e.target.type === 'radio'
+          ? form.querySelectorAll('input[type="radio"][name="' + e.target.name + '"]')
+          : [e.target];
+        Array.prototype.forEach.call(group, clearInvalid);
+      }
+    });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      var existingFeedback = form.querySelector('.form-feedback');
+      if (existingFeedback) existingFeedback.remove();
+      form.querySelectorAll('.' + INVALID_CLASS).forEach(function (el) { clearInvalid(el); });
+
+      var invalidFields = getInvalidRequiredFields(form);
+      if (invalidFields.length) {
+        invalidFields.forEach(markInvalid);
+        var names = invalidFields.map(function (el) { return labelFor(form, el); });
+        var message = names.length === 1
+          ? 'Please complete the required field: ' + names[0] + '.'
+          : 'Please complete the required fields: ' + names.join(', ') + '.';
+        showFeedback(form, message, true);
+        invalidFields[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (typeof invalidFields[0].focus === 'function') invalidFields[0].focus();
+        return;
+      }
 
       var hp1 = form.querySelector('[name="_name_confirm"]');
       var hp2 = form.querySelector('[name="_email_confirm"]');
