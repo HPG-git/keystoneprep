@@ -163,6 +163,7 @@ $FIELD_MAPS = [
         'job_title'       => 'Job Title',
         'college'         => 'College',
         'interests'       => 'Interests',
+        'program_interest'=> 'Program Interest',
         'reunion'         => 'Reunion',
         'message'         => 'Notes',
     ],
@@ -197,13 +198,14 @@ $EMAIL_SUBJECTS = [
 define('RECAPTCHA_THRESHOLD', 0.5);
 
 // ── EMAIL HELPER ─────────────────────────────────────────
-function send_resend_email($to, $subject, $body, $replyTo = null) {
+function send_resend_email($to, $subject, $text, $html = null, $replyTo = null) {
     $payload = [
         'from'    => FROM_NAME . ' <' . FROM_EMAIL . '>',
         'to'      => [$to],
         'subject' => $subject,
-        'text'    => $body,
+        'text'    => $text,
     ];
+    if ($html) $payload['html'] = $html;
     if ($replyTo) $payload['reply_to'] = $replyTo;
 
     $ch = curl_init('https://api.resend.com/emails');
@@ -223,6 +225,71 @@ function send_resend_email($to, $subject, $body, $replyTo = null) {
     curl_close($ch);
 
     return ($httpCode >= 200 && $httpCode < 300);
+}
+
+// ── HTML NOTIFICATION TEMPLATE ──────────────────────────
+// Builds the staff-facing notification email as a table-based HTML layout
+// (inline styles throughout — required for consistent rendering across
+// Outlook/Gmail/Apple Mail). All submitted values are escaped since they
+// come directly from public form input.
+function build_notification_html($title, $badgeLabel, $fields, $airtableUrl) {
+    $rows = '';
+    foreach ($fields as $label => $val) {
+        if ($label === 'Status' || $label === 'Submitted At') continue;
+        $safeLabel = htmlspecialchars($label, ENT_QUOTES, 'UTF-8');
+        $safeVal   = nl2br(htmlspecialchars($val, ENT_QUOTES, 'UTF-8'));
+        $rows .= '
+        <tr>
+          <td style="padding:12px 0;border-bottom:1px solid #EDF0F3;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#98A2B3;width:36%;vertical-align:top;">' . $safeLabel . '</td>
+          <td style="padding:12px 0;border-bottom:1px solid #EDF0F3;font-size:14px;color:#1D2939;line-height:1.5;vertical-align:top;">' . $safeVal . '</td>
+        </tr>';
+    }
+
+    $safeTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+    $badge = htmlspecialchars($badgeLabel, ENT_QUOTES, 'UTF-8');
+    $submittedAt = htmlspecialchars(date('M j, Y g:i A T'), ENT_QUOTES, 'UTF-8');
+
+    return '<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background:#F7F9FB;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F7F9FB;padding:32px 16px;font-family:Arial,Helvetica,sans-serif;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#FFFFFF;border-radius:12px;border:1px solid #D0D5DD;overflow:hidden;">
+          <tr>
+            <td style="background:#0F4C81;padding:24px 32px;">
+              <div style="color:#DCEBFA;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Keystone Prep High School</div>
+              <div style="color:#FFFFFF;font-size:20px;font-weight:700;">' . $safeTitle . '</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:20px 32px 0;">
+              <span style="display:inline-block;background:#DCEBFA;color:#0F4C81;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:5px 12px;border-radius:999px;">' . $badge . '</span>
+              <span style="color:#475467;font-size:13px;margin-left:10px;">Submitted ' . $submittedAt . '</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 32px 8px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">' . $rows . '
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 32px 28px;">
+              <a href="' . htmlspecialchars($airtableUrl, ENT_QUOTES, 'UTF-8') . '" style="display:inline-block;background:#0F4C81;color:#FFFFFF;text-decoration:none;font-size:13px;font-weight:700;padding:12px 22px;border-radius:8px;">View in Airtable &rarr;</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="background:#F7F9FB;padding:16px 32px;border-top:1px solid #EDF0F3;">
+              <div style="color:#98A2B3;font-size:11px;">Automated notification from keystoneprep.org &mdash; do not reply to this email.</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>';
 }
 
 // ── READ INPUT ──────────────────────────────────────────
@@ -374,11 +441,15 @@ foreach ($fields as $label => $val) {
 }
 
 $body .= "\n" . str_repeat('-', 40) . "\n";
-$body .= "View in Airtable: https://airtable.com/" . AIRTABLE_BASE . "/$tableId\n";
+$airtableUrl = "https://airtable.com/" . AIRTABLE_BASE . "/$tableId";
+$body .= "View in Airtable: $airtableUrl\n";
 
 $replyTo = $fields['Email'] ?? $fields['Parent Email'] ?? $fields['Parent 1 Email'] ?? $fields['Reporter Email'] ?? FROM_EMAIL;
 
-$emailOk = send_resend_email(NOTIFY_EMAIL, $subject, $body, $replyTo);
+$badgeLabel = ucwords(str_replace('_', ' ', $formType));
+$htmlBody = build_notification_html($EMAIL_SUBJECTS[$formType] ?? 'New Form Submission', $badgeLabel, $fields, $airtableUrl);
+
+$emailOk = send_resend_email(NOTIFY_EMAIL, $subject, $body, $htmlBody, $replyTo);
 
 // ── GUARDIAN CONFIRMATION EMAIL (application form only) ──
 $confirmationSent = false;
@@ -399,7 +470,7 @@ if ($formType === 'application' && $airtableOk && !empty($fields['Parent 1 Email
     $confirmBody .= "We look forward to learning more about {$studentName}.\n\n";
     $confirmBody .= "Warmly,\nKeystone Prep High School Admissions Team";
 
-    $confirmationSent = send_resend_email($fields['Parent 1 Email'], $confirmSubject, $confirmBody, NOTIFY_EMAIL);
+    $confirmationSent = send_resend_email($fields['Parent 1 Email'], $confirmSubject, $confirmBody, null, NOTIFY_EMAIL);
 }
 
 // ── RESPONSE ────────────────────────────────────────────
