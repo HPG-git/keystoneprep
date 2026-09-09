@@ -275,13 +275,8 @@ function build_notification_html($title, $badgeLabel, $fields, $airtableUrl) {
             </td>
           </tr>
           <tr>
-            <td style="padding:8px 32px 28px;">
-              <a href="' . htmlspecialchars($airtableUrl, ENT_QUOTES, 'UTF-8') . '" style="display:inline-block;background:#0F4C81;color:#FFFFFF;text-decoration:none;font-size:13px;font-weight:700;padding:12px 22px;border-radius:8px;">View in Airtable &rarr;</a>
-            </td>
-          </tr>
-          <tr>
             <td style="background:#F7F9FB;padding:16px 32px;border-top:1px solid #EDF0F3;">
-              <div style="color:#98A2B3;font-size:11px;">Automated notification from keystoneprep.org &mdash; do not reply to this email.</div>
+              <div style="color:#98A2B3;font-size:11px;">Automated notification from keystoneprep.org &mdash; do not reply to this email. <a href="' . htmlspecialchars($airtableUrl, ENT_QUOTES, 'UTF-8') . '" style="color:#98A2B3;">View in Airtable &rarr;</a></div>
             </td>
           </tr>
         </table>
