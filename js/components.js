@@ -39,7 +39,17 @@ const NAV_LINKS = [
     ],
   },
   { label: 'Giving',          href: '/giving.html'       },
-  { label: 'Alumni',          href: '/alumni.html'       },
+  {
+    label: 'Alumni',
+    href: '/alumni.html',
+    children: [
+      { label: 'Update Your Information',        href: '/alumni-update-info.html' },
+      { label: "Entrepreneur's Club",             href: '/entrepreneurs-club.html' },
+      { label: 'Annual Thanksgiving Alumni Social', href: '/alumni-thanksgiving-social.html' },
+      { label: 'Alumni Executive Committee',      href: '/alumni-executive-committee.html' },
+      { label: 'Office of Alumni Engagement',     href: '/alumni-engagement.html' },
+    ],
+  },
   { label: 'Summer Programs', href: '/summer-camps.html' },
 ];
 
@@ -206,6 +216,12 @@ class KpFooter extends HTMLElement {
           <a href="payment.html"           class="footer-link footer-link-sub">Payment</a>
           <a href="summer-camps.html"      class="footer-link">Summer Programs</a>
           <a href="giving.html"            class="footer-link">Giving</a>
+          <a href="alumni.html"            class="footer-link">Alumni</a>
+          <a href="alumni-update-info.html" class="footer-link footer-link-sub">Update Your Information</a>
+          <a href="entrepreneurs-club.html" class="footer-link footer-link-sub">Entrepreneur's Club</a>
+          <a href="alumni-thanksgiving-social.html" class="footer-link footer-link-sub">Thanksgiving Alumni Social</a>
+          <a href="alumni-executive-committee.html" class="footer-link footer-link-sub">Executive Committee</a>
+          <a href="alumni-engagement.html" class="footer-link footer-link-sub">Office of Alumni Engagement</a>
         </div>
       </div>
 

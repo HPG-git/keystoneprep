@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alumni — Keystone Prep High School</title>
-  <meta name="description" content="Keystone Prep alumni — update your contact information and stay connected with the Keystone Prep community." />
+  <title>Our Alumni — Keystone Prep High School</title>
+  <meta name="description" content="Keystone Prep alumni — lifelong connections, professional achievements, and meaningful opportunities for engagement beyond graduation." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
@@ -17,77 +17,36 @@
   gtag('config', 'G-EQQSCF8KLE');
 </script>
 <style>
-  .alumni-section {
-    padding: 80px 0 100px;
+  .oa-section { padding: 72px 0 96px; }
+  .oa-inner { max-width: 860px; margin: 0 auto; }
+  .oa-inner > p {
+    font-size: 1rem; color: var(--on-surface-var); line-height: 1.8; margin-bottom: 24px;
   }
+  .oa-inner a {
+    color: var(--primary); font-weight: 700; text-decoration: underline;
+  }
+  .oa-inner a:hover { color: var(--primary-light); }
 
-  .alumni-inner {
-    max-width: 720px;
-    margin: 0 auto;
+  .oa-cta {
+    text-align: center; margin: 40px 0;
   }
+  .oa-cta a.oa-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; background: var(--primary); color: var(--white);
+    font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 600;
+    border-radius: 10px; text-decoration: none;
+    transition: background .2s, transform .15s;
+  }
+  .oa-cta a.oa-btn:hover { background: var(--primary-light); transform: translateY(-1px); }
 
-  .alumni-intro {
-    text-align: center;
-    margin-bottom: 48px;
+  .oa-photo {
+    width: 100%; border-radius: 16px; overflow: hidden; margin-top: 48px;
+    background: var(--surface-container-low, var(--surface-low));
   }
-
-  .alumni-intro h2 {
-    font-family: 'Noto Serif', serif;
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--on-surface);
-    margin-bottom: 12px;
-  }
-
-  .alumni-intro p {
-    font-size: 1rem;
-    color: var(--on-surface-var);
-    line-height: 1.75;
-    max-width: 540px;
-    margin: 0 auto;
-  }
-
-  .alumni-form-card {
-    background: var(--white);
-    border: 1px solid var(--outline-var);
-    border-radius: 20px;
-    padding: 40px 44px;
-  }
-
-  .alumni-form-card h3 {
-    font-family: 'Noto Serif', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--on-surface);
-    margin-bottom: 6px;
-  }
-
-  .alumni-form-card > p {
-    font-size: .88rem;
-    color: var(--on-surface-var);
-    line-height: 1.6;
-    margin-bottom: 28px;
-  }
-
-  .form-section-label {
-    font-size: .68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    color: var(--outline);
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--outline-var);
-  }
-
-  .form-section-gap {
-    margin-top: 32px;
-  }
+  .oa-photo img { width: 100%; height: auto; display: block; }
 
   @media (max-width: 600px) {
-    .alumni-section { padding: 48px 0 64px; }
-    .alumni-form-card { padding: 28px 24px; }
-    .alumni-intro h2 { font-size: 1.4rem; }
+    .oa-section { padding: 48px 0 64px; }
   }
 </style>
 </head>
@@ -106,146 +65,35 @@
       </div>
       <div class="hero-content">
         <div class="hero-page-label">Alumni Network</div>
-        <h1>Once a Knight, Always a Knight</h1>
-        <p class="hero-body">Stay connected with the Keystone Prep community. Update your contact information so we can keep you informed about alumni events, school news, and opportunities to stay involved.</p>
+        <h1>Our Alumni</h1>
       </div>
     </div>
   </section>
 
-  <!-- ── ALUMNI FORM ── -->
-  <section class="alumni-section">
+  <!-- ── OUR ALUMNI ── -->
+  <section class="oa-section">
     <div class="container">
-      <div class="alumni-inner">
+      <div class="oa-inner">
 
-        <div class="alumni-intro">
-          <h2>Update Your Information</h2>
-          <p>Help us keep our alumni records current. All information is kept confidential and used only for alumni communications.</p>
+        <p>Our alumni are an essential part of the Keystone Prep story. The Alumni Program is designed to foster lifelong connections, celebrate professional achievements, and create meaningful opportunities for engagement beyond graduation.</p>
+
+        <p>Through this initiative, we are launching several structured pathways for involvement, including an <a href="entrepreneurs-club.html">Alumni Entrepreneurs Club</a>, an <a href="alumni-executive-committee.html">Alumni Executive Committee</a>, and the <a href="alumni-engagement.html">Office of Alumni Engagement</a>. These programs will support mentorship, collaboration, networking, and strategic partnership opportunities that benefit both our graduates and the Keystone Prep community as a whole.</p>
+
+        <p>To stay informed about alumni events, leadership opportunities, and exclusive programming, we encourage all alumni to keep their contact information up to date. Accurate information ensures you receive timely invitations, announcements, and updates.</p>
+
+        <div class="oa-cta">
+          <a href="alumni-update-info.html" class="oa-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            Update Your Information
+          </a>
         </div>
 
-        <div class="alumni-form-card">
-          <h3>Alumni Contact Form</h3>
-          <p>Fields marked with * are required.</p>
+        <p>One of our signature events will be the <a href="alumni-thanksgiving-social.html">Annual Thanksgiving Alumni Social</a>, scheduled to begin in 2026. This event will serve as a cornerstone gathering for reconnecting, building relationships, and strengthening our alumni network.</p>
 
-          <form id="alumni-form" name="alumni" action="#" novalidate>
+        <p>We look forward to growing this community together and welcoming our alumni back to Keystone Prep in meaningful and impactful ways.</p>
 
-            <div class="form-section-label">Personal Information</div>
-
-            <div class="form-row-2">
-              <div class="form-group">
-                <label for="al-first">First Name *</label>
-                <input type="text" id="al-first" name="first_name" autocomplete="given-name" placeholder="First" required />
-              </div>
-              <div class="form-group">
-                <label for="al-last">Last Name *</label>
-                <input type="text" id="al-last" name="last_name" autocomplete="family-name" placeholder="Last" required />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="al-maiden">Maiden / Previous Name</label>
-              <input type="text" id="al-maiden" name="maiden_name" placeholder="If applicable" />
-            </div>
-
-            <div class="form-row-2">
-              <div class="form-group">
-                <label for="al-grad-year">Graduation Year *</label>
-                <input type="text" id="al-grad-year" name="graduation_year" placeholder="e.g. 2020" required />
-              </div>
-              <div class="form-group">
-                <label for="al-dob">Date of Birth</label>
-                <input type="date" id="al-dob" name="date_of_birth" />
-              </div>
-            </div>
-
-            <div class="form-section-label form-section-gap">Contact Information</div>
-
-            <div class="form-row-2">
-              <div class="form-group">
-                <label for="al-email">Email Address *</label>
-                <input type="email" id="al-email" name="email" autocomplete="email" placeholder="you@example.com" required />
-              </div>
-              <div class="form-group">
-                <label for="al-phone">Phone Number</label>
-                <input type="tel" id="al-phone" name="phone" autocomplete="tel" placeholder="(813) 000-0000" />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="al-street">Street Address</label>
-              <input type="text" id="al-street" name="street_address" autocomplete="street-address" placeholder="123 Main St" />
-            </div>
-
-            <div class="form-row-2">
-              <div class="form-group">
-                <label for="al-city">City</label>
-                <input type="text" id="al-city" name="city" autocomplete="address-level2" placeholder="City" />
-              </div>
-              <div class="form-group">
-                <label for="al-state">State</label>
-                <input type="text" id="al-state" name="state" autocomplete="address-level1" placeholder="FL" />
-              </div>
-            </div>
-
-            <div class="form-group" style="max-width:200px;">
-              <label for="al-zip">ZIP Code</label>
-              <input type="text" id="al-zip" name="zip_code" autocomplete="postal-code" placeholder="33556" />
-            </div>
-
-            <div class="form-section-label form-section-gap">Professional Information</div>
-
-            <div class="form-row-2">
-              <div class="form-group">
-                <label for="al-employer">Current Employer</label>
-                <input type="text" id="al-employer" name="employer" placeholder="Company or organization" />
-              </div>
-              <div class="form-group">
-                <label for="al-title">Job Title</label>
-                <input type="text" id="al-title" name="job_title" placeholder="Your role" />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="al-college">College / University Attended</label>
-              <input type="text" id="al-college" name="college" placeholder="If applicable" />
-            </div>
-
-            <div class="form-section-label form-section-gap">Stay Involved</div>
-
-            <div class="form-group">
-              <label for="al-interests">I'm interested in:</label>
-              <div class="form-select-wrap">
-                <select id="al-interests" name="interests">
-                  <option value="">Select an option...</option>
-                  <option>Receiving alumni newsletters</option>
-                  <option>Attending alumni events</option>
-                  <option>Mentoring current students</option>
-                  <option>Volunteering at school events</option>
-                  <option>Speaking to students about my career</option>
-                  <option>Supporting the school financially</option>
-                  <option>All of the above</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="al-reunion">Would you like to help plan your class reunion?</label>
-              <div class="form-select-wrap">
-                <select id="al-reunion" name="reunion">
-                  <option value="">Select an option...</option>
-                  <option>Yes, I'd love to help!</option>
-                  <option>Maybe, tell me more</option>
-                  <option>No, but keep me posted</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="al-notes">Anything else you'd like to share?</label>
-              <textarea id="al-notes" name="message" rows="4" placeholder="Life updates, memories, or anything you'd like us to know..."></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">Submit Update</button>
-          </form>
+        <div class="oa-photo">
+          <img src="img/alumni/our-alumni.jpg" alt="Keystone Prep alumni reconnecting at a school event" />
         </div>
 
       </div>
@@ -268,6 +116,5 @@
   <kp-footer tagline="Personalized support. Meaningful learning. Real-world preparation."></kp-footer>
 
   <script src="js/components.js"></script>
-  <script src="js/forms.js"></script>
 </body>
 </html>
