@@ -39,6 +39,23 @@
   .ac-table tr:first-child td { border-top: none; }
   .ac-table tr:nth-child(odd) td { background: var(--surface-low); }
 
+  .ec-videos {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px 24px; margin-top: 48px;
+  }
+  .ec-video-frame {
+    position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden;
+    background: var(--surface-container, #F2F5F8);
+  }
+  .ec-video-frame iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  }
+  .ec-video-title {
+    margin-top: 10px; font-size: .88rem; line-height: 1.5; color: var(--on-surface-var);
+  }
+
+  @media (max-width: 700px) {
+    .ec-videos { grid-template-columns: 1fr; }
+  }
   @media (max-width: 600px) {
     .ac-section { padding: 48px 0 64px; }
   }
@@ -110,6 +127,69 @@
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="ec-videos">
+          <figure style="margin:0;">
+            <div class="ec-video-frame">
+              <iframe src="https://www.youtube.com/embed/ZCFkWDdmXG8" title="Explained | The Stock Market | FULL EPISODE | Netflix" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <figcaption class="ec-video-title">Explained | The Stock Market | FULL EPISODE | Netflix</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <div class="ec-video-frame">
+              <iframe src="https://www.youtube.com/embed/covxjhXsCi8" title="Investing For Beginners | Advice On How To Get Started" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <figcaption class="ec-video-title">Investing For Beginners | Advice On How To Get Started</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <div class="ec-video-frame">
+              <iframe src="https://www.youtube.com/embed/3ggF-jpiHPI" title="Best Money Saving Trick: Pay Yourself First | HOW TO SAVE MONEY FAST" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <figcaption class="ec-video-title">Best Money Saving Trick: Pay Yourself First | HOW TO SAVE MONEY FAST</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <div class="ec-video-frame">
+              <iframe src="https://www.youtube.com/embed/awGfJAuyB1c" title="Savers are Losers in 2021 | SAVING MONEY IS LOSING YOU MONEY" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <figcaption class="ec-video-title">Savers are Losers in 2021 | SAVING MONEY IS LOSING YOU MONEY</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <div class="ec-video-frame">
+              <iframe src="https://www.youtube.com/embed/Knt37W2Er5g" title="The 4 Books You Must Read to Achieve Financial Freedom, Retire Early, &amp; Build Wealth" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <figcaption class="ec-video-title">The 4 Books You Must Read to Achieve Financial Freedom, Retire Early, &amp; Build Wealth</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <div class="ec-video-frame">
+              <iframe src="https://www.youtube.com/embed/IW0oplTg6j8" title="Warren Buffett - Buy Into a S&amp;P 500 Index Fund" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <figcaption class="ec-video-title">Warren Buffett - Buy Into a S&amp;P 500 Index Fund</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <div class="ec-video-frame">
+              <iframe src="https://www.youtube.com/embed/ZdJgJqEOOQ4" title="Dollar Cost Averaging (DETAILED EXPLANATION)" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <figcaption class="ec-video-title">Dollar Cost Averaging (DETAILED EXPLANATION)</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <div class="ec-video-frame">
+              <iframe src="https://www.youtube.com/embed/F14pXZ9wELc" title="Investing in Index Funds for Beginners | Tips &amp; Advice From Millionaire Investors" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <figcaption class="ec-video-title">Investing in Index Funds for Beginners | Tips &amp; Advice From Millionaire Investors</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <div class="ec-video-frame">
+              <iframe src="https://www.youtube.com/embed/ECa8xB_4cUs" title="If I Started Over Tomorrow, Here Are 10 Steps I'd Take To Make $1,000,000" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <figcaption class="ec-video-title">If I Started Over Tomorrow, Here Are 10 Steps I'd Take To Make $1,000,000</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <div class="ec-video-frame">
+              <iframe src="https://www.youtube.com/embed/BI7YEJMD6WM" title="Talk Nerdy to Me: What Is Dollar-Cost Averaging?" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <figcaption class="ec-video-title">Talk Nerdy to Me: What Is Dollar-Cost Averaging?</figcaption>
+          </figure>
         </div>
 
       </div>
